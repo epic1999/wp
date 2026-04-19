@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSLLM - 大模型 API 聚合平台</title>
+    <meta name="description" content="VSLLM 官方网站。全新一代大模型API中转服务，告别复杂的Token计算，采用纯按次计费模式！高级模型低至0.02元/次，国产大模型0.005元/次起。极速响应，高可用分发，兼容OpenAI全协议。">
+    <meta name="keywords" content="大模型API,大模型中转站,API分发,按次计费,不按token计费,ChatGPT接口,VSLLM,国产大模型接口,低价大模型接口,Claude,Gemini,Opus,vsllm,OpenAI,DeepSeek,glm,zhipu,智谱清言,minimax,Claudecode,opencode">
+    <meta name="baidu-site-verification" content="codeva-BGvh4KEAl4" />
+    <link rel="icon" href="https://www.gminsights.com/favicon.ico" type="image/x-icon">
+    
+    <style type="text/css">@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:800;src:url(/cf-fonts/v/inter/5.0.16/latin-ext/wght/normal.woff2);unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20CF,U+2113,U+2C60-2C7F,U+A720-A7FF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:800;src:url(/cf-fonts/v/inter/5.0.16/vietnamese/wght/normal.woff2);unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:800;src:url(/cf-fonts/v/inter/5.0.16/greek-ext/wght/normal.woff2);unicode-range:U+1F00-1FFF;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:800;src:url(/cf-fonts/v/inter/5.0.16/latin/wght/normal.woff2);unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:800;src:url(/cf-fonts/v/inter/5.0.16/cyrillic/wght/normal.woff2);unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:800;src:url(/cf-fonts/v/inter/5.0.16/cyrillic-ext/wght/normal.woff2);unicode-range:U+0460-052F,U+1C80-1C88,U+20B4,U+2DE0-2DFF,U+A640-A69F,U+FE2E-FE2F;font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:800;src:url(/cf-fonts/v/inter/5.0.16/greek/wght/normal.woff2);unicode-range:U+0370-03FF;font-display:swap;}</style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans:['Inter', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+                        mono:['"Fira Code"', '"JetBrains Mono"', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6', 
+                            900: '#134e4a',
+                        }
+                    },
+                    animation: {
+                        'ping-slow': 'ping 2s cubic-bezier(0, 0, 0.2, 1) infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .bg-grid-pattern {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+            mask-image: linear-gradient(to bottom, transparent, black, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, white 20%, transparent 95%);
+        }
+        .glow-bg {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(56, 189, 248, 0.1) 0%, rgba(255, 255, 255, 0) 70%);
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .packet {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            z-index: 20;
+            box-shadow: 0 0 12px currentColor;
+            transition: left 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
+        }
+        .packet-blue { color: #3b82f6; background-color: #3b82f6; }
+        .packet-green { color: #10b981; background-color: #10b981; }
+        .line-track {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            transform: translateY(-50%);
+            height: 2px;
+            background: linear-gradient(90deg, rgba(59,130,246,0) 0%, rgba(59,130,246,0.3) 50%, rgba(59,130,246,0) 100%);
+            z-index: 10;
+        }
+        .btn-pressable {
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .btn-pressable:active {
+            transform: scale(0.96);
+        }
+        
+        @keyframes windOut {
+            0% { opacity: 1; transform: translate(0, 0) scale(1) rotate(0); filter: blur(0); }
+            100% { opacity: 0; transform: translate(40px, -25px) scale(1.05) rotate(6deg); filter: blur(8px); }
+        }
+        @keyframes windIn {
+            0% { opacity: 0; transform: translate(-40px, 25px) scale(0.95) rotate(-6deg); filter: blur(8px); }
+            100% { opacity: 1; transform: translate(0, 0) scale(1) rotate(0); filter: blur(0); }
+        }
+        .wind-out { animation: windOut 0.7s forwards cubic-bezier(0.4, 0, 0.2, 1); }
+        .wind-in { animation: windIn 0.7s forwards cubic-bezier(0.16, 1, 0.3, 1); }
+        
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased overflow-x-hidden selection:bg-slate-900 selection:text-white">
+
+    <section class="relative pt-36 pb-20 md:pt-48 md:pb-24 overflow-hidden">
+        <div class="absolute inset-0 bg-grid-pattern z-0"></div>
+        <div class="glow-bg"></div>
+        
+        <div class="max-w-5xl mx-auto px-6 relative z-10 text-center reveal-up active">
+            <a href="#" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 shadow-sm text-xs font-medium text-slate-600 mb-8 hover:border-slate-300 hover:shadow transition-all btn-pressable">
+                <span class="flex h-2 w-2 relative">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                </span>
+                <span data-i18n="hero_badge">全新大模型 API 分发服务上线</span>
+            </a>
+
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.2] mb-6">
+                <span data-i18n="hero_title_1">重新定义 API 分发，</span><br class="hidden md:block">
+                <span data-i18n="hero_title_2">彻底告别</span>
+                <span class="inline-grid items-center justify-center align-middle">
+                    <span class="col-start-1 row-start-1 opacity-0 pointer-events-none px-1" id="word-placeholder">Token 计算焦虑</span>
+                    <span class="col-start-1 row-start-1 w-full flex justify-center text-center">
+                        <span id="rotating-word" class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-500 block px-1 will-change-transform">Token 计算焦虑</span>
+                    </span>
+                </span>
+            </h1>
+            
+            <p class="text-base md:text-xl text-slate-500 max-w-2xl mx-auto mb-10 leading-relaxed" data-i18n="hero_desc">
+                采用纯“按次计费”模式。无需再为不可控的 Prompt 长度和返回字符担忧。高级模型低至两分钱，稳定兼容全协议，毫秒级响应。
+            </p>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+    
+    <a href="https://vsllm.com/console" class="w-full sm:w-auto px-8 py-3.5 text-base font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-full shadow-md hover:shadow-lg btn-pressable" data-i18n="btn_register">
+        免费注册获取 API Key
+    </a>
+    
+    
+    <a href="https://vsllm.com/pricing" class="w-full sm:w-auto px-8 py-3.5 text-base font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300 rounded-full shadow-sm hover:shadow btn-pressable" data-i18n="btn_pricing">
+        查看详细报价
+    </a>
+</div>
+        </div>
+    </section>
+
+    <section id="flow-animation" class="py-20 md:py-32 bg-slate-900 relative overflow-hidden text-white">
+        <div class="absolute inset-0 z-0 opacity-20" style="background-image: radial-gradient(#4f46e5 1px, transparent 1px); background-size: 30px 30px;"></div>
+        <div class="absolute w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[100px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-0 pointer-events-none"></div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-16 md:mb-24 reveal-up">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight" data-i18n="anim_title">极简流转，清晰计费</h2>
+                <p class="text-slate-400 text-base md:text-lg leading-relaxed" data-i18n="anim_desc">为您演示从发送请求到数据返回的全过程。在 VSLLM，复杂的 Token 计算被拦截转换，只保留最纯粹的按次扣费。</p>
+            </div>
+
+            <div class="relative w-full bg-slate-800/40 backdrop-blur-md border border-slate-700/50 rounded-[2rem] px-2 py-20 md:p-16 md:pt-28 md:pb-24 shadow-2xl reveal-up" style="transition-delay: 0.1s;">
+                <div class="line-track"></div>
+
+                <div class="flex items-center justify-between w-full relative z-20 px-4 md:px-10">
+                    
+                    <div class="flex flex-col items-center justify-center relative w-1/4">
+                        <div id="status-app" class="absolute -top-12 md:-top-16 whitespace-nowrap px-3 py-1.5 bg-blue-500/10 border border-blue-500/30 text-blue-300 text-[10px] md:text-xs font-medium rounded-full opacity-0 transition-opacity duration-300 shadow-sm">发送长文本请求</div>
+                        <div class="w-12 h-12 md:w-20 md:h-20 bg-slate-900 border-2 border-slate-600 rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg relative z-10">
+                            <svg class="w-5 h-5 md:w-8 md:h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <span class="mt-4 md:mt-6 text-[10px] md:text-sm font-semibold text-slate-300 text-center" data-i18n="anim_app">您的应用</span>
+                    </div>
+
+                    <div class="flex flex-col items-center justify-center relative w-1/3">
+                        <div id="cost-popup" class="absolute bottom-[calc(100%+20px)] md:bottom-[calc(100%+32px)] left-1/2 -translate-x-1/2 bg-slate-900 border border-slate-700 shadow-2xl rounded-xl md:rounded-2xl p-3 md:p-5 w-40 md:w-56 opacity-0 transform scale-95 transition-all duration-400 z-30 pointer-events-none">
+                            <div class="text-[10px] md:text-xs text-slate-400 mb-2 font-medium" data-i18n="anim_calc">Token 实时结算拦截</div>
+                            <div class="flex justify-between items-center text-[10px] md:text-sm mb-1.5">
+                                <span class="text-slate-500">消耗 Token:</span>
+                                <span class="text-red-400 line-through decoration-red-500/70 font-mono">128,450</span>
+                            </div>
+                            <div class="w-full h-px bg-slate-800 my-2 md:my-3"></div>
+                            <div class="flex justify-between items-center text-xs md:text-sm font-bold">
+                                <span class="text-slate-300" data-i18n="anim_fee">实际扣费:</span>
+                                <span class="text-green-400 text-sm md:text-lg font-mono tracking-tight">¥ 0.02</span>
+                            </div>
+                        </div>
+
+                        <div id="gateway-box" class="w-16 h-16 md:w-28 md:h-28 bg-gradient-to-br from-slate-800 to-black border-2 border-blue-500/40 rounded-xl md:rounded-[1.5rem] flex items-center justify-center shadow-[0_0_20px_rgba(59,130,246,0.15)] md:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-all duration-500 relative z-10">
+                            <svg class="w-6 h-6 md:w-10 md:h-10 text-blue-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        </div>
+                        <span class="mt-4 md:mt-6 text-[10px] md:text-sm font-semibold text-slate-100 text-center whitespace-nowrap" data-i18n="anim_gateway">分发网关</span>
+                        <span class="text-[8px] md:text-xs text-slate-500 mt-1 md:mt-1.5 hidden md:block whitespace-nowrap" data-i18n="anim_encryption">端到端加密 • 零存储</span>
+                    </div>
+
+                    <div class="flex flex-col items-center justify-center relative w-1/4">
+                        <div id="status-provider" class="absolute -top-12 md:-top-16 whitespace-nowrap px-3 py-1.5 bg-green-500/10 border border-green-500/30 text-green-300 text-[10px] md:text-xs font-medium rounded-full opacity-0 transition-opacity duration-300 shadow-sm">生成海量回复</div>
+                        <div id="provider-box" class="w-12 h-12 md:w-20 md:h-20 bg-slate-900 border-2 border-slate-600 rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg relative z-10 transition-all duration-300">
+                            <svg class="w-5 h-5 md:w-8 md:h-8 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        </div>
+                        <span class="mt-4 md:mt-6 text-[10px] md:text-sm font-semibold text-slate-300 text-center" data-i18n="anim_models">顶级大模型</span>
+                    </div>
+                </div>
+                <div id="data-packet" class="packet packet-blue"></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="security" class="py-20 md:py-32 bg-black relative overflow-hidden border-t border-slate-800">
+        <div class="absolute w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[100px] top-0 right-0 -translate-y-1/2 translate-x-1/3 pointer-events-none"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center gap-16">
+            <div class="w-full md:w-1/2 reveal-up">
+                <div class="w-14 h-14 md:w-16 md:h-16 bg-slate-900 border border-slate-800 rounded-2xl flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(16,185,129,0.15)]">
+                    <svg class="w-7 h-7 md:w-8 md:h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 tracking-tight" data-i18n="sec_title">银行级安全<br>与数据隐私</h2>
+                <p class="text-slate-400 text-base md:text-lg leading-relaxed mb-8" data-i18n="sec_desc">
+                    您的每一次API调用与数据流都经过端到端加密。<br>
+                    <span class="text-emerald-400 font-medium">我们承诺绝不存储，确保全程守护，不留任何痕迹。</span>
+                </p>
+                <ul class="space-y-4">
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-emerald-500 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-slate-300 text-sm md:text-base" data-i18n="sec_point1">TLS 1.3 全链路加密传输</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-emerald-500 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-slate-300 text-sm md:text-base" data-i18n="sec_point2">无日志记录策略 (No-Log Policy)</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <svg class="w-5 h-5 text-emerald-500 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        <span class="text-slate-300 text-sm md:text-base" data-i18n="sec_point3"> DDoS 防护与访问控制</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="w-full md:w-1/2 reveal-up" style="transition-delay: 0.1s;">
+                <div class="bg-[#0d1117] rounded-2xl shadow-2xl overflow-hidden border border-slate-800/80 text-left">
+                    <div class="flex items-center px-4 py-3.5 bg-slate-900/50 border-b border-slate-800/80">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-slate-700"></div>
+                            <div class="w-3 h-3 rounded-full bg-slate-700"></div>
+                            <div class="w-3 h-3 rounded-full bg-slate-700"></div>
+                        </div>
+                        <div class="ml-4 text-[11px] text-emerald-500/80 font-mono flex items-center gap-2">
+                            <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                            Connection Secure
+                        </div>
+                    </div>
+                    <div class="p-6 text-[11px] md:text-sm font-mono leading-relaxed text-slate-400 h-64 overflow-y-auto custom-scrollbar">
+                        <p class="text-emerald-500 opacity-90">>>> INITIALIZING SECURE TUNNEL...</p>
+                        <p class="mt-2 text-slate-500">[OK] Handshake established: TLSv1.3 / TLS_AES_256_GCM_SHA384</p>
+                        <p class="text-slate-500">[OK] Peer certificate verified</p>
+                        <br>
+                        <p class="text-blue-400 opacity-90">>>> INCOMING REQUEST (App -> Gateway)</p>
+                        <p class="text-slate-300">Payload: Encrypted block (Length: 4096 bytes)</p>
+                        <p class="text-slate-300">Status: Forwarding to upstream nodes...</p>
+                        <br>
+                        <p class="text-purple-400 opacity-90">>>> EXECUTE ZERO-LOG PROTOCOL</p>
+                        <p class="text-slate-300">Action: Purging in-memory buffers.</p>
+                        <p class="text-slate-500">[OK] Memory cleared. Traces: 0.</p>
+                        <br>
+                        <p class="text-emerald-500 opacity-90">>>> TUNNEL ACTIVE. AWAITING STREAM...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-20 md:py-32 bg-white relative">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16 md:mb-20 reveal-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight" data-i18n="feat_main_title">为什么选择按次计费？</h2>
+                <p class="text-slate-500 text-base md:text-lg" data-i18n="feat_main_desc">打破传统按 Token 计费的黑盒成本，让每一次 AI 调用都精确透明、成本可控。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 transition-all duration-300 reveal-up">
+                    <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center mb-6 text-slate-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-900 mb-3" data-i18n="feat_1_title">绝对不按 Token 计费渠道</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed" data-i18n="feat_1_desc">无论输入多长的大段前置文本，或是输出庞大的代码块，统统按单一请求次数扣费。预算不超支，告别“天价账单”。</p>
+                </div>
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 transition-all duration-300 reveal-up" style="transition-delay: 0.1s;">
+                    <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center mb-6 text-slate-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v8l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-900 mb-3" data-i18n="feat_2_title">极致大厂性价比</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed" data-i18n="feat_2_desc">得益于强大的后端节点池与独家调度算法，我们将顶级大模型的单次调用成本压至 0.02 元，国产大模型仅需 0.005 元。</p>
+                </div>
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 transition-all duration-300 reveal-up" style="transition-delay: 0.2s;">
+                    <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center mb-6 text-slate-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-900 mb-3" data-i18n="feat_3_title">原生协议完美兼容</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed" data-i18n="feat_3_desc">仅需修改一行 Base URL 并替换 API Key，即可将现有 OpenAI 格式的业务系统无缝接入，零开发成本实现迁移。</p>
+                </div>
+                <div class="p-8 rounded-3xl bg-slate-50 border border-slate-100 transition-all duration-300 reveal-up" style="transition-delay: 0.3s;">
+                    <div class="w-12 h-12 rounded-xl bg-white border border-slate-200 shadow-sm flex items-center justify-center mb-6 text-slate-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-900 mb-3" data-i18n="feat_4_title">高可用分布式 SLA</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed" data-i18n="feat_4_desc">多区域分布式云架构部署，智能负载均衡自动剔除失效节点，支持高并发，为企业生产环境提供 99.9% 稳定保障。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" class="py-20 md:py-32 bg-slate-50 relative border-t border-slate-200/60">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-16 md:mb-20 reveal-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight" data-i18n="price_title">透明直白的极简定价</h2>
+                <p class="text-slate-500 text-base md:text-lg" data-i18n="price_desc">无隐藏套餐，无复杂换算公式。充值即用，按需扣费。</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
+                <div class="flex flex-col p-10 md:p-12 rounded-[2rem] bg-white border border-slate-200 shadow-sm transition-shadow duration-300 reveal-up">
+                    <h3 class="text-2xl font-semibold text-slate-900 mb-2 tracking-tight" data-i18n="price_card1_title">国产优质大模型</h3>
+                    <p class="text-sm text-slate-500 mb-8 h-5" data-i18n="price_card1_sub">适用：日常文本生成、内容总结、基础助理</p>
+                    <div class="mb-10 flex items-baseline gap-1">
+                        <span class="text-5xl font-extrabold tracking-tight text-slate-900 font-mono">¥0.005</span>
+                        <span class="text-slate-500 font-medium" data-i18n="price_unit">/ 次</span>
+                    </div>
+                    <ul class="space-y-4 mb-12 flex-1">
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-slate-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span class="text-sm text-slate-600 leading-relaxed" data-i18n="price_card1_p1"><strong class="text-slate-900 font-semibold">按次计费</strong></span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-slate-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span class="text-sm text-slate-600 leading-relaxed" data-i18n="price_card1_p2">聚合国内头部 AI 大厂最新模型</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-slate-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span class="text-sm text-slate-600 leading-relaxed" data-i18n="price_card1_p3">极速毫秒级响应延迟</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <svg class="w-5 h-5 text-slate-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            <span class="text-sm text-slate-600 leading-relaxed" data-i18n="price_card1_p4">支持沉浸式长文本对话上下文</span>
+                        </li>
+                    </ul>
+                    <a href="https://vsllm.com/" class="block w-full py-3.5 px-6 text-center text-sm font-semibold text-slate-700 bg-white border border-slate-200 rounded-full hover:bg-slate-50 transition-all btn-pressable" data-i18n="btn_join">
+                        立即接入
+                    </a>
+                </div>
+
+                <div class="relative flex flex-col p-10 md:p-12 rounded-[2rem] bg-slate-900 text-white border border-slate-800 shadow-2xl reveal-up" style="transition-delay: 0.1s;">
+                    <div class="absolute inset-0 bg-gradient-to-b from-blue-500/10 to-transparent rounded-[2rem] pointer-events-none"></div>
+                    <div class="relative z-10 flex flex-col h-full">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-2xl font-semibold tracking-tight" data-i18n="price_card2_title">全球顶级高级模型</h3>
+                            <span class="px-3 py-1 text-xs font-semibold text-blue-200 bg-blue-500/20 border border-blue-500/30 rounded-full" data-i18n="price_tag_rec">企业推荐</span>
+                        </div>
+                        <p class="text-sm text-slate-400 mb-8 h-5" data-i18n="price_card2_sub">适用：复杂推理、代码编写、深度数据分析</p>
+                        <div class="mb-10 flex items-baseline gap-1">
+                            <span class="text-5xl font-extrabold tracking-tight font-mono">¥0.02</span>
+                            <span class="text-slate-400 font-medium" data-i18n="price_unit">/ 次</span>
+                        </div>
+                        <ul class="space-y-4 mb-12 flex-1">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-slate-300 leading-relaxed" data-i18n="price_card2_p1"><strong class="text-white font-semibold">仅需两分钱</strong>，远离长文本昂贵账单</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-slate-300 leading-relaxed" data-i18n="price_card2_p2">聚合全球最高智商的推理与生成模型</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-slate-300 leading-relaxed" data-i18n="price_card2_p3">原生支持 Function Calling (函数调用)</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-slate-300 leading-relaxed" data-i18n="price_card2_p4">突破官方频率限制，高并发稳定可用</span>
+                            </li>
+                        </ul>
+                        <a href="https://vsllm.com/" class="block w-full py-3.5 px-6 text-center text-sm font-semibold text-slate-900 bg-white rounded-full hover:bg-slate-100 transition-all btn-pressable shadow-md" data-i18n="btn_join_premium">
+                            立即体验高级模型
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="status" class="py-20 md:py-32 bg-white relative border-t border-slate-200/60">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12 md:mb-16 reveal-up">
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4 tracking-tight" data-i18n="status_title">服务状态实时可视</h2>
+                <p class="text-slate-500 text-base md:text-lg" data-i18n="status_desc">第三方独立监控，确保我们的响应速度与可用率始终处于行业顶尖水平。</p>
+            </div>
+            
+            <div class="p-2 md:p-3 rounded-[2rem] bg-slate-50 border border-slate-200 shadow-sm transition-shadow duration-300 reveal-up" style="transition-delay: 0.1s;">
+                <a href="https://lmspeed.net/zh/provider/vsllm-com" target="_blank" rel="noopener noreferrer" class="block rounded-[1.5rem] overflow-hidden hover:opacity-95 transition-opacity bg-white">
+                    <img src="https://lmspeed.net/api/og/provider/vsllm-com/health" alt="VSLLM Service Status" class="w-full h-auto" loading="lazy" />
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-slate-200 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 bg-black rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        </div>
+                        <span class="text-xl font-bold text-slate-900 tracking-tight">VSLLM</span>
+                    </div>
+                    <p class="text-slate-500 text-sm leading-relaxed max-w-sm" data-i18n="footer_desc">
+                        致力于为开发者和企业提供最高性价比、最稳定、纯按次计费的大语言模型 API 聚合分发服务。
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold text-slate-900 mb-5 text-sm tracking-wide" data-i18n="footer_dev">开发者资源</h4>
+                    <ul class="space-y-3.5 text-sm">
+                        <li><a href="https://vsllm.com/" class="text-slate-500 hover:text-slate-900 transition-colors" data-i18n="footer_console">控制台首页</a></li>
+                        <li><a href="https://vsllm.com/docs" class="text-slate-500 hover:text-slate-900 transition-colors" data-i18n="footer_docs">API 接入文档</a></li>
+                        <li><a href="#" class="text-slate-500 hover:text-slate-900 transition-colors" data-i18n="footer_models">支持的模型列表</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-semibold text-slate-900 mb-5 text-sm tracking-wide" data-i18n="footer_about">关于与支持</h4>
+                    <ul class="space-y-3.5 text-sm">
+                        <li><a href="#" class="text-slate-500 hover:text-slate-900 transition-colors" data-i18n="footer_tos">服务条款 (ToS)</a></li>
+                        <li><a href="#" class="text-slate-500 hover:text-slate-900 transition-colors" data-i18n="footer_privacy">隐私政策</a></li>
+                        <li><a href="https://vsllm.com/" class="text-slate-500 hover:text-slate-900 transition-colors" data-i18n="footer_ticket">提交工单支持</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-100 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400">
+                <p>© 2026 Grab Holdings Limited (UEN: 201716257D). All Rights Reserved.</p>
+                <div class="mt-4 md:mt-0">
+                    <span data-i18n="footer_slogan">大模型 API 聚合分发平台</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
+        });
+
+        const packet = document.getElementById('data-packet');
+        const statusApp = document.getElementById('status-app');
+        const statusProvider = document.getElementById('status-provider');
+        const gatewayBox = document.getElementById('gateway-box');
+        const costPopup = document.getElementById('cost-popup');
+
+        async function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function runPipeline() {
+            while(true) {
+                packet.style.transition = 'none';
+                packet.style.opacity = '0';
+                packet.style.left = '12.5%'; 
+                packet.className = 'packet packet-blue';
+                costPopup.style.opacity = '0';
+                costPopup.style.transform = 'scale(0.95) translateX(-50%)';
+                gatewayBox.style.transform = 'scale(1)';
+                gatewayBox.style.borderColor = 'rgba(59,130,246,0.4)';
+                gatewayBox.style.boxShadow = '';
+                
+                await sleep(500);
+
+                statusApp.style.opacity = '1';
+                statusApp.style.transform = 'translateY(-4px)';
+                packet.style.transition = 'left 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s';
+                packet.style.opacity = '1';
+                
+                await sleep(200);
+                packet.style.left = '50%';
+                await sleep(800); 
+
+                statusApp.style.opacity = '0';
+                statusApp.style.transform = 'translateY(0)';
+                gatewayBox.style.transform = 'scale(1.05)';
+                gatewayBox.style.borderColor = '#3b82f6';
+                gatewayBox.style.boxShadow = '0 0 30px rgba(59,130,246,0.4)';
+                
+                await sleep(300);
+                gatewayBox.style.transform = 'scale(1)';
+                gatewayBox.style.borderColor = 'rgba(59,130,246,0.4)';
+                gatewayBox.style.boxShadow = '';
+                packet.style.left = '87.5%';
+                await sleep(800); 
+
+                packet.style.opacity = '0';
+                statusProvider.style.opacity = '1';
+                statusProvider.style.transform = 'translateY(-4px)';
+                
+                await sleep(1000);
+                statusProvider.style.opacity = '0';
+                statusProvider.style.transform = 'translateY(0)';
+                packet.className = 'packet packet-green';
+                packet.style.opacity = '1';
+                
+                packet.style.left = '50%';
+                await sleep(800); 
+
+                gatewayBox.style.transform = 'scale(1.05)';
+                gatewayBox.style.borderColor = '#10b981';
+                gatewayBox.style.boxShadow = '0 0 30px rgba(16,185,129,0.3)';
+                costPopup.style.opacity = '1';
+                costPopup.style.transform = 'scale(1) translateX(-50%)';
+                
+                await sleep(1800); 
+                
+                costPopup.style.opacity = '0';
+                costPopup.style.transform = 'scale(0.95) translateX(-50%)';
+                gatewayBox.style.transform = 'scale(1)';
+                gatewayBox.style.borderColor = 'rgba(59,130,246,0.4)';
+                gatewayBox.style.boxShadow = '';
+                packet.style.left = '12.5%';
+                
+                await sleep(800); 
+                packet.style.opacity = '0';
+                
+                await sleep(1500);
+            }
+        }
+
+        setTimeout(runPipeline, 1000);
+
+        let currentWordIdx = 0;
+        let wordInterval;
+        const rotateWords = {
+            'zh-CN':["Token 计算焦虑", "高昂的使用成本", "繁琐的计费公式", "不可控的天价账单"],
+            'en': ["Token Anxiety", "High Usage Costs", "Complex Billing", "Unpredictable Bills"],
+            'ja':["トークンの不安", "高額な利用コスト", "複雑な料金体系", "予想外の請求"]
+        };
+
+        function startWordRotation(lang) {
+            clearInterval(wordInterval);
+            const wordList = rotateWords[lang] || rotateWords['zh-CN'];
+            currentWordIdx = 0;
+            
+            const rw = document.getElementById('rotating-word');
+            const ph = document.getElementById('word-placeholder');
+            
+            rw.textContent = wordList[currentWordIdx];
+            ph.textContent = wordList[currentWordIdx];
+            rw.classList.remove('wind-out', 'wind-in');
+            
+            wordInterval = setInterval(() => {
+                rw.classList.remove('wind-in');
+                rw.classList.add('wind-out');
+                
+                setTimeout(() => {
+                    currentWordIdx = (currentWordIdx + 1) % wordList.length;
+                    rw.textContent = wordList[currentWordIdx];
+                    ph.textContent = wordList[currentWordIdx]; 
+                    
+                    rw.classList.remove('wind-out');
+                    rw.classList.add('wind-in');
+                }, 750); 
+            }, 3500);
+        }
+
+        const translations = {
+            'zh-CN': {
+                'top_announce': '🎉 全新上线！高可用分发，支持千万级高并发请求，保障您的生产环境。',
+                'top_announce_link': '了解更多 &rarr;',
+                'nav_features': '产品优势', 'nav_flow': '数据流转', 'nav_security': '安全与隐私', 'nav_pricing': '按次计费', 'nav_status': '服务状态', 'nav_docs': '开发者文档', 'btn_login': '控制台登录',
+                'hero_badge': '全新大模型 API 分发服务上线',
+                'hero_title_1': '重新定义 API 分发，',
+                'hero_title_2': '彻底告别',
+                'hero_desc': '采用纯“按次计费”模式。无需再为不可控的 Prompt 长度和返回字符担忧。高级模型低至两分钱，稳定兼容全协议，毫秒级响应。',
+                'btn_register': '免费注册获取 API Key', 'btn_pricing': '查看详细报价',
+                'anim_title': '极简流转，清晰计费', 'anim_desc': '为您演示从发送请求到数据返回的全过程。在 VSLLM，复杂的 Token 计算被拦截转换，只保留最纯粹的按次扣费。',
+                'anim_app': '您的应用', 'anim_gateway': '分发网关', 'anim_encryption': '端到端加密 • 零存储', 'anim_models': '顶级大模型',
+                'anim_calc': 'Token 实时结算拦截', 'anim_fee': '实际扣费:',
+                'sec_title': '银行级安全<br>与数据隐私', 'sec_desc': '您的每一次API调用与数据流都经过端到端加密。<br><span class="text-emerald-400 font-medium">我们承诺绝不存储，确保全程守护，不留任何痕迹。</span>',
+                'sec_point1': 'TLS 1.3 全链路加密传输', 'sec_point2': '无日志记录策略 (No-Log Policy)', 'sec_point3': ' DDoS 防护与访问控制',
+                'feat_main_title': '为什么选择按次计费？', 'feat_main_desc': '打破传统按 Token 计费的黑盒成本，让每一次 AI 调用都精确透明、成本可控。',
+                'feat_1_title': '绝对不按 Token 计费渠道', 'feat_1_desc': '无论输入多长的大段前置文本，或是输出庞大的代码块，统统按单一请求次数扣费。预算不超支，告别“天价账单”。',
+                'feat_2_title': '极致性价比', 'feat_2_desc': '得益于强大的后端节点池与独家调度算法，我们将顶级大模型的单次调用成本压至 0.02 元，国产大模型仅需 0.005 元。',
+                'feat_3_title': '原生协议完美兼容', 'feat_3_desc': '仅需修改一行 Base URL 并替换 API Key，即可将现有 OpenAI 格式的业务系统无缝接入，零开发成本实现迁移。',
+                'feat_4_title': '高可用分布式 SLA', 'feat_4_desc': '多区域分布式云架构部署，智能负载均衡自动剔除失效节点，支持高并发，为企业生产环境提供 99.9% 稳定保障。',
+                'price_title': '透明直白的极简定价', 'price_desc': '无隐藏套餐，无复杂换算公式。充值即用，按需扣费。',
+                'price_card1_title': '国产优质大模型', 'price_card1_sub': '适用：日常文本生成、内容总结、基础助理', 'price_unit': '/ 次',
+                'price_card1_p1': '<strong class="text-slate-900 font-semibold">提供绝对按次计费渠道</strong>，拒绝 Token 计费', 'price_card1_p2': '聚合国内头部 AI 大厂最新模型', 'price_card1_p3': '极速毫秒级响应延迟', 'price_card1_p4': '支持沉浸式长文本对话上下文',
+                'price_card2_title': '全球顶级高级模型', 'price_tag_rec': '企业推荐', 'price_card2_sub': '适用：复杂推理、代码编写、深度数据分析',
+                'price_card2_p1': '<strong class="text-white font-semibold">仅需两分钱</strong>，远离长文本昂贵账单', 'price_card2_p2': '聚合全球最高智商的推理与生成模型', 'price_card2_p3': '原生支持 Function Calling (函数调用)', 'price_card2_p4': '突破官方频率限制，高并发稳定可用',
+                'btn_join': '立即接入', 'btn_join_premium': '立即体验高级模型',
+                'status_title': '服务状态实时可视', 'status_desc': '第三方独立监控，确保我们的响应速度与可用率始终处于行业顶尖水平。',
+                'footer_desc': '致力于为开发者和企业提供最高性价比、最稳定、纯按次计费的大语言模型 API 聚合分发服务。',
+                'footer_dev': '开发者资源', 'footer_console': '控制台首页', 'footer_docs': 'API 接入文档', 'footer_models': '支持的模型列表',
+                'footer_about': '关于与支持', 'footer_tos': '服务条款 (ToS)', 'footer_privacy': '隐私政策', 'footer_ticket': '提交工单支持', 'footer_slogan': '大模型 API 聚合分发平台'
+            },
+            'en': {
+                'top_announce': '🎉 New Release! Enterprise-grade HA routing supporting high concurrency.',
+                'top_announce_link': 'Learn more &rarr;',
+                'nav_features': 'Features', 'nav_flow': 'Data Flow', 'nav_security': 'Security', 'nav_pricing': 'Pricing', 'nav_status': 'Status', 'nav_docs': 'Docs', 'btn_login': 'Console Login',
+                'hero_badge': 'Next-Gen Enterprise LLM API Gateway',
+                'hero_title_1': 'Redefining API Distribution,',
+                'hero_title_2': 'Say Goodbye to',
+                'hero_desc': 'Enterprise flat-rate per-request billing. Stop worrying about prompt lengths. Premium models as low as ¥0.02, 100% OpenAI protocol compatible.',
+                'btn_register': 'Get Free API Key', 'btn_pricing': 'View Pricing',
+                'anim_title': 'Simple Flow, Clear Billing', 'anim_desc': 'Watch the entire process from request to response. At VSLLM, complex Token math is intercepted, leaving only pure flat-rate billing.',
+                'anim_app': 'Your App', 'anim_gateway': 'VSLLM Gateway', 'anim_encryption': 'E2E Encryption • Zero Logs', 'anim_models': 'Global LLMs',
+                'anim_calc': 'Real-time Token Intercept', 'anim_fee': 'Actual Fee:',
+                'sec_title': 'Bank-Level Security<br>& Data Privacy', 'sec_desc': 'Every API call and data flow is end-to-end encrypted.<br><span class="text-emerald-400 font-medium">We promise zero storage, ensuring full protection without a trace.</span>',
+                'sec_point1': 'TLS 1.3 End-to-end Encryption', 'sec_point2': 'Strict No-Log Policy', 'sec_point3': 'Enterprise DDoS Protection & Access Control',
+                'feat_main_title': 'Why Choose Enterprise Flat-Rate?', 'feat_main_desc': 'Break the black-box of Token billing. Make every AI call transparent and controllable.',
+                'feat_1_title': 'Zero Token Billing', 'feat_1_desc': 'Whether your prompt is massive or the output is huge, you pay exactly one flat fee per request. No more unexpected massive bills.',
+                'feat_2_title': 'Ultimate Cost Efficiency', 'feat_2_desc': 'Leveraging our huge node pool and smart routing, we squeezed premium model costs to ¥0.02, and domestic models to ¥0.005.',
+                'feat_3_title': 'Native Protocol Compatible', 'feat_3_desc': 'Just change the Base URL and API Key. Seamlessly integrate your existing OpenAI-based systems with zero code changes.',
+                'feat_4_title': 'High Availability SLA', 'feat_4_desc': 'Multi-region distributed cloud architecture with smart load balancing ensures 99.9% uptime for enterprise production environments.',
+                'price_title': 'Transparent Minimalist Pricing', 'price_desc': 'No hidden plans, no complex formulas. Pay as you go.',
+                'price_card1_title': 'Standard Domestic Models', 'price_card1_sub': 'For: Daily text generation, summaries, basic assistants', 'price_unit': '/ req',
+                'price_card1_p1': '<strong class="text-slate-900 font-semibold">Strictly per-request</strong>, no tokens', 'price_card1_p2': 'Aggregates top domestic AI models', 'price_card1_p3': 'Ultra-low millisecond latency', 'price_card1_p4': 'Supports deep context long-text chats',
+                'price_card2_title': 'Global Premium Models', 'price_tag_rec': 'Recommended', 'price_card2_sub': 'For: Complex reasoning, coding, deep data analysis',
+                'price_card2_p1': '<strong class="text-white font-semibold">Only ¥0.02</strong>, say no to expensive long contexts', 'price_card2_p2': 'Global top-tier reasoning and generation models', 'price_card2_p3': 'Native Function Calling support', 'price_card2_p4': 'Bypass official rate limits, high concurrency',
+                'btn_join': 'Start Integrating', 'btn_join_premium': 'Try Premium Models',
+                'status_title': 'Real-time Service Status', 'status_desc': 'Monitored by third parties, ensuring our speed and uptime remain top tier.',
+                'footer_desc': 'Dedicated to providing developers and enterprises with the most cost-effective, stable, flat-rate LLM API aggregation service.',
+                'footer_dev': 'Developers', 'footer_console': 'Console Home', 'footer_docs': 'API Documentation', 'footer_models': 'Supported Models',
+                'footer_about': 'Company & Support', 'footer_tos': 'Terms of Service', 'footer_privacy': 'Privacy Policy', 'footer_ticket': 'Submit a Ticket', 'footer_slogan': 'Enterprise LLM API Aggregation Platform'
+            },
+            'ja': {
+                'top_announce': '🎉 新機能！エンタープライズ向けのHAルーティングで高い同時実行性をサポートします。',
+                'top_announce_link': '詳細はこちら &rarr;',
+                'nav_features': '特徴', 'nav_flow': 'データフロー', 'nav_security': 'セキュリティ', 'nav_pricing': '料金体系', 'nav_status': 'ステータス', 'nav_docs': 'ドキュメント', 'btn_login': 'ログイン',
+                'hero_badge': '次世代エンタープライズLLM APIゲートウェイ',
+                'hero_title_1': 'API配信を再定義し、',
+                'hero_title_2': 'これに別れを告げる：',
+                'hero_desc': 'エンタープライズ向けの「リクエスト単位」の定額制。プロンプトの長さを気にする必要はありません。プレミアムモデルはわずか0.02元、OpenAIプロトコルと完全互換。',
+                'btn_register': 'APIキーを無料で取得', 'btn_pricing': '料金を見る',
+                'anim_title': 'シンプルなフロー、明確な請求', 'anim_desc': 'リクエストからレスポンスまでの全プロセスをご覧ください。VSLLMでは、複雑なトークン計算を傍受し、純粋な定額請求のみを残します。',
+                'anim_app': 'あなたのアプリ', 'anim_gateway': 'VSLLM ゲートウェイ', 'anim_encryption': 'E2E暗号化 • ログなし', 'anim_models': 'グローバルLLM',
+                'anim_calc': 'トークンリアルタイム傍受', 'anim_fee': '実際の料金:',
+                'sec_title': '銀行レベルのセキュリティ<br>とデータプライバシー', 'sec_desc': 'すべてのAPI呼び出しとデータフローはエンドツーエンドで暗号化されます。<br><span class="text-emerald-400 font-medium">私たちは一切保存しないことを約束し、痕跡を残さず完全な保護を保証します。</span>',
+                'sec_point1': 'TLS 1.3 エンドツーエンド暗号化', 'sec_point2': '厳格なノーログポリシー', 'sec_point3': 'エンタープライズDDoS防御とアクセス制御',
+                'feat_main_title': '定額制を選ぶ理由', 'feat_main_desc': 'トークン課金のブラックボックスを打ち破り、すべてのAI呼び出しを透明かつ制御可能にします。',
+                'feat_1_title': 'トークン課金ゼロ', 'feat_1_desc': '巨大なプロンプトでも、膨大な出力でも、リクエストごとの定額料金のみです。予想外の請求はありません。',
+                'feat_2_title': '究極のコストパフォーマンス', 'feat_2_desc': '巨大なノードプールとスマートルーティングにより、プレミアムモデルのコストを0.02元、国産モデルを0.005元に抑えました。',
+                'feat_3_title': 'ネイティブプロトコル互換', 'feat_3_desc': 'Base URLとAPIキーを変更するだけです。コードの変更なしで既存のOpenAIシステムをシームレスに統合します。',
+                'feat_4_title': '高可用性SLA', 'feat_4_desc': 'スマートロードバランシングを備えたマルチリージョン分散クラウドアーキテクチャにより、本番環境で99.9％の稼働率を保証します。',
+                'price_title': '透明でミニマリストな料金', 'price_desc': '隠れたプランや複雑な計算はありません。使った分だけ支払う。',
+                'price_card1_title': '標準国内モデル', 'price_card1_sub': '対象: 日常のテキスト生成、要約、基本アシスタント', 'price_unit': '/ 回',
+                'price_card1_p1': '<strong class="text-slate-900 font-semibold">完全なリクエスト単位</strong>、トークンなし', 'price_card1_p2': 'トップクラスの国内AIモデルを集約', 'price_card1_p3': '超低遅延（ミリ秒）', 'price_card1_p4': '深いコンテキストの長文チャットをサポート',
+                'price_card2_title': 'グローバルプレミアムモデル', 'price_tag_rec': 'おすすめ', 'price_card2_sub': '対象: 複雑な推論、コーディング、深いデータ分析',
+                'price_card2_p1': '<strong class="text-white font-semibold">わずか0.02元</strong>、高価な長文コンテキストにさよなら', 'price_card2_p2': '世界トップクラスの推論および生成モデル', 'price_card2_p3': 'ネイティブ関数呼び出しのサポート', 'price_card2_p4': '公式のレート制限を回避、高い同時実行性',
+                'btn_join': '統合を開始', 'btn_join_premium': 'プレミアムを試す',
+                'status_title': 'リアルタイムのステータス', 'status_desc': '第三者によって監視されており、速度と稼働率が常にトップクラスであることを保証します。',
+                'footer_desc': '開発者と企業に、最も費用対効果が高く安定した、定額制のLLM API集約サービスを提供することに専念しています。',
+                'footer_dev': '開発者向け', 'footer_console': 'コンソールホーム', 'footer_docs': 'APIドキュメント', 'footer_models': '対応モデル',
+                'footer_about': '会社とサポート', 'footer_tos': '利用規約', 'footer_privacy': 'プライバシーポリシー', 'footer_ticket': 'チケットを送信', 'footer_slogan': 'エンタープライズLLM API プラットフォーム'
+            }
+        };
+
+        const langLabels = { 'zh-CN': '简中', 'en': 'EN', 'ja': '日本語' };
+
+        function setLanguage(lang) {
+            localStorage.setItem('vsllm_lang', lang);
+            document.documentElement.lang = lang;
+            
+            const langLabel = document.getElementById('current-lang-label');
+            if (langLabel) {
+                langLabel.innerText = langLabels[lang];
+            }
+            
+            const t = translations[lang] || translations['zh-CN'];
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(t[key]) el.innerHTML = t[key];
+            });
+            
+            startWordRotation(lang);
+        }
+
+        function initLanguage() {
+            let userLang = localStorage.getItem('vsllm_lang');
+            if(!userLang) {
+                const browserLang = navigator.language || navigator.userLanguage;
+                if(browserLang.startsWith('en')) userLang = 'en';
+                else if(browserLang.startsWith('ja')) userLang = 'ja';
+                else userLang = 'zh-CN';
+            }
+            setLanguage(userLang);
+        }
+
+        initLanguage();
+    </script>
+</body>
+</html>
