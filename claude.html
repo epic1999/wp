@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Claude Thinking Stream Tester</title>
+  <style>
+    :root{--bg:#0b1020;--panel:#121a33;--panel2:#0f172a;--text:#e5e7eb;--muted:#94a3b8;--border:#24304f;--accent:#8b5cf6;--good:#22c55e;--bad:#ef4444;--warn:#f59e0b}
+    *{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at top left,#1e1b4b 0,#0b1020 42%,#060914 100%);color:var(--text);min-height:100vh}header{padding:24px;border-bottom:1px solid var(--border);background:rgba(15,23,42,.72);backdrop-filter:blur(12px);position:sticky;top:0;z-index:10}h1{margin:0 0 8px;font-size:22px}p{margin:0;color:var(--muted);line-height:1.5}main{padding:24px;display:grid;gap:18px}.card{background:rgba(18,26,51,.88);border:1px solid var(--border);border-radius:18px;box-shadow:0 18px 60px rgba(0,0,0,.25);overflow:hidden}.card h2{margin:0;padding:14px 16px;font-size:15px;color:#c4b5fd;border-bottom:1px solid var(--border);background:rgba(15,23,42,.55)}.controls{padding:16px;display:grid;grid-template-columns:repeat(12,1fr);gap:12px}label{display:grid;gap:6px;color:var(--muted);font-size:12px}input,textarea,select,button{width:100%;border-radius:12px;border:1px solid var(--border);background:var(--panel2);color:var(--text);padding:10px 12px;font:inherit;outline:none}textarea{min-height:92px;resize:vertical}input:focus,textarea:focus,select:focus{border-color:var(--accent)}button{cursor:pointer;border:0;background:linear-gradient(135deg,#7c3aed,#2563eb);font-weight:700}button.secondary{background:#334155}button.danger{background:#7f1d1d}button:disabled{opacity:.55;cursor:not-allowed}.span-2{grid-column:span 2}.span-3{grid-column:span 3}.span-4{grid-column:span 4}.span-6{grid-column:span 6}.span-8{grid-column:span 8}.span-12{grid-column:span 12}.outputs{display:grid;grid-template-columns:1fr 1fr;gap:18px}.output-body{padding:12px}pre{min-height:260px;max-height:460px;overflow:auto;white-space:pre-wrap;word-break:break-word;margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;font-size:13px;line-height:1.55;color:#dbeafe}.status{padding:10px 16px;color:var(--muted);border-top:1px solid var(--border);font-size:13px;display:flex;gap:12px;flex-wrap:wrap}.pill{padding:4px 8px;border-radius:999px;background:#1e293b;color:var(--muted)}.pill.good{color:#bbf7d0;background:rgba(34,197,94,.14)}.pill.warn{color:#fde68a;background:rgba(245,158,11,.14)}.pill.bad{color:#fecaca;background:rgba(239,68,68,.14)}.hint{padding:0 16px 16px;color:var(--muted);font-size:13px;line-height:1.55}@media(max-width:900px){.outputs{grid-template-columns:1fr}.span-2,.span-3,.span-4,.span-6,.span-8{grid-column:span 12}}
+  </style>
+</head>
+<body>
+  <header><h1>Claude Thinking Stream Tester</h1><p>Direct Anthropic-style SSE tester. It renders thinking_delta, text_delta, and raw events separately.</p></header>
+  <main>
+    <section class="card">
+      <h2>Request</h2>
+      <div class="controls">
+        <label class="span-6">Endpoint<input id="endpoint" value="https://vsllm.com/v1/messages" /></label>
+        <label class="span-3">Auth header<select id="authHeader"><option value="Authorization">Authorization: Bearer</option><option value="x-api-key">x-api-key</option></select></label>
+        <label class="span-3">API key<input id="apiKey" type="password" placeholder="Paste key here" autocomplete="off" /></label>
+        <label class="span-6">Model A<input id="modelA" value="claude-opus-4-6-request" /></label>
+        <label class="span-6">Model B<input id="modelB" value="claude-opus-4-6-request-antigravity" /></label>
+        <label class="span-2">Max tokens<input id="maxTokens" type="number" value="4096" min="1" /></label>
+        <label class="span-2">Effort<select id="effort"><option>high</option><option>max</option><option>xhigh</option><option>medium</option><option>low</option></select></label>
+        <label class="span-2">Display<select id="display"><option>summarized</option><option>omitted</option></select></label>
+        <label class="span-6">Prompt<textarea id="prompt">Which is larger, 9.11 or 9.9?</textarea></label>
+        <button id="runA" class="span-3">Run model A</button><button id="runB" class="span-3">Run model B</button><button id="runBoth" class="span-3">Run both</button><button id="stop" class="span-3 danger" disabled>Stop</button>
+      </div>
+      <div class="hint">If the browser shows a CORS error, the API is still fine; the server just does not allow browser calls. In that case, use curl or put a tiny local proxy in front of it. This page does not save your API key.</div>
+      <div class="status" id="status"><span class="pill">Idle</span></div>
+    </section>
+    <section class="outputs">
+      <div class="card"><h2>Thinking</h2><div class="output-body"><pre id="thinking"></pre></div></div>
+      <div class="card"><h2>Answer</h2><div class="output-body"><pre id="answer"></pre></div></div>
+      <div class="card" style="grid-column:1/-1"><h2>Raw SSE events</h2><div class="output-body"><pre id="raw"></pre></div></div>
+    </section>
+  </main>
+  <script>
+    const el=(id)=>document.getElementById(id);let controller=null;let counters={thinking:0,text:0,signature:0,events:0};
+    function clearOutputs(){el('thinking').textContent='';el('answer').textContent='';el('raw').textContent='';counters={thinking:0,text:0,signature:0,events:0};setStatus('Idle')}
+    function setStatus(text,kind){const cls=kind?'pill '+kind:'pill';el('status').innerHTML='<span class="'+cls+'">'+escapeHtml(text)+'</span><span class="pill">thinking_delta: '+counters.thinking+'</span><span class="pill">text_delta: '+counters.text+'</span><span class="pill">signature_delta: '+counters.signature+'</span><span class="pill">events: '+counters.events+'</span>'}
+    function escapeHtml(s){return String(s).replace(/[&<>"]/g,(ch)=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]))}
+    function append(id,text){const node=el(id);node.textContent+=text;node.scrollTop=node.scrollHeight}
+    function getHeaders(){const key=el('apiKey').value.trim();const headers={'Content-Type':'application/json','anthropic-version':'2023-06-01'};if(el('authHeader').value==='x-api-key'){headers['x-api-key']=key}else{headers['Authorization']='Bearer '+key}return headers}
+    function getPayload(model){return{model,max_tokens:Number(el('maxTokens').value||4096),stream:true,thinking:{type:'adaptive',display:el('display').value},output_config:{effort:el('effort').value},messages:[{role:'user',content:[{type:'text',text:el('prompt').value}]}]}}
+    function parseSseBlock(block){const lines=block.split(/\r?\n/);let eventName='';const dataLines=[];for(const line of lines){if(line.startsWith('event:'))eventName=line.slice(6).trim();if(line.startsWith('data:'))dataLines.push(line.slice(5).trimStart())}return{eventName,dataText:dataLines.join('\n')}}
+    function handleEvent(eventName,dataText){if(!dataText)return;counters.events++;append('raw',(eventName?'event: '+eventName+'\n':'')+'data: '+dataText+'\n\n');let obj;try{obj=JSON.parse(dataText)}catch(e){append('raw','[JSON parse error] '+e.message+'\n\n');setStatus('JSON parse error','bad');return}if(obj.type==='message_start'&&obj.message&&obj.message.model){append('raw','[actual model] '+obj.message.model+'\n\n')}if(obj.type==='content_block_delta'&&obj.delta){if(obj.delta.type==='thinking_delta'){counters.thinking++;append('thinking',obj.delta.thinking||'')}else if(obj.delta.type==='text_delta'){counters.text++;append('answer',obj.delta.text||'')}else if(obj.delta.type==='signature_delta'){counters.signature++;append('raw','[signature_delta received, hidden from UI]\n\n')}}if(obj.type==='error'||obj.error){setStatus('API error','bad')}else if(obj.type==='message_stop'){setStatus('Done','good')}else{setStatus('Streaming','warn')}}
+    async function runModel(model,shouldClear){if(shouldClear)clearOutputs();if(!el('apiKey').value.trim()){setStatus('Missing API key','bad');return}controller=new AbortController();el('stop').disabled=false;const endpoint=el('endpoint').value.trim();append('raw','--- Request model: '+model+' ---\n');setStatus('Connecting','warn');try{const res=await fetch(endpoint,{method:'POST',headers:getHeaders(),body:JSON.stringify(getPayload(model)),signal:controller.signal});append('raw','[HTTP] '+res.status+' '+res.statusText+'\n\n');if(!res.ok){const txt=await res.text();append('raw',txt+'\n');setStatus('HTTP error '+res.status,'bad');return}const reader=res.body.getReader();const decoder=new TextDecoder();let buffer='';while(true){const{value,done}=await reader.read();if(done)break;buffer+=decoder.decode(value,{stream:true});const parts=buffer.split(/\r?\n\r?\n/);buffer=parts.pop()||'';for(const part of parts){const trimmed=part.trim();if(!trimmed)continue;const parsed=parseSseBlock(trimmed);handleEvent(parsed.eventName,parsed.dataText)}}if(buffer.trim()){const parsed=parseSseBlock(buffer.trim());handleEvent(parsed.eventName,parsed.dataText)}setStatus('Done','good')}catch(e){if(e.name==='AbortError'){setStatus('Stopped','warn')}else{append('raw','\n[Fetch error] '+e.message+'\n');setStatus('Fetch error: '+e.message,'bad')}}finally{controller=null;el('stop').disabled=true}}
+    el('runA').onclick=()=>runModel(el('modelA').value.trim(),true);el('runB').onclick=()=>runModel(el('modelB').value.trim(),true);el('runBoth').onclick=async()=>{clearOutputs();await runModel(el('modelA').value.trim(),false);append('thinking','\n\n--- Model B ---\n');append('answer','\n\n--- Model B ---\n');await runModel(el('modelB').value.trim(),false)};el('stop').onclick=()=>controller&&controller.abort();clearOutputs();
+  </script>
+</body>
+</html>
