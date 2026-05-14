@@ -126,7 +126,7 @@
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
                 </span>
-                <span data-i18n="hero_badge">维云模型开放平台 (VSLLM) 官方网站</span>
+                <span data-i18n="hero_badge">维云模型开放平台</span>
             </a>
 
             <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight text-slate-900 leading-[1.2] mb-6">
@@ -140,7 +140,7 @@
             </h1>
             
             <p class="text-base md:text-xl text-slate-500 max-w-2xl mx-auto mb-10 leading-relaxed" data-i18n="hero_desc">
-                只需一行代码，无缝接入全球顶级 AI 模型。全面兼容 OpenAI 协议，毫秒级极速响应，专为生产环境打造的高可用分发平台。
+                只需一行代码，无缝接入全球顶级 AI 模型。全面兼容协议，极速响应，专为生产环境打造的高可用分发平台。
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -148,7 +148,7 @@
                     控制台登录 / 注册
                 </a>
                 
-                <a href="https://vsllm.com/docs" class="w-full sm:w-auto px-8 py-3.5 text-base font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300 rounded-full shadow-sm hover:shadow btn-pressable" data-i18n="btn_pricing">
+                <a href="https://docs.newapi.pro/" class="w-full sm:w-auto px-8 py-3.5 text-base font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300 rounded-full shadow-sm hover:shadow btn-pressable" data-i18n="btn_pricing">
                     查看开发者文档
                 </a>
             </div>
@@ -338,7 +338,7 @@
                         </li>
                         <li class="flex items-start gap-3">
                             <svg class="w-5 h-5 text-slate-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            <span class="text-sm text-slate-600 leading-relaxed" data-i18n="price_card1_p3">极速毫秒级响应延迟</span>
+                            <span class="text-sm text-slate-600 leading-relaxed" data-i18n="price_card1_p3">极速响应延迟</span>
                         </li>
                     </ul>
                     <a href="https://vsllm.com/console" class="block w-full py-3.5 px-6 text-center text-sm font-semibold text-slate-700 bg-white border border-slate-200 rounded-full hover:bg-slate-50 transition-all btn-pressable" data-i18n="btn_join">
@@ -536,7 +536,7 @@
         let currentWordIdx = 0;
         let wordInterval;
         const rotateWords = {
-            'zh-CN':["稳定供应", "极速毫秒级响应", "原生全面兼容", "极致高性价比"],
+            'zh-CN':["稳定供应", "极速响应", "原生全面兼容", "极致高性价比"],
             'en': ["Enterprise Stability", "Millisecond Response", "Native Compatibility", "High ROI"]
         };
 
@@ -570,9 +570,9 @@
 
         const translations = {
             'zh-CN': {
-                'hero_badge': '维云模型开放平台 (VSLLM) 官方网站',
+                'hero_badge': '维云模型开放平台',
                 'hero_title_1': '大模型聚合',
-                'hero_desc': '只需一行代码，无缝接入全球顶级 AI 模型。全面兼容 OpenAI 协议，毫秒级极速响应，专为生产环境打造的高可用分发平台。',
+                'hero_desc': '只需一行代码，无缝接入全球顶级 AI 模型。全面兼容协议，极速响应，专为生产环境打造的高可用分发平台。',
                 'btn_register': '控制台登录 / 注册', 'btn_pricing': '查看开发者文档',
                 'anim_title': '极简流转，高效分发', 'anim_desc': '一站式智能网关调度，自动负载均衡，保障您的每一次请求都能得到最快、最稳定的响应。',
                 'anim_app': '业务系统', 'anim_gateway': '维云核心调度', 'anim_encryption': '端到端加密 • 不留存数据', 'anim_models': 'AI 大模型',
@@ -585,8 +585,8 @@
                 'feat_3_title': '原生协议无缝兼容', 'feat_3_desc': '全面兼容现有生态体系。只需修改一行 Base URL 并替换 API Key，即可将现有系统零成本平滑迁移至维云平台。',
                 'feat_4_title': '高并发分布式 SLA', 'feat_4_desc': '多区域云端架构部署，智能负载均衡自动剔除失效节点，轻松应对高并发场景，为生产环境提供 99.9% 的稳定保障。',
                 'price_title': '公开透明的计费模式', 'price_desc': '无隐藏套餐，所见即所得。充值即用，按需扣费。',
-                'price_card1_title': '精选国内大模型', 'price_card1_sub': '日常文本生成、内容总结、智能助理', 'price_standard': '标准 Token 计费',
-                'price_card1_p1': '按量付费，拒绝隐藏成本', 'price_card1_p2': '聚合国内头部 AI 大厂最新模型', 'price_card1_p3': '极速毫秒级响应延迟',
+                'price_card1_title': '精选国内大模型', 'price_card1_sub': '日常文本生成、内容总结、智能助理', 'price_standard': '标准计费',
+                'price_card1_p1': '按量付费，拒绝隐藏成本', 'price_card1_p2': '聚合国内头部 AI 大厂最新模型', 'price_card1_p3': '极速响应延迟',
                 'price_card2_title': '全球顶尖大模型', 'price_tag_rec': '推荐', 'price_card2_sub': '复杂推理、代码编写、深度数据分析',
                 'price_premium': '超高性价比',
                 'price_card2_p1': '提供极具竞争力的价格', 'price_card2_p2': '支持 Function Calling 等高级特性', 'price_card2_p3': '突破频率限制，高并发稳定可用',
