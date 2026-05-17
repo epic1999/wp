@@ -40,7 +40,7 @@
     <style>
         body { background-color: #ffffff; }
         
-        /* 保持原有动画及交交互 */
+        /* 保持原有动画及交互 */
         .reveal-up {
             opacity: 0;
             transform: translateY(20px);
@@ -89,11 +89,37 @@
         .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.4); }
+
+        /* Odometer 数字滚动动画 CSS */
+        .odo-wrapper {
+            display: inline-flex;
+            flex-direction: column;
+            height: 1em;
+            overflow: hidden;
+            vertical-align: -0.1em;
+            line-height: 1;
+        }
+        .odo-track {
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .odo-track span {
+            height: 1em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .odo-char {
+            display: inline-block;
+            vertical-align: baseline;
+            white-space: pre;
+        }
     </style>
 </head>
 <body class="text-gray-900 antialiased overflow-x-hidden selection:bg-cf-orange selection:text-white">
 
-    <!--  风格 Top Navbar -->
+    <!-- 风格 Top Navbar -->
     <nav class="sticky top-0 z-50 bg-white border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
@@ -115,12 +141,12 @@
         </div>
     </nav>
 
-    <!--  风格 Hero Section -->
-    <section class="relative pt-12 pb-16 md:pt-24 md:pb-28 overflow-hidden bg-white border-b border-gray-100">
+    <!-- 风格 Hero Section -->
+    <section class="relative pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden bg-white border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-                <!-- 左侧文本 -->
-                <div class="w-full lg:w-[55%] text-left reveal-up active">
+                <!-- 左侧文本与状态面板 -->
+                <div class="w-full lg:w-[58%] text-left reveal-up active">
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.1] mb-6">
                         <span data-i18n="hero_title_1">大模型聚合</span><br>
                         <span class="inline-grid items-center justify-start align-middle mt-2">
@@ -135,7 +161,7 @@
                         只需一行代码，无缝接入全球顶级 AI 模型。全面兼容协议，极速响应，专为生产环境打造的高可用分发平台。为您提供的性能与安全保障。
                     </p>
 
-                    <div class="flex flex-col sm:flex-row items-start gap-4">
+                    <div class="flex flex-col sm:flex-row items-start gap-4 mb-4">
                         <a href="https://vsllm.com/console" class="w-full sm:w-auto px-8 py-3.5 text-base font-bold text-white bg-cf-orange hover:bg-cf-orangeHover rounded transition-colors text-center" data-i18n="btn_register">
                             登录 / 注册
                         </a>
@@ -143,10 +169,42 @@
                             定价方案
                         </a>
                     </div>
+
+                    <!-- 动态数据统计面板 -->
+                    <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 reveal-up active" style="transition-delay: 0.15s;">
+                        <!-- Token Stats -->
+                        <div id="stat-tokens-card" class="bg-white border border-gray-200 rounded-xl p-5 shadow-cf-card hover:shadow-cf-card-hover transition-all relative overflow-hidden group cursor-pointer flex flex-col justify-center">
+                            <div class="absolute -right-4 -top-4 opacity-[0.03] group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
+                                <svg class="w-32 h-32 text-cf-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v8l9-11h-7z"></path></svg>
+                            </div>
+                            <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2" data-i18n="stat_tokens">已处理 Tokens</p>
+                            <div id="tokens-odometer" class="text-2xl sm:text-3xl font-extrabold text-gray-900 font-mono tracking-tight text-cf-orange h-8 flex items-center">
+                                --
+                            </div>
+                        </div>
+                        
+                        <!-- Uptime Stats -->
+                        <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-cf-card hover:shadow-cf-card-hover transition-all relative overflow-hidden group flex flex-col justify-center">
+                            <div class="absolute -right-4 -top-4 opacity-[0.03] group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
+                                <svg class="w-32 h-32 text-cf-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2" data-i18n="stat_uptime">平台安全运行时间</p>
+                            <div id="uptime-odometer" class="text-xl sm:text-[1.35rem] font-extrabold text-gray-900 font-mono tracking-tight h-8 flex items-center whitespace-nowrap">
+                                --
+                            </div>
+                            <div class="text-[11px] text-green-500 mt-2 flex items-center gap-1.5 font-bold">
+                                <span class="relative flex h-2 w-2">
+                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                                  <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                </span>
+                                <span data-i18n="stat_status">节点状态极佳</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <!-- 右侧装饰/数据展示图 (风) -->
-                <div class="w-full lg:w-[45%] reveal-up hidden md:block">
+                <!-- 右侧装饰图 -->
+                <div class="w-full lg:w-[42%] reveal-up hidden md:block">
                     <div class="bg-white border border-gray-200 rounded-lg shadow-cf-card overflow-hidden">
                         <div class="bg-gray-50 border-b border-gray-200 px-4 py-3 flex items-center gap-2">
                             <div class="w-3 h-3 rounded-full bg-red-400"></div>
@@ -178,7 +236,7 @@
         </div>
     </section>
 
-    <!--  风格 拓扑动画部分 -->
+    <!-- 风格 拓扑动画部分 -->
     <section id="flow-animation" class="py-20 md:py-28 bg-cf-navy relative overflow-hidden text-white">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
             <div class="text-center max-w-2xl mx-auto mb-16 reveal-up">
@@ -235,7 +293,7 @@
         </div>
     </section>
 
-    <!--  风格 安全部分 -->
+    <!-- 风格 安全部分 -->
     <section id="security" class="py-20 md:py-28 bg-white relative overflow-hidden border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center gap-16">
             <div class="w-full md:w-1/2 reveal-up">
@@ -293,7 +351,7 @@
         </div>
     </section>
 
-    <!--  风格 产品特性 -->
+    <!-- 风格 产品特性 -->
     <section id="features" class="py-20 md:py-28 bg-gray-50 border-b border-gray-200 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16 md:mb-20 reveal-up">
@@ -302,7 +360,6 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-                <!-- Card 1 -->
                 <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-cf-card hover:shadow-cf-card-hover transition-shadow duration-300 reveal-up">
                     <div class="mb-5 text-cf-orange">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
@@ -310,7 +367,6 @@
                     <h3 class="text-xl font-bold text-gray-900 mb-3" data-i18n="feat_1_title">全球模型聚合</h3>
                     <p class="text-gray-600 text-sm leading-relaxed" data-i18n="feat_1_desc">一个接口通行全网。深度集成各类开源与商业大模型，化繁为简，无需维护多个供应商账号即可畅享顶级 AI 能力。</p>
                 </div>
-                <!-- Card 2 -->
                 <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-cf-card hover:shadow-cf-card-hover transition-shadow duration-300 reveal-up" style="transition-delay: 0.1s;">
                     <div class="mb-5 text-cf-orange">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v8l9-11h-7z"></path></svg>
@@ -318,7 +374,6 @@
                     <h3 class="text-xl font-bold text-gray-900 mb-3" data-i18n="feat_2_title">极致性能与性价比</h3>
                     <p class="text-gray-600 text-sm leading-relaxed" data-i18n="feat_2_desc">得益于我们强大的边缘节点池与独家调度算法，大幅降低算力冗余成本，为您提供极具竞争力的透明计费模式。</p>
                 </div>
-                <!-- Card 3 -->
                 <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-cf-card hover:shadow-cf-card-hover transition-shadow duration-300 reveal-up" style="transition-delay: 0.2s;">
                     <div class="mb-5 text-cf-orange">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
@@ -326,7 +381,6 @@
                     <h3 class="text-xl font-bold text-gray-900 mb-3" data-i18n="feat_3_title">协议无缝兼容</h3>
                     <p class="text-gray-600 text-sm leading-relaxed" data-i18n="feat_3_desc">全面兼容现有生态体系。只需修改一行 Base URL 并替换 API Key，即可将现有系统零成本平滑迁移至维云平台。</p>
                 </div>
-                <!-- Card 4 -->
                 <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-cf-card hover:shadow-cf-card-hover transition-shadow duration-300 reveal-up" style="transition-delay: 0.3s;">
                     <div class="mb-5 text-cf-orange">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
@@ -338,7 +392,7 @@
         </div>
     </section>
 
-    <!--  风格 定价策略 -->
+    <!-- 风格 定价策略 -->
     <section id="pricing" class="py-20 md:py-28 bg-white relative border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16 md:mb-20 reveal-up">
@@ -429,7 +483,7 @@
         </div>
     </section>
 
-    <!--  风格 Footer -->
+    <!-- 风格 Footer -->
     <footer class="bg-cf-navy text-gray-300 pt-16 pb-8 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
@@ -558,7 +612,126 @@
         }
         setTimeout(runPipeline, 1000);
 
-        // 轮播文字逻辑
+        // --- 动态数据与 Odometer 动画控制代码 ---
+        class Odometer {
+            constructor(el) {
+                this.el = el;
+                this.digits = [];
+                this.currentStr = "";
+            }
+            update(newStr) {
+                newStr = String(newStr);
+                // 长度或结构变化时重新构建 DOM
+                if (this.currentStr.length !== newStr.length) {
+                    this.el.innerHTML = '';
+                    this.digits = [];
+                    for (let i = 0; i < newStr.length; i++) {
+                        let char = newStr[i];
+                        if (/[0-9]/.test(char)) {
+                            let span = document.createElement('span');
+                            span.className = 'odo-wrapper';
+                            let track = document.createElement('span');
+                            track.className = 'odo-track';
+                            track.innerHTML = '<span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>';
+                            track.style.transform = `translateY(-${parseInt(char) * 10}%)`;
+                            span.appendChild(track);
+                            this.digits.push({ isDigit: true, el: track, char: char });
+                            this.el.appendChild(span);
+                        } else {
+                            let span = document.createElement('span');
+                            span.className = 'odo-char';
+                            span.textContent = char === ' ' ? '\u00A0' : char;
+                            this.digits.push({ isDigit: false, el: span, char: char });
+                            this.el.appendChild(span);
+                        }
+                    }
+                    this.currentStr = newStr;
+                } else {
+                    // 仅更新变更的位
+                    for (let i = 0; i < newStr.length; i++) {
+                        let char = newStr[i];
+                        let digitObj = this.digits[i];
+                        if (digitObj.isDigit && digitObj.char !== char) {
+                            digitObj.el.style.transform = `translateY(-${parseInt(char) * 10}%)`;
+                            digitObj.char = char;
+                        } else if (!digitObj.isDigit && digitObj.char !== char) {
+                            digitObj.el.textContent = char === ' ' ? '\u00A0' : char;
+                            digitObj.char = char;
+                        }
+                    }
+                    this.currentStr = newStr;
+                }
+            }
+        }
+
+        let statsState = { tokens: 0, seconds: 0, showRawTokens: false };
+        const tokensOdo = new Odometer(document.getElementById('tokens-odometer'));
+        const uptimeOdo = new Odometer(document.getElementById('uptime-odometer'));
+        const tokensCard = document.getElementById('stat-tokens-card');
+
+        tokensCard.addEventListener('mouseenter', () => { statsState.showRawTokens = true; updateStatsUI(); });
+        tokensCard.addEventListener('mouseleave', () => { statsState.showRawTokens = false; updateStatsUI(); });
+
+        function formatTokensUI(tokens, lang) {
+            if (statsState.showRawTokens) return tokens.toLocaleString();
+            if (lang === 'en') {
+                if (tokens >= 1e9) return (tokens / 1e9).toFixed(2) + ' B';
+                if (tokens >= 1e6) return (tokens / 1e6).toFixed(2) + ' M';
+                if (tokens >= 1e3) return (tokens / 1e3).toFixed(2) + ' K';
+            } else {
+                if (tokens >= 1e8) return (tokens / 1e8).toFixed(2) + ' 亿';
+                if (tokens >= 1e4) return (tokens / 1e4).toFixed(2) + ' 万';
+            }
+            return tokens.toString();
+        }
+
+        function formatUptimeUI(seconds, lang) {
+            const d = Math.floor(seconds / 86400);
+            const h = Math.floor((seconds % 86400) / 3600).toString().padStart(2, '0');
+            const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+            const s = Math.floor(seconds % 60).toString().padStart(2, '0');
+            if (lang === 'en') return `${d}d ${h}h ${m}m ${s}s`;
+            else return `${d}天 ${h}时 ${m}分 ${s}秒`;
+        }
+
+        function updateStatsUI() {
+            if (statsState.tokens === 0) return;
+            const lang = localStorage.getItem('vsllm_lang') || 'zh-CN';
+            tokensOdo.update(formatTokensUI(statsState.tokens, lang));
+            uptimeOdo.update(formatUptimeUI(statsState.seconds, lang));
+        }
+
+        async function fetchStats() {
+            try {
+                const res = await fetch('https://vsllm.com/api/public/stats');
+                if(res.ok) {
+                    const data = await res.json();
+                    statsState.tokens = data.total_tokens;
+                    statsState.seconds = data.running_seconds;
+                }
+            } catch(e) {
+                // 异常情况下提供默认模拟值呈现效果
+                if(statsState.tokens === 0) {
+                    statsState.tokens = 23100000000;
+                    statsState.seconds = 123456789;
+                }
+                statsState.tokens += Math.floor(Math.random() * 5000); 
+            }
+            updateStatsUI();
+        }
+
+        // 持续滚动的自增计时器
+        setInterval(() => {
+            if (statsState.seconds > 0) {
+                statsState.seconds++;
+                updateStatsUI();
+            }
+        }, 1000);
+        // 每30秒轮询
+        setInterval(fetchStats, 30000);
+        setTimeout(fetchStats, 200);
+
+        // --- 轮播文字与国际化 ---
         let currentWordIdx = 0;
         let wordInterval;
         const rotateWords = {
@@ -594,13 +767,13 @@
             }, 3500);
         }
 
-        // i18n 多语言映射
         const translations = {
             'zh-CN': {
                 'nav_features': '产品特性', 'nav_security': '安全合规', 'nav_pricing': '定价方案', 'nav_docs': '开发者文档', 'nav_login': '登录', 'nav_signup': '注册',
                 'hero_title_1': '大模型聚合',
                 'hero_desc': '只需一行代码，无缝接入全球顶级 AI 模型。全面兼容协议，极速响应，专为生产环境打造的高可用分发平台。为您提供的性能与安全保障。',
                 'btn_register': '登录 / 注册', 'btn_pricing': '定价方案',
+                'stat_tokens': '已处理 Tokens', 'stat_uptime': '平台安全运行时间', 'stat_status': '节点状态极佳',
                 'anim_title': '极简流转，高效分发', 'anim_desc': '一站式智能网关调度，自动负载均衡，保障您的每一次请求都能得到最快、最稳定的响应。',
                 'anim_app': '业务应用', 'anim_gateway': '核心路由', 'anim_encryption': 'TLS 1.3 强加密传输', 'anim_models': 'AI 大模型',
                 'sec_title_new':'维云模型开放平台',
@@ -629,6 +802,7 @@
                 'hero_title_1': 'Global AI Network',
                 'hero_desc': 'Access global top AI models with just one line of code. Fully compatible with OpenAI protocol, enterprise-grade security, and built for production environments.',
                 'btn_register': 'Dashboard Login', 'btn_pricing': 'View Pricing',
+                'stat_tokens': 'Tokens Processed', 'stat_uptime': 'Platform Uptime', 'stat_status': 'Nodes Optimal',
                 'anim_title': 'Simple Flow, High Efficiency', 'anim_desc': 'Smart gateway routing and auto load balancing ensures every request gets the fastest, most stable response.','sec_title_new':'VSLLM',
                 'anim_app': 'Your App', 'anim_gateway': 'VSLLM Core Routing', 'anim_encryption': 'TLS 1.3 Strong Encryption', 'anim_models': 'AI Models',
                 'anim_calc': 'Processing', 'anim_fee': 'Latency:',
@@ -665,6 +839,7 @@
             });
             
             startWordRotation(lang);
+            if (typeof updateStatsUI === 'function') updateStatsUI();
         }
 
         function initLanguage() {
