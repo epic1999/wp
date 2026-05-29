@@ -21,11 +21,11 @@
                     },
                     colors: {
                         cf: {
-                            orange: '#F6821F',      //  经典橙
-                            orangeHover: '#E07018', // 橙色悬停
-                            navy: '#051424',        //  深藏青色背景
+                            orange: '#F6821F',
+                            orangeHover: '#E07018',
+                            navy: '#051424',
                             navyLight: '#0A2540',
-                            blue: '#0051C3',        //  辅助蓝
+                            blue: '#0051C3',
                             gray: '#F3F3F3'
                         }
                     },
@@ -40,7 +40,6 @@
     <style>
         body { background-color: #ffffff; }
         
-        /* 保持原有动画及交互 */
         .reveal-up {
             opacity: 0;
             transform: translateY(20px);
@@ -90,7 +89,6 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.4); }
 
-        /* Odometer 数字滚动动画 CSS */
         .odo-wrapper {
             display: inline-flex;
             flex-direction: column;
@@ -114,6 +112,170 @@
             display: inline-block;
             vertical-align: baseline;
             white-space: pre;
+        }
+
+        /* 顶栏下方新闻轮播图 */
+        .leader-carousel {
+            background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .leader-carousel-shell {
+            position: relative;
+            height: 280px;
+            border-radius: 18px;
+            overflow: hidden;
+            background: #111827;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .leader-carousel-slide {
+            position: absolute;
+            inset: 0;
+            display: block;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+
+        .leader-carousel-slide.is-active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .leader-carousel-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.7s ease;
+        }
+
+        .leader-carousel-slide:hover .leader-carousel-image {
+            transform: scale(1.035);
+        }
+
+        .leader-carousel-mask {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                90deg,
+                rgba(5, 20, 36, 0.86) 0%,
+                rgba(5, 20, 36, 0.52) 45%,
+                rgba(5, 20, 36, 0.12) 100%
+            );
+        }
+
+        .leader-carousel-content {
+            position: absolute;
+            left: 36px;
+            right: 36px;
+            bottom: 34px;
+            color: #ffffff;
+            z-index: 2;
+        }
+
+        .leader-carousel-tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 10px;
+            margin-bottom: 12px;
+            border-radius: 999px;
+            background: rgba(246, 130, 31, 0.92);
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+        }
+
+        .leader-carousel-title {
+            max-width: 760px;
+            font-size: 28px;
+            line-height: 1.35;
+            font-weight: 800;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .leader-carousel-arrow {
+            position: absolute;
+            top: 50%;
+            z-index: 3;
+            width: 38px;
+            height: 38px;
+            border-radius: 999px;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.86);
+            color: #111827;
+            font-size: 24px;
+            line-height: 38px;
+            text-align: center;
+            font-weight: 700;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .leader-carousel-arrow:hover {
+            background: #ffffff;
+            transform: translateY(-50%) scale(1.06);
+        }
+
+        .leader-carousel-prev {
+            left: 16px;
+        }
+
+        .leader-carousel-next {
+            right: 16px;
+        }
+
+        .leader-carousel-dots {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 14px;
+            z-index: 4;
+            display: flex;
+            justify-content: center;
+            gap: 7px;
+        }
+
+        .leader-carousel-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.45);
+            transition: width 0.2s ease, background 0.2s ease;
+            cursor: pointer;
+        }
+
+        .leader-carousel-dot.is-active {
+            width: 22px;
+            background: #F6821F;
+        }
+
+        @media (max-width: 640px) {
+            .leader-carousel-shell {
+                height: 190px;
+                border-radius: 14px;
+            }
+
+            .leader-carousel-content {
+                left: 18px;
+                right: 18px;
+                bottom: 26px;
+            }
+
+            .leader-carousel-title {
+                font-size: 17px;
+                line-height: 1.45;
+            }
+
+            .leader-carousel-tag {
+                font-size: 10px;
+                margin-bottom: 8px;
+            }
+
+            .leader-carousel-arrow {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -141,11 +303,44 @@
         </div>
     </nav>
 
+    <!-- 顶栏下方新闻轮播图 -->
+    <section class="leader-carousel">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div id="leader-carousel" class="leader-carousel-shell">
+                <a
+                    href="https://www.peopleapp.com/column/30052249032-500007515974"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="leader-carousel-slide is-active"
+                    aria-label="总书记的人民情怀 | 必须深刻把握中国式现代化对教育、科技、人才的需求"
+                >
+                    <img
+                        src="https://cdnjdphoto.aikan.pdnews.cn/sjbj-20260529/image/display/8096dfc3b3d94a2c950ada9e26c95047.png?x-oss-process=image/resize,w_750"
+                        alt="总书记的人民情怀"
+                        class="leader-carousel-image"
+                        loading="eager"
+                    >
+                    <div class="leader-carousel-mask"></div>
+                    <div class="leader-carousel-content">
+                        <div class="leader-carousel-tag">专题推荐</div>
+                        <h2 class="leader-carousel-title">
+                            总书记的人民情怀 | “必须深刻把握中国式现代化对教育、科技、人才的需求”
+                        </h2>
+                    </div>
+                </a>
+
+                <button type="button" class="leader-carousel-arrow leader-carousel-prev" aria-label="上一张">‹</button>
+                <button type="button" class="leader-carousel-arrow leader-carousel-next" aria-label="下一张">›</button>
+
+                <div class="leader-carousel-dots" aria-hidden="true"></div>
+            </div>
+        </div>
+    </section>
+
     <!-- 风格 Hero Section -->
     <section class="relative pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden bg-white border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
-                <!-- 左侧文本与状态面板 -->
                 <div class="w-full lg:w-[58%] text-left reveal-up active">
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.1] mb-6">
                         <span data-i18n="hero_title_1">大模型聚合</span><br>
@@ -170,9 +365,7 @@
                         </a>
                     </div>
 
-                    <!-- 动态数据统计面板 -->
                     <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 reveal-up active" style="transition-delay: 0.15s;">
-                        <!-- Token Stats -->
                         <div id="stat-tokens-card" class="bg-white border border-gray-200 rounded-xl p-5 shadow-cf-card hover:shadow-cf-card-hover transition-all relative overflow-hidden group cursor-pointer flex flex-col justify-center">
                             <div class="absolute -right-4 -top-4 opacity-[0.03] group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
                                 <svg class="w-32 h-32 text-cf-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v8l9-11h-7z"></path></svg>
@@ -183,7 +376,6 @@
                             </div>
                         </div>
                         
-                        <!-- Uptime Stats -->
                         <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-cf-card hover:shadow-cf-card-hover transition-all relative overflow-hidden group flex flex-col justify-center">
                             <div class="absolute -right-4 -top-4 opacity-[0.03] group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
                                 <svg class="w-32 h-32 text-cf-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -203,7 +395,6 @@
                     </div>
                 </div>
                 
-                <!-- 右侧装饰图 -->
                 <div class="w-full lg:w-[42%] reveal-up hidden md:block">
                     <div class="bg-white border border-gray-200 rounded-lg shadow-cf-card overflow-hidden">
                         <div class="bg-gray-50 border-b border-gray-200 px-4 py-3 flex items-center gap-2">
@@ -236,7 +427,7 @@
         </div>
     </section>
 
-    <!-- 风格 拓扑动画部分 -->
+   <!-- 风格 拓扑动画部分 -->
     <section id="flow-animation" class="py-20 md:py-28 bg-cf-navy relative overflow-hidden text-white">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
             <div class="text-center max-w-2xl mx-auto mb-16 reveal-up">
@@ -244,12 +435,10 @@
                 <p class="text-gray-400 text-base md:text-lg leading-relaxed" data-i18n="anim_desc">一站式智能网关调度，自动负载均衡，保障您的每一次请求都能得到最快、最稳定的响应。</p>
             </div>
 
-            <!-- 网络结构框 -->
             <div class="relative w-full bg-cf-navyLight border border-gray-700 rounded-lg px-2 py-20 md:p-16 shadow-2xl reveal-up">
                 <div class="line-track"></div>
 
                 <div class="flex items-center justify-between w-full relative z-20 px-4 md:px-10">
-                    
                     <div class="flex flex-col items-center justify-center relative w-1/4">
                         <div id="status-app" class="absolute -top-10 md:-top-14 whitespace-nowrap px-3 py-1 bg-gray-800 border border-gray-600 text-gray-200 text-xs font-semibold rounded opacity-0 transition-opacity duration-300">发起请求</div>
                         <div class="w-12 h-12 md:w-16 md:h-16 bg-white border border-gray-300 rounded flex items-center justify-center shadow-lg relative z-10">
@@ -272,7 +461,6 @@
                             </div>
                         </div>
 
-                        <!-- 核心调度 -->
                         <div id="gateway-box" class="w-16 h-16 md:w-20 md:h-20 bg-cf-orange border-2 border-transparent rounded flex items-center justify-center shadow-lg transition-all duration-500 relative z-10">
                             <svg class="w-6 h-6 md:w-10 md:h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                         </div>
@@ -401,7 +589,6 @@
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
-                <!-- 标准版定价 -->
                 <div class="flex flex-col bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-md transition-shadow reveal-up">
                     <div class="p-8 md:p-10 border-b border-gray-100 flex-1">
                         <h3 class="text-2xl font-bold text-gray-900 mb-2" data-i18n="price_card1_title">精选国内大模型</h3>
@@ -431,7 +618,6 @@
                     </div>
                 </div>
 
-                <!-- 高级版定价 (推荐) -->
                 <div class="flex flex-col bg-white border-t-4 border-t-cf-orange border-l border-r border-b border-gray-300 rounded-lg shadow-lg relative reveal-up" style="transition-delay: 0.1s;">
                     <div class="absolute top-0 right-0 -mt-3 mr-6">
                         <span class="px-3 py-1 text-xs font-bold text-white bg-cf-orange rounded" data-i18n="price_tag_rec">RECOMMENDED</span>
@@ -540,6 +726,89 @@
             document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
         });
 
+        // 顶栏下方新闻轮播图
+        (function initLeaderCarousel() {
+            const carousel = document.getElementById('leader-carousel');
+            if (!carousel) return;
+
+            const slides = Array.from(carousel.querySelectorAll('.leader-carousel-slide'));
+            const prevBtn = carousel.querySelector('.leader-carousel-prev');
+            const nextBtn = carousel.querySelector('.leader-carousel-next');
+            const dotsWrap = carousel.querySelector('.leader-carousel-dots');
+
+            if (!slides.length) return;
+
+            let current = 0;
+            let timer = null;
+            const interval = 5000;
+
+            slides.forEach((_, index) => {
+                const dot = document.createElement('span');
+                dot.className = 'leader-carousel-dot' + (index === 0 ? ' is-active' : '');
+                dot.addEventListener('click', () => {
+                    showSlide(index);
+                    restartAutoPlay();
+                });
+                dotsWrap.appendChild(dot);
+            });
+
+            const dots = Array.from(dotsWrap.querySelectorAll('.leader-carousel-dot'));
+
+            function showSlide(index) {
+                slides[current].classList.remove('is-active');
+                dots[current]?.classList.remove('is-active');
+
+                current = (index + slides.length) % slides.length;
+
+                slides[current].classList.add('is-active');
+                dots[current]?.classList.add('is-active');
+            }
+
+            function nextSlide() {
+                showSlide(current + 1);
+            }
+
+            function prevSlide() {
+                showSlide(current - 1);
+            }
+
+            function startAutoPlay() {
+                if (slides.length <= 1) return;
+                timer = setInterval(nextSlide, interval);
+            }
+
+            function stopAutoPlay() {
+                if (timer) clearInterval(timer);
+            }
+
+            function restartAutoPlay() {
+                stopAutoPlay();
+                startAutoPlay();
+            }
+
+            if (slides.length <= 1) {
+                if (prevBtn) prevBtn.style.display = 'none';
+                if (nextBtn) nextBtn.style.display = 'none';
+                if (dotsWrap) dotsWrap.style.display = 'none';
+                return;
+            }
+
+            prevBtn?.addEventListener('click', () => {
+                prevSlide();
+                restartAutoPlay();
+            });
+
+            nextBtn?.addEventListener('click', () => {
+                nextSlide();
+                restartAutoPlay();
+            });
+
+            carousel.addEventListener('mouseenter', stopAutoPlay);
+            carousel.addEventListener('mouseleave', startAutoPlay);
+
+            startAutoPlay();
+        })();
+
         // 动画流转逻辑
         const packet = document.getElementById('data-packet');
         const statusApp = document.getElementById('status-app');
@@ -612,7 +881,6 @@
         }
         setTimeout(runPipeline, 1000);
 
-        // --- 动态数据与 Odometer 动画控制代码 ---
         class Odometer {
             constructor(el) {
                 this.el = el;
@@ -621,7 +889,6 @@
             }
             update(newStr) {
                 newStr = String(newStr);
-                // 长度或结构变化时重新构建 DOM
                 if (this.currentStr.length !== newStr.length) {
                     this.el.innerHTML = '';
                     this.digits = [];
@@ -647,7 +914,6 @@
                     }
                     this.currentStr = newStr;
                 } else {
-                    // 仅更新变更的位
                     for (let i = 0; i < newStr.length; i++) {
                         let char = newStr[i];
                         let digitObj = this.digits[i];
@@ -673,7 +939,6 @@
         tokensCard.addEventListener('mouseleave', () => { statsState.showRawTokens = false; updateStatsUI(); });
 
         function formatTokensUI(tokens, lang) {
-            // 直接出原始数字，不再压成 亿/万/K/M/B
             return tokens.toLocaleString();
         }
 
@@ -702,7 +967,6 @@
                     statsState.seconds = data.running_seconds;
                 }
             } catch(e) {
-                // 异常情况下提供默认模拟值呈现效果
                 if(statsState.tokens === 0) {
                     statsState.tokens = 23100000000;
                     statsState.seconds = 123456789;
@@ -712,18 +976,16 @@
             updateStatsUI();
         }
 
-        // 持续滚动的自增计时器
         setInterval(() => {
             if (statsState.seconds > 0) {
                 statsState.seconds++;
                 updateStatsUI();
             }
         }, 1000);
-        // 每 3 秒轮询一次
+
         setInterval(fetchStats, 3000);
         setTimeout(fetchStats, 200);
 
-        // --- 轮播文字与国际化 ---
         let currentWordIdx = 0;
         let wordInterval;
         const rotateWords = {
