@@ -114,7 +114,7 @@
             white-space: pre;
         }
 
-        /* 顶栏下方新闻轮播图：第一屏视频，第二屏图片 */
+        /* 顶栏下方新闻轮播图：第 1 屏视频，第 2 屏图片，保留完整画面不裁切 */
         .leader-carousel {
             background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
             border-bottom: 1px solid #e5e7eb;
@@ -122,11 +122,10 @@
 
         .leader-carousel-shell {
             position: relative;
-            width: 100%;
-            height: clamp(320px, 45vw, 560px);
+            height: 360px;
             border-radius: 18px;
             overflow: hidden;
-            background: #05070b;
+            background: #050505;
             box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
         }
 
@@ -137,6 +136,7 @@
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.5s ease;
+            background: #050505;
         }
 
         .leader-carousel-slide.is-active {
@@ -146,47 +146,42 @@
 
         .leader-carousel-media,
         .leader-carousel-image,
-        .leader-video {
+        .leader-carousel-video {
             width: 100%;
             height: 100%;
             display: block;
-            background: #05070b;
         }
 
-        .leader-video {
+        .leader-carousel-image,
+        .leader-carousel-video {
             object-fit: contain;
             object-position: center center;
-        }
-
-        .leader-carousel-image {
-            object-fit: contain;
-            object-position: center center;
+            background: #050505;
         }
 
         .leader-carousel-slide:hover .leader-carousel-image {
-            transform: scale(1.015);
+            transform: none;
         }
 
         .leader-carousel-mask {
             position: absolute;
             inset: 0;
-            pointer-events: none;
             background: linear-gradient(
                 90deg,
-                rgba(5, 20, 36, 0.78) 0%,
-                rgba(5, 20, 36, 0.44) 44%,
+                rgba(5, 20, 36, 0.82) 0%,
+                rgba(5, 20, 36, 0.48) 45%,
                 rgba(5, 20, 36, 0.08) 100%
             );
+            pointer-events: none;
         }
 
         .leader-carousel-content {
             position: absolute;
             left: 36px;
-            right: 96px;
-            bottom: 34px;
+            right: 76px;
+            bottom: 36px;
             color: #ffffff;
-            z-index: 3;
-            pointer-events: none;
+            z-index: 2;
         }
 
         .leader-carousel-tag {
@@ -203,47 +198,44 @@
         }
 
         .leader-carousel-title {
-            max-width: 820px;
-            font-size: 28px;
+            max-width: 900px;
+            font-size: 30px;
             line-height: 1.35;
             font-weight: 800;
-            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.38);
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
         }
 
-        .leader-video-sound-btn {
+        .leader-carousel-sound {
             position: absolute;
             right: 18px;
-            bottom: 18px;
+            bottom: 50px;
             z-index: 5;
             display: none;
             align-items: center;
-            gap: 8px;
-            padding: 9px 13px;
+            gap: 6px;
+            padding: 8px 12px;
             border-radius: 999px;
-            color: #ffffff;
-            background: rgba(246, 130, 31, 0.94);
-            border: 0;
-            font-size: 13px;
+            background: rgba(255, 255, 255, 0.92);
+            color: #111827;
+            font-size: 12px;
             font-weight: 800;
-            line-height: 1.2;
-            cursor: pointer;
-            box-shadow: 0 8px 20px rgba(246, 130, 31, 0.30);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
             transition: transform 0.2s ease, background 0.2s ease;
         }
 
-        .leader-video-sound-btn:hover {
-            background: #E07018;
+        .leader-carousel-sound:hover {
+            background: #ffffff;
             transform: translateY(-1px);
         }
 
-        .leader-video-sound-btn.is-visible {
+        .leader-carousel-sound.is-visible {
             display: inline-flex;
         }
 
         .leader-carousel-arrow {
             position: absolute;
             top: 50%;
-            z-index: 5;
+            z-index: 3;
             width: 38px;
             height: 38px;
             border-radius: 999px;
@@ -275,11 +267,10 @@
             left: 0;
             right: 0;
             bottom: 14px;
-            z-index: 6;
+            z-index: 4;
             display: flex;
             justify-content: center;
             gap: 7px;
-            pointer-events: none;
         }
 
         .leader-carousel-dot {
@@ -289,7 +280,6 @@
             background: rgba(255, 255, 255, 0.45);
             transition: width 0.2s ease, background 0.2s ease;
             cursor: pointer;
-            pointer-events: auto;
         }
 
         .leader-carousel-dot.is-active {
@@ -297,10 +287,9 @@
             background: #F6821F;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 640px) {
             .leader-carousel-shell {
-                height: auto;
-                aspect-ratio: 16 / 9;
+                height: 210px;
                 border-radius: 14px;
             }
 
@@ -324,25 +313,10 @@
                 display: none;
             }
 
-            .leader-video-sound-btn {
+            .leader-carousel-sound {
                 right: 12px;
-                bottom: 54px;
-                padding: 7px 10px;
-                font-size: 11px;
-            }
-        }
-
-            .leader-video-tip {
-                left: 12px;
-                bottom: 12px;
-                max-width: calc(100% - 24px);
-                padding: 7px 10px;
-                font-size: 11px;
-            }
-
-            .leader-video-sound-btn {
-                right: 12px;
-                bottom: 48px;
+                top: 12px;
+                bottom: auto;
                 padding: 7px 10px;
                 font-size: 11px;
             }
@@ -373,20 +347,19 @@
         </div>
     </nav>
 
-    <!-- 顶栏下方新闻轮播图：第一屏视频，第二屏图片 -->
+    <!-- 顶栏下方新闻轮播图 -->
     <section class="leader-carousel">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div id="leader-carousel" class="leader-carousel-shell">
-                <div class="leader-carousel-slide is-active" aria-label="总书记的人民情怀">
+                <div class="leader-carousel-slide is-active" aria-label="总书记的人民情怀 | 必须深刻把握中国式现代化对教育、科技、人才的需求">
                     <video
-                        id="leader-video"
-                        class="leader-video"
-                        src="https://cdnjdout.aikan.pdnews.cn/zhbj-20260528/vod/content/output/1c6a1a3b5507439d98a54a04fa3c497f_opt.mp4#t=17"
-                        autoplay
+                        id="leader-carousel-video"
+                        class="leader-carousel-video"
+                        src="https://cdnjdout.aikan.pdnews.cn/zhbj-20260528/vod/content/output/1c6a1a3b5507439d98a54a04fa3c497f_opt.mp4"
+                        preload="auto"
                         playsinline
                         webkit-playsinline
-                        preload="auto"
-                        controls
+                        autoplay
                     ></video>
                     <div class="leader-carousel-mask"></div>
                     <div class="leader-carousel-content">
@@ -395,7 +368,7 @@
                             总书记的人民情怀 | “必须深刻把握中国式现代化对教育、科技、人才的需求”
                         </h2>
                     </div>
-                    <button id="leader-video-sound-btn" type="button" class="leader-video-sound-btn" aria-label="开启视频声音" data-i18n="leader_sound_btn">开启声音</button>
+                    <button id="leader-carousel-sound" type="button" class="leader-carousel-sound" data-i18n="leader_sound_btn">开启声音</button>
                 </div>
 
                 <a
@@ -817,7 +790,7 @@
             document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
         });
 
-        // 顶栏下方新闻轮播图：第一屏视频，第二屏图片。
+        // 顶栏下方新闻轮播图：第 1 屏视频，第 2 屏图片
         (function initLeaderCarousel() {
             const carousel = document.getElementById('leader-carousel');
             if (!carousel) return;
@@ -826,15 +799,15 @@
             const prevBtn = carousel.querySelector('.leader-carousel-prev');
             const nextBtn = carousel.querySelector('.leader-carousel-next');
             const dotsWrap = carousel.querySelector('.leader-carousel-dots');
-            const video = document.getElementById('leader-video');
-            const soundBtn = document.getElementById('leader-video-sound-btn');
-            const startAt = 17;
+            const video = document.getElementById('leader-carousel-video');
+            const soundBtn = document.getElementById('leader-carousel-sound');
 
             if (!slides.length) return;
 
             let current = 0;
             let timer = null;
-            const interval = 8000;
+            const interval = 5000;
+            const videoStartAt = 17;
 
             slides.forEach((_, index) => {
                 const dot = document.createElement('span');
@@ -843,33 +816,33 @@
                     showSlide(index);
                     restartAutoPlay();
                 });
-                dotsWrap?.appendChild(dot);
+                dotsWrap.appendChild(dot);
             });
 
-            const dots = dotsWrap ? Array.from(dotsWrap.querySelectorAll('.leader-carousel-dot')) : [];
+            const dots = Array.from(dotsWrap.querySelectorAll('.leader-carousel-dot'));
 
-            function seekVideoToStart() {
+            function setVideoStartTime() {
                 if (!video) return;
                 try {
-                    if (!Number.isNaN(video.duration) && video.currentTime < startAt) {
-                        video.currentTime = startAt;
+                    if (Number.isFinite(video.duration) && video.duration > videoStartAt) {
+                        video.currentTime = videoStartAt;
+                    } else if (!Number.isFinite(video.duration) || video.duration === 0) {
+                        video.currentTime = videoStartAt;
                     }
                 } catch (e) {}
             }
 
-            async function tryPlayVideoWithSound() {
+            async function playVideoWithFallback() {
                 if (!video) return;
-                video.muted = false;
-                video.volume = 1;
-                seekVideoToStart();
+                setVideoStartTime();
 
                 try {
+                    video.muted = false;
                     await video.play();
                     soundBtn?.classList.remove('is-visible');
                 } catch (e) {
-                    // 大多数现代浏览器会拦截“未交互的有声自动播放”。此处自动降级为静音播放，避免首页视频完全不动。
-                    video.muted = true;
                     try {
+                        video.muted = true;
                         await video.play();
                         soundBtn?.classList.add('is-visible');
                     } catch (err) {
@@ -878,19 +851,26 @@
                 }
             }
 
+            function pauseVideo() {
+                if (!video) return;
+                video.pause();
+            }
+
             function showSlide(index) {
-                slides[current]?.classList.remove('is-active');
+                slides[current].classList.remove('is-active');
                 dots[current]?.classList.remove('is-active');
 
                 current = (index + slides.length) % slides.length;
 
-                slides[current]?.classList.add('is-active');
+                slides[current].classList.add('is-active');
                 dots[current]?.classList.add('is-active');
 
-                if (current === 0) {
-                    tryPlayVideoWithSound();
-                } else if (video) {
-                    video.pause();
+                if (slides[current].contains(video)) {
+                    stopAutoPlay();
+                    playVideoWithFallback();
+                } else {
+                    pauseVideo();
+                    startAutoPlay();
                 }
             }
 
@@ -903,8 +883,7 @@
             }
 
             function startAutoPlay() {
-                if (slides.length <= 1) return;
-                stopAutoPlay();
+                if (slides.length <= 1 || timer || slides[current].contains(video)) return;
                 timer = setInterval(nextSlide, interval);
             }
 
@@ -924,6 +903,7 @@
                 if (prevBtn) prevBtn.style.display = 'none';
                 if (nextBtn) nextBtn.style.display = 'none';
                 if (dotsWrap) dotsWrap.style.display = 'none';
+                return;
             }
 
             prevBtn?.addEventListener('click', () => {
@@ -939,30 +919,30 @@
             carousel.addEventListener('mouseenter', stopAutoPlay);
             carousel.addEventListener('mouseleave', startAutoPlay);
 
-            video?.addEventListener('loadedmetadata', () => {
-                seekVideoToStart();
-                if (current === 0) tryPlayVideoWithSound();
-            }, { once: true });
+            if (video) {
+                video.addEventListener('loadedmetadata', setVideoStartTime, { once: true });
+                video.addEventListener('ended', nextSlide);
+                video.addEventListener('play', () => {
+                    if (video.currentTime < videoStartAt - 0.5) setVideoStartTime();
+                });
+            }
 
-            video?.addEventListener('play', seekVideoToStart, { once: true });
-
-            soundBtn?.addEventListener('click', async (event) => {
-                event.stopPropagation();
+            soundBtn?.addEventListener('click', async () => {
                 if (!video) return;
                 video.muted = false;
-                video.volume = 1;
-                seekVideoToStart();
                 try {
                     await video.play();
                     soundBtn.classList.remove('is-visible');
-                } catch (e) {}
+                } catch (e) {
+                    soundBtn.classList.add('is-visible');
+                }
             });
 
-            if (video && video.readyState >= 1) {
-                tryPlayVideoWithSound();
+            if (slides[current].contains(video)) {
+                playVideoWithFallback();
+            } else {
+                startAutoPlay();
             }
-
-            startAutoPlay();
         })();
 
         // 动画流转逻辑
@@ -1210,7 +1190,7 @@
             },
             'en': {
                 'nav_features': 'Features', 'nav_security': 'Security', 'nav_pricing': 'Pricing', 'nav_docs': 'Docs', 'nav_login': 'Log In', 'nav_signup': 'Sign Up',
-                'leader_tag': 'Featured', 'leader_title': 'The General Secretary's People-Centered Commitment | “We must deeply understand Chinese modernization's demand for education, science and technology, and talent”', 'leader_sound_btn': 'Turn on sound',
+                'leader_tag': 'Featured', 'leader_title': 'The General Secretary’s People-Centered Commitment | Grasping the Needs of Chinese Modernization in Education, Science, Technology, and Talent', 'leader_sound_btn': 'Enable Sound',
                 'hero_title_1': 'Global AI Network',
                 'hero_desc': 'Access global top AI models with just one line of code. Fully compatible with OpenAI protocol, enterprise-grade security, and built for production environments.',
                 'btn_register': 'Dashboard Login', 'btn_pricing': 'View Pricing',
