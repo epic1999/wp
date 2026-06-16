@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="scroll-smooth">
+<html lang="zh-TW" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>维云模型开放平台 - VSLLM 官方网站 | 稳定极速的大模型API聚合平台</title>
-    <meta name="description" content="维云模型开放平台(VSLLM)官方网站。全网聚合DeepSeek、Claude、Gemini、OpenAI等全球顶尖大模型接口。提供极速、稳定、安全的API中转与分发服务，全面兼容OpenAI协议，高可用SLA保障。">
-    <meta name="keywords" content="维云,维云模型开放平台,VSLLM,VSLLM官网,大模型API,大模型中转站,API分发,ChatGPT接口,Claude接口,Gemini接口,DeepSeek接口,智谱清言,高可用API,OpenAI兼容接口">
-    <meta name="baidu-site-verification" content="codeva-BGvh4KEAl4" />
+    <title>維雲模型開放平台 - VSLLM 官方網站 | 穩定極速的大模型API聚合平台</title>
+    <meta name="description" content="維雲模型開放平台(VSLLM)官方網站。全網聚合DeepSeek、Claude、Gemini、OpenAI等全球頂尖大模型接口。提供極速、穩定、安全的API中轉與分發服務，全面兼容OpenAI協議，高可用SLA保障。">
+    <meta name="keywords" content="維雲,維雲模型開放平台,VSLLM,VSLLM官網,大模型API,大模型中轉站,API分發,ChatGPT接口,Claude接口,Gemini接口,DeepSeek接口,Llama接口,高可用API,OpenAI兼容接口">
     <link rel="icon" href="https://img.scdn.io/i/6a05a96892419_1778755944.webp" type="image/webp">
     
     <style type="text/css">@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf) format('truetype');font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fMZhrib2Bg-4.ttf) format('truetype');font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYMZhrib2Bg-4.ttf) format('truetype');font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYMZhrib2Bg-4.ttf) format('truetype');font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:800;src:url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuDyYMZhrib2Bg-4.ttf) format('truetype');font-display:swap;}</style>
@@ -114,7 +113,7 @@
             white-space: pre;
         }
 
-        /* 顶栏下方新闻轮播图：第 1 屏视频，第 2 屏图片，保留完整画面不裁切 */
+        /* 頂欄下方新聞輪播圖 */
         .leader-carousel {
             background: linear-gradient(180deg, #ffffff 0%, #f9fafb 100%);
             border-bottom: 1px solid #e5e7eb;
@@ -145,22 +144,18 @@
         }
 
         .leader-carousel-media,
-        .leader-carousel-image,
-        .leader-carousel-video {
+        .leader-carousel-image {
             width: 100%;
             height: 100%;
             display: block;
-        }
-
-        .leader-carousel-image,
-        .leader-carousel-video {
-            object-fit: contain;
+            object-fit: cover;
             object-position: center center;
             background: #050505;
         }
 
         .leader-carousel-slide:hover .leader-carousel-image {
-            transform: none;
+            transform: scale(1.02);
+            transition: transform 6s ease;
         }
 
         .leader-carousel-mask {
@@ -203,33 +198,6 @@
             line-height: 1.35;
             font-weight: 800;
             text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
-        }
-
-        .leader-carousel-sound {
-            position: absolute;
-            right: 18px;
-            bottom: 50px;
-            z-index: 5;
-            display: none;
-            align-items: center;
-            gap: 6px;
-            padding: 8px 12px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.92);
-            color: #111827;
-            font-size: 12px;
-            font-weight: 800;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
-            transition: transform 0.2s ease, background 0.2s ease;
-        }
-
-        .leader-carousel-sound:hover {
-            background: #ffffff;
-            transform: translateY(-1px);
-        }
-
-        .leader-carousel-sound.is-visible {
-            display: inline-flex;
         }
 
         .leader-carousel-arrow {
@@ -312,20 +280,12 @@
             .leader-carousel-arrow {
                 display: none;
             }
-
-            .leader-carousel-sound {
-                right: 12px;
-                top: 12px;
-                bottom: auto;
-                padding: 7px 10px;
-                font-size: 11px;
-            }
         }
     </style>
 </head>
 <body class="text-gray-900 antialiased overflow-x-hidden selection:bg-cf-orange selection:text-white">
 
-    <!-- 风格 Top Navbar -->
+    <!-- 頂部導航 Navbar -->
     <nav class="sticky top-0 z-50 bg-white border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
@@ -334,74 +294,64 @@
                     <span class="font-bold text-xl tracking-tight text-gray-900" data-i18n="sec_title_new">VSLLM</span>
                 </div>
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#features" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors" data-i18n="nav_features">产品特性</a>
-                    <a href="#security" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors" data-i18n="nav_security">安全隐私</a>
-                    <a href="https://vsllm.com/pricing" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors" data-i18n="nav_pricing">定价方案</a>
-                    <a href="https://docs.newapi.pro/" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors" data-i18n="nav_docs">开发者文档</a>
+                    <a href="#features" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors" data-i18n="nav_features">產品特性</a>
+                    <a href="#security" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors" data-i18n="nav_security">安全隱私</a>
+                    <a href="https://vsllm.com/pricing" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors" data-i18n="nav_pricing">定價方案</a>
+                    <a href="https://docs.newapi.pro/" class="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors" data-i18n="nav_docs">開發者文檔</a>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <a href="https://vsllm.com/console" class="hidden sm:block text-sm font-medium text-gray-600 hover:text-gray-900" data-i18n="nav_login">登录</a>
-                    <a href="https://vsllm.com/console" class="px-4 py-2 text-sm font-bold text-white bg-cf-orange rounded hover:bg-cf-orangeHover transition-colors" data-i18n="nav_signup">注册</a>
+                    <a href="https://vsllm.com/console" class="hidden sm:block text-sm font-medium text-gray-600 hover:text-gray-900" data-i18n="nav_login">登錄</a>
+                    <a href="https://vsllm.com/console" class="px-4 py-2 text-sm font-bold text-white bg-cf-orange rounded hover:bg-cf-orangeHover transition-colors" data-i18n="nav_signup">註冊</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- 顶栏下方新闻轮播图 -->
+    <!-- 頂欄下方公告輪播圖 -->
     <section class="leader-carousel">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div id="leader-carousel" class="leader-carousel-shell">
-                <div class="leader-carousel-slide is-active" aria-label="总书记的人民情怀 | 必须深刻把握中国式现代化对教育、科技、人才的需求">
-                    <video
-                        id="leader-carousel-video"
-                        class="leader-carousel-video"
-                        src="https://cdnjdout.aikan.pdnews.cn/zhbj-20260528/vod/content/output/1c6a1a3b5507439d98a54a04fa3c497f_opt.mp4"
-                        preload="auto"
-                        playsinline
-                        webkit-playsinline
-                        autoplay
-                    ></video>
-                    <div class="leader-carousel-mask"></div>
-                    <div class="leader-carousel-content">
-                        <div class="leader-carousel-tag" data-i18n="leader_tag">专题推荐</div>
-                        <h2 class="leader-carousel-title" data-i18n="leader_title">
-                            总书记的人民情怀 | “必须深刻把握中国式现代化对教育、科技、人才的需求”
-                        </h2>
-                    </div>
-                    <button id="leader-carousel-sound" type="button" class="leader-carousel-sound" data-i18n="leader_sound_btn">开启声音</button>
-                </div>
-
-                <a
-                    href="https://www.peopleapp.com/column/30052249032-500007515974"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="leader-carousel-slide"
-                    aria-label="总书记的人民情怀 | 必须深刻把握中国式现代化对教育、科技、人才的需求"
-                >
+                <a href="javascript:void(0)" class="leader-carousel-slide is-active" aria-label="香港節點擴容完成">
                     <img
-                        src="https://cdnjdphoto.aikan.pdnews.cn/sjbj-20260529/image/display/8096dfc3b3d94a2c950ada9e26c95047.png?x-oss-process=image/resize,w_750"
-                        alt="总书记的人民情怀"
+                        src="https://images.unsplash.com/photo-1542004143822-b4c6e9381cb9?auto=format&fit=crop&w=1200&q=80"
+                        alt="Hong Kong Node Expansion"
                         class="leader-carousel-image"
                         loading="eager"
                     >
                     <div class="leader-carousel-mask"></div>
                     <div class="leader-carousel-content">
-                        <div class="leader-carousel-tag" data-i18n="leader_tag">专题推荐</div>
+                        <div class="leader-carousel-tag" data-i18n="leader_tag">平台公告</div>
                         <h2 class="leader-carousel-title" data-i18n="leader_title">
-                            总书记的人民情怀 | “必须深刻把握中国式现代化对教育、科技、人才的需求”
+                            VSLLM 亞太核心節點（香港）擴容完成 | 全面提升高並發處理能力與極速響應體驗
                         </h2>
                     </div>
                 </a>
 
-                <button type="button" class="leader-carousel-arrow leader-carousel-prev" aria-label="上一张">‹</button>
-                <button type="button" class="leader-carousel-arrow leader-carousel-next" aria-label="下一张">›</button>
+                <a href="javascript:void(0)" class="leader-carousel-slide" aria-label="分佈式邊緣網絡">
+                    <img
+                        src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80"
+                        alt="Global Network Upgrade"
+                        class="leader-carousel-image"
+                        loading="eager"
+                    >
+                    <div class="leader-carousel-mask"></div>
+                    <div class="leader-carousel-content">
+                        <div class="leader-carousel-tag" data-i18n="leader_tag_2">服務升級</div>
+                        <h2 class="leader-carousel-title" data-i18n="leader_title_2">
+                            企業級 SLA 穩定保障 | 全球分佈式邊緣網絡為您的 AI 業務保駕護航
+                        </h2>
+                    </div>
+                </a>
+
+                <button type="button" class="leader-carousel-arrow leader-carousel-prev" aria-label="上一張">‹</button>
+                <button type="button" class="leader-carousel-arrow leader-carousel-next" aria-label="下一張">›</button>
 
                 <div class="leader-carousel-dots" aria-hidden="true"></div>
             </div>
         </div>
     </section>
 
-    <!-- 风格 Hero Section -->
+    <!-- Hero Section -->
     <section class="relative pt-12 pb-16 md:pt-20 md:pb-24 overflow-hidden bg-white border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
@@ -409,23 +359,23 @@
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.1] mb-6">
                         <span data-i18n="hero_title_1">大模型聚合</span><br>
                         <span class="inline-grid items-center justify-start align-middle mt-2">
-                            <span class="col-start-1 row-start-1 opacity-0 pointer-events-none pr-2" id="word-placeholder">稳定供应</span>
+                            <span class="col-start-1 row-start-1 opacity-0 pointer-events-none pr-2" id="word-placeholder">穩定供應</span>
                             <span class="col-start-1 row-start-1 w-full flex justify-start text-left">
-                                <span id="rotating-word" class="text-cf-orange block will-change-transform">稳定供应</span>
+                                <span id="rotating-word" class="text-cf-orange block will-change-transform">穩定供應</span>
                             </span>
                         </span>
                     </h1>
                     
                     <p class="text-base md:text-lg text-gray-600 mb-8 leading-relaxed max-w-2xl" data-i18n="hero_desc">
-                        只需一行代码，无缝接入全球顶级 AI 模型。全面兼容协议，极速响应，专为生产环境打造的高可用分发平台。为您提供的性能与安全保障。
+                        只需一行代碼，無縫接入全球頂級 AI 模型。全面兼容協議，極速響應，專為生產環境打造的高可用分發平台。基於香港核心節點，為您提供頂尖的性能與安全保障。
                     </p>
 
                     <div class="flex flex-col sm:flex-row items-start gap-4 mb-4">
                         <a href="https://vsllm.com/console" class="w-full sm:w-auto px-8 py-3.5 text-base font-bold text-white bg-cf-orange hover:bg-cf-orangeHover rounded transition-colors text-center" data-i18n="btn_register">
-                            登录 / 注册
+                            登錄 / 註冊
                         </a>
                         <a href="https://vsllm.com/pricing" class="w-full sm:w-auto px-8 py-3.5 text-base font-semibold text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 rounded transition-colors text-center" data-i18n="btn_pricing">
-                            定价方案
+                            定價方案
                         </a>
                     </div>
 
@@ -434,7 +384,7 @@
                             <div class="absolute -right-4 -top-4 opacity-[0.03] group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
                                 <svg class="w-32 h-32 text-cf-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v8l9-11h-7z"></path></svg>
                             </div>
-                            <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2" data-i18n="stat_tokens">已处理 Tokens</p>
+                            <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2" data-i18n="stat_tokens">已處理 Tokens</p>
                             <div id="tokens-odometer" class="text-2xl sm:text-3xl font-extrabold text-gray-900 font-mono tracking-tight text-cf-orange h-8 flex items-center">
                                 --
                             </div>
@@ -444,7 +394,7 @@
                             <div class="absolute -right-4 -top-4 opacity-[0.03] group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
                                 <svg class="w-32 h-32 text-cf-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             </div>
-                            <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2" data-i18n="stat_uptime">平台安全运行时间</p>
+                            <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2" data-i18n="stat_uptime">平台安全運行時間</p>
                             <div id="uptime-odometer" class="text-xl sm:text-[1.35rem] font-extrabold text-gray-900 font-mono tracking-tight h-8 flex items-center whitespace-nowrap">
                                 --
                             </div>
@@ -453,7 +403,7 @@
                                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                                   <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                                 </span>
-                                <span data-i18n="stat_status">节点状态极佳</span>
+                                <span data-i18n="stat_status">節點狀態極佳</span>
                             </div>
                         </div>
                     </div>
@@ -469,7 +419,7 @@
                         </div>
                         <div class="p-6 text-sm font-mono leading-relaxed text-gray-700 h-64 flex flex-col justify-center">
                             <div class="flex justify-between border-b border-gray-100 pb-2 mb-3">
-                                <span class="text-gray-500">Global Network</span>
+                                <span class="text-gray-500">Global Network (HK Node)</span>
                                 <strong class="text-green-600">Online</strong>
                             </div>
                             <div class="flex justify-between border-b border-gray-100 pb-2 mb-3">
@@ -491,12 +441,12 @@
         </div>
     </section>
 
-   <!-- 风格 拓扑动画部分 -->
+   <!-- 拓撲動畫部分 -->
     <section id="flow-animation" class="py-20 md:py-28 bg-cf-navy relative overflow-hidden text-white">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
             <div class="text-center max-w-2xl mx-auto mb-16 reveal-up">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight" data-i18n="anim_title">极简流转，高效分发</h2>
-                <p class="text-gray-400 text-base md:text-lg leading-relaxed" data-i18n="anim_desc">一站式智能网关调度，自动负载均衡，保障您的每一次请求都能得到最快、最稳定的响应。</p>
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight" data-i18n="anim_title">極簡流轉，高效分發</h2>
+                <p class="text-gray-400 text-base md:text-lg leading-relaxed" data-i18n="anim_desc">一站式智能網關調度，自動負載均衡，保障您的每一次請求都能得到最快、最穩定的響應。</p>
             </div>
 
             <div class="relative w-full bg-cf-navyLight border border-gray-700 rounded-lg px-2 py-20 md:p-16 shadow-2xl reveal-up">
@@ -504,23 +454,23 @@
 
                 <div class="flex items-center justify-between w-full relative z-20 px-4 md:px-10">
                     <div class="flex flex-col items-center justify-center relative w-1/4">
-                        <div id="status-app" class="absolute -top-10 md:-top-14 whitespace-nowrap px-3 py-1 bg-gray-800 border border-gray-600 text-gray-200 text-xs font-semibold rounded opacity-0 transition-opacity duration-300">发起请求</div>
+                        <div id="status-app" class="absolute -top-10 md:-top-14 whitespace-nowrap px-3 py-1 bg-gray-800 border border-gray-600 text-gray-200 text-xs font-semibold rounded opacity-0 transition-opacity duration-300">發起請求</div>
                         <div class="w-12 h-12 md:w-16 md:h-16 bg-white border border-gray-300 rounded flex items-center justify-center shadow-lg relative z-10">
                             <svg class="w-5 h-5 md:w-8 md:h-8 text-cf-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                         </div>
-                        <span class="mt-4 md:mt-5 text-xs md:text-sm font-bold text-gray-300 text-center" data-i18n="anim_app">业务应用</span>
+                        <span class="mt-4 md:mt-5 text-xs md:text-sm font-bold text-gray-300 text-center" data-i18n="anim_app">業務應用</span>
                     </div>
 
                     <div class="flex flex-col items-center justify-center relative w-1/3">
                         <div id="cost-popup" class="absolute bottom-[calc(100%+16px)] left-1/2 -translate-x-1/2 bg-white border border-gray-200 shadow-xl rounded p-3 md:p-4 w-40 md:w-48 opacity-0 transform scale-95 transition-all duration-400 z-30 pointer-events-none">
-                            <div class="text-[10px] md:text-xs text-gray-500 mb-2 font-bold uppercase tracking-wider" data-i18n="anim_calc">网关处理中</div>
+                            <div class="text-[10px] md:text-xs text-gray-500 mb-2 font-bold uppercase tracking-wider" data-i18n="anim_calc">網關處理中</div>
                             <div class="flex justify-between items-center text-xs md:text-sm mb-1">
                                 <span class="text-gray-600 font-semibold">Status:</span>
                                 <span class="text-green-600 font-mono font-bold">200 OK</span>
                             </div>
                             <div class="w-full h-px bg-gray-200 my-2"></div>
                             <div class="flex justify-between items-center text-xs md:text-sm font-bold">
-                                <span class="text-gray-600 font-semibold" data-i18n="anim_fee">节点延迟:</span>
+                                <span class="text-gray-600 font-semibold" data-i18n="anim_fee">節點延遲:</span>
                                 <span class="text-cf-orange font-mono">12ms</span>
                             </div>
                         </div>
@@ -529,11 +479,11 @@
                             <svg class="w-6 h-6 md:w-10 md:h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                         </div>
                         <span class="mt-4 md:mt-5 text-xs md:text-sm font-bold text-white text-center whitespace-nowrap" data-i18n="anim_gateway">核心路由</span>
-                        <span class="text-[9px] md:text-xs text-gray-400 mt-1 hidden md:block whitespace-nowrap" data-i18n="anim_encryption">TLS 1.3 强加密传输</span>
+                        <span class="text-[9px] md:text-xs text-gray-400 mt-1 hidden md:block whitespace-nowrap" data-i18n="anim_encryption">TLS 1.3 強加密傳輸</span>
                     </div>
 
                     <div class="flex flex-col items-center justify-center relative w-1/4">
-                        <div id="status-provider" class="absolute -top-10 md:-top-14 whitespace-nowrap px-3 py-1 bg-gray-800 border border-gray-600 text-green-400 text-xs font-semibold rounded opacity-0 transition-opacity duration-300">极速响应</div>
+                        <div id="status-provider" class="absolute -top-10 md:-top-14 whitespace-nowrap px-3 py-1 bg-gray-800 border border-gray-600 text-green-400 text-xs font-semibold rounded opacity-0 transition-opacity duration-300">極速響應</div>
                         <div id="provider-box" class="w-12 h-12 md:w-16 md:h-16 bg-white border border-gray-300 rounded flex items-center justify-center shadow-lg relative z-10 transition-all duration-300">
                             <svg class="w-5 h-5 md:w-8 md:h-8 text-cf-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                         </div>
@@ -545,27 +495,27 @@
         </div>
     </section>
 
-    <!-- 风格 安全部分 -->
+    <!-- 安全隱私部分 -->
     <section id="security" class="py-20 md:py-28 bg-white relative overflow-hidden border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center gap-16">
             <div class="w-full md:w-1/2 reveal-up">
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight" data-i18n="sec_title">安全合规<br>与数据隐私</h2>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight" data-i18n="sec_title">安全合規<br>與數據隱私</h2>
                 <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-8" data-i18n="sec_desc">
-                    您的每一次 API 调用与数据流均经过严密加密处理。<br>
-                    <span class="text-cf-orange font-bold">我们承诺绝不存储任何业务数据，确保零痕迹。</span>
+                    您的每一次 API 調用與數據流均經過嚴密加密處理。<br>
+                    <span class="text-cf-orange font-bold">我們承諾絕不存儲任何業務數據，確保零痕跡。服務器部署於香港，受完善的數據隱私法例保護。</span>
                 </p>
                 <ul class="space-y-4">
                     <li class="flex items-center gap-3">
                         <svg class="w-6 h-6 text-cf-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span class="text-gray-800 font-medium text-sm md:text-base" data-i18n="sec_point1">TLS 1.3 全链路加密传输</span>
+                        <span class="text-gray-800 font-medium text-sm md:text-base" data-i18n="sec_point1">TLS 1.3 全鏈路加密傳輸</span>
                     </li>
                     <li class="flex items-center gap-3">
                         <svg class="w-6 h-6 text-cf-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span class="text-gray-800 font-medium text-sm md:text-base" data-i18n="sec_point2">无日志记录策略 (No-Log Policy)</span>
+                        <span class="text-gray-800 font-medium text-sm md:text-base" data-i18n="sec_point2">無日誌記錄策略 (No-Log Policy)</span>
                     </li>
                     <li class="flex items-center gap-3">
                         <svg class="w-6 h-6 text-cf-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span class="text-gray-800 font-medium text-sm md:text-base" data-i18n="sec_point3"> DDoS 边缘防护体系</span>
+                        <span class="text-gray-800 font-medium text-sm md:text-base" data-i18n="sec_point3"> DDoS 邊緣防護體系</span>
                     </li>
                 </ul>
             </div>
@@ -580,13 +530,13 @@
                         </div>
                         <div class="text-[11px] text-gray-400 font-mono flex items-center gap-2">
                             <svg class="w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                            Connection Secure
+                            Connection Secure (HKG Node)
                         </div>
                     </div>
                     <div class="p-6 text-[12px] md:text-sm font-mono leading-relaxed text-gray-300 h-64 overflow-y-auto custom-scrollbar">
                         <p class="text-cf-orange">>>> INITIALIZING SECURE EDGE TUNNEL...</p>
                         <p class="mt-2 text-gray-400">[OK] Handshake established: TLSv1.3 / TLS_AES_256_GCM_SHA384</p>
-                        <p class="text-gray-400">[OK] Peer certificate verified</p>
+                        <p class="text-gray-400">[OK] Peer certificate verified (HK Data Center)</p>
                         <br>
                         <p class="text-cf-blue font-bold">>>> INCOMING REQUEST (App -> Edge Gateway)</p>
                         <p class="text-gray-300">Payload: Encrypted block (Length: 4096 bytes)</p>
@@ -603,12 +553,12 @@
         </div>
     </section>
 
-    <!-- 风格 产品特性 -->
+    <!-- 產品特性 -->
     <section id="features" class="py-20 md:py-28 bg-gray-50 border-b border-gray-200 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16 md:mb-20 reveal-up">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 tracking-tight" data-i18n="feat_main_title">核心优势</h2>
-                <p class="text-gray-600 text-base md:text-lg" data-i18n="feat_main_desc">专为开发者与现代打造的全球化基础设施，让 AI 能力触手可及。</p>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 tracking-tight" data-i18n="feat_main_title">核心優勢</h2>
+                <p class="text-gray-600 text-base md:text-lg" data-i18n="feat_main_desc">專為開發者與現代企業打造的全球化基礎設施，讓 AI 能力觸手可及。</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
@@ -617,61 +567,61 @@
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-3" data-i18n="feat_1_title">全球模型聚合</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed" data-i18n="feat_1_desc">一个接口通行全网。深度集成各类开源与商业大模型，化繁为简，无需维护多个供应商账号即可畅享顶级 AI 能力。</p>
+                    <p class="text-gray-600 text-sm leading-relaxed" data-i18n="feat_1_desc">一個接口通行全網。深度集成全球頂尖大模型，化繁為簡，無需維護多個供應商賬號即可暢享頂級 AI 能力。</p>
                 </div>
                 <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-cf-card hover:shadow-cf-card-hover transition-shadow duration-300 reveal-up" style="transition-delay: 0.1s;">
                     <div class="mb-5 text-cf-orange">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v8l9-11h-7z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-i18n="feat_2_title">极致性能与性价比</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed" data-i18n="feat_2_desc">得益于我们强大的边缘节点池与独家调度算法，大幅降低算力冗余成本，为您提供极具竞争力的透明计费模式。</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-i18n="feat_2_title">極致性能與性價比</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed" data-i18n="feat_2_desc">得益於我們位於香港的強大邊緣節點池與獨家調度算法，大幅降低算力冗餘成本，為您提供極具競爭力的透明計費模式。</p>
                 </div>
                 <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-cf-card hover:shadow-cf-card-hover transition-shadow duration-300 reveal-up" style="transition-delay: 0.2s;">
                     <div class="mb-5 text-cf-orange">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-i18n="feat_3_title">协议无缝兼容</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed" data-i18n="feat_3_desc">全面兼容现有生态体系。只需修改一行 Base URL 并替换 API Key，即可将现有系统零成本平滑迁移至维云平台。</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-i18n="feat_3_title">協議無縫兼容</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed" data-i18n="feat_3_desc">全面兼容現有生態體系。只需修改一行 Base URL 並替換 API Key，即可將現有系統零成本平滑遷移至維雲平台。</p>
                 </div>
                 <div class="bg-white p-8 rounded-lg border border-gray-200 shadow-cf-card hover:shadow-cf-card-hover transition-shadow duration-300 reveal-up" style="transition-delay: 0.3s;">
                     <div class="mb-5 text-cf-orange">
                         <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                     </div>
-                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-i18n="feat_4_title">高并发分布 SLA</h3>
-                    <p class="text-gray-600 text-sm leading-relaxed" data-i18n="feat_4_desc">多区域云端架构部署，智能负载均衡自动剔除失效节点，轻松应对高并发场景，为生产环境提供 99.9% 的稳定保障。</p>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3" data-i18n="feat_4_title">高並發分佈 SLA</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed" data-i18n="feat_4_desc">多區域雲端架構部署，智能負載均衡自動剔除失效節點，輕鬆應對高並發場景，為生產環境提供 99.9% 的穩定保障。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 风格 定价策略 -->
+    <!-- 定價策略 -->
     <section id="pricing" class="py-20 md:py-28 bg-white relative border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16 md:mb-20 reveal-up">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 tracking-tight" data-i18n="price_title">简单透明的计费模式</h2>
-                <p class="text-gray-600 text-base md:text-lg" data-i18n="price_desc">无任何隐藏费用，充值即用，按实际消耗精确计费。</p>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 tracking-tight" data-i18n="price_title">簡單透明的計費模式</h2>
+                <p class="text-gray-600 text-base md:text-lg" data-i18n="price_desc">無任何隱藏費用，充值即用，按實際消耗精確計費。</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
                 <div class="flex flex-col bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-md transition-shadow reveal-up">
                     <div class="p-8 md:p-10 border-b border-gray-100 flex-1">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2" data-i18n="price_card1_title">精选国内大模型</h3>
-                        <p class="text-sm text-gray-500 mb-6 h-5" data-i18n="price_card1_sub">日常文本生成、内容总结、智能助理</p>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2" data-i18n="price_card1_title">精選標準大模型</h3>
+                        <p class="text-sm text-gray-500 mb-6 h-5" data-i18n="price_card1_sub">日常文本生成、內容總結、智能助理</p>
                         <div class="mb-8">
-                            <span class="text-4xl font-extrabold text-gray-900" data-i18n="price_standard">标准计费</span>
+                            <span class="text-4xl font-extrabold text-gray-900" data-i18n="price_standard">標準計費</span>
                         </div>
                         <ul class="space-y-4">
                             <li class="flex items-start gap-3">
                                 <svg class="w-5 h-5 text-green-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card1_p1">按量付费，拒绝隐藏成本</span>
+                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card1_p1">按量付費，拒絕隱藏成本</span>
                             </li>
                             <li class="flex items-start gap-3">
                                 <svg class="w-5 h-5 text-green-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card1_p2">聚合国内头部 AI 大厂最新模型</span>
+                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card1_p2">聚合全球頭部標準 AI 模型</span>
                             </li>
                             <li class="flex items-start gap-3">
                                 <svg class="w-5 h-5 text-green-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card1_p3">极速响应延迟保证</span>
+                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card1_p3">極速響應延遲保證</span>
                             </li>
                         </ul>
                     </div>
@@ -687,29 +637,29 @@
                         <span class="px-3 py-1 text-xs font-bold text-white bg-cf-orange rounded" data-i18n="price_tag_rec">RECOMMENDED</span>
                     </div>
                     <div class="p-8 md:p-10 border-b border-gray-100 flex-1">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2" data-i18n="price_card2_title">全球顶尖大模型</h3>
-                        <p class="text-sm text-gray-500 mb-6 h-5" data-i18n="price_card2_sub">复杂推理、代码编写、深度数据分析</p>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2" data-i18n="price_card2_title">全球頂尖大模型</h3>
+                        <p class="text-sm text-gray-500 mb-6 h-5" data-i18n="price_card2_sub">複雜推理、代碼編寫、深度數據分析</p>
                         <div class="mb-8">
-                            <span class="text-4xl font-extrabold text-gray-900" data-i18n="price_premium">超高性价比</span>
+                            <span class="text-4xl font-extrabold text-gray-900" data-i18n="price_premium">超高性價比</span>
                         </div>
                         <ul class="space-y-4">
                             <li class="flex items-start gap-3">
                                 <svg class="w-5 h-5 text-cf-orange shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card2_p1">提供极具竞争力的价格</span>
+                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card2_p1">提供極具競爭力的價格</span>
                             </li>
                             <li class="flex items-start gap-3">
                                 <svg class="w-5 h-5 text-cf-orange shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card2_p2">支持 Function Calling 等全部高级特性</span>
+                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card2_p2">支持 Function Calling 等全部高級特性</span>
                             </li>
                             <li class="flex items-start gap-3">
                                 <svg class="w-5 h-5 text-cf-orange shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card2_p3">突破频率限制，高并发稳定可用</span>
+                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card2_p3">突破頻率限制，高並發穩定可用</span>
                             </li>
                         </ul>
                     </div>
                     <div class="p-8 bg-gray-50 rounded-b-lg">
                         <a href="https://vsllm.com/console" class="block w-full py-3 px-6 text-center text-sm font-bold text-white bg-cf-orange rounded hover:bg-cf-orangeHover transition-colors" data-i18n="btn_join_premium">
-                            注册体验顶尖模型
+                            註冊體驗頂尖模型
                         </a>
                     </div>
                 </div>
@@ -717,59 +667,59 @@
         </div>
     </section>
 
-    <!-- 服务状态 -->
+    <!-- 服務狀態 -->
     <section id="status" class="py-16 md:py-24 bg-gray-50 relative border-b border-gray-200">
         <div class="max-w-4xl mx-auto px-4 sm:px-6">
             <div class="text-center mb-10 reveal-up">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3 tracking-tight" data-i18n="status_title">系统运行状态</h2>
-                <p class="text-gray-600 text-sm md:text-base" data-i18n="status_desc">由第三方独立监控，确保我们的网关节点可用性始终处于行业顶尖水平。</p>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3 tracking-tight" data-i18n="status_title">系統運行狀態</h2>
+                <p class="text-gray-600 text-sm md:text-base" data-i18n="status_desc">由第三方獨立監控，確保我們的網關節點可用性始終處於行業頂尖水平。</p>
             </div>
             
             <div class="p-1 rounded-lg bg-white border border-gray-300 shadow-sm transition-shadow duration-300 reveal-up" style="transition-delay: 0.1s;">
                 <a href="https://lmspeed.net/zh/provider/vsllm-com" target="_blank" rel="noopener noreferrer" class="block rounded overflow-hidden hover:opacity-95 transition-opacity">
-                    <img src="https://lmspeed.net/api/og/provider/vsllm-com/health" alt="维云模型开放平台 Service Status" class="w-full h-auto" loading="lazy" />
+                    <img src="https://lmspeed.net/api/og/provider/vsllm-com/health" alt="維雲模型開放平台 Service Status" class="w-full h-auto" loading="lazy" />
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- 风格 Footer -->
+    <!-- Footer -->
     <footer class="bg-cf-navy text-gray-300 pt-16 pb-8 border-t border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                 <div class="md:col-span-2">
                     <div class="flex items-center gap-3 mb-6">
-                        <img src="https://img.scdn.io/i/6a05a96892419_1778755944.webp" alt="维云 Logo" class="w-8 h-8 rounded shadow-sm">
-                        <span class="text-xl font-bold text-white tracking-tight">VSLLM 维云模型平台</span>
+                        <img src="https://img.scdn.io/i/6a05a96892419_1778755944.webp" alt="維雲 Logo" class="w-8 h-8 rounded shadow-sm">
+                        <span class="text-xl font-bold text-white tracking-tight">VSLLM 維雲模型平台</span>
                     </div>
                     <p class="text-gray-400 text-sm leading-relaxed max-w-sm" data-i18n="footer_desc">
-                        维云模型开放平台 (VSLLM)，致力于为开发者提供极速、稳定、安全的全球大模型 API 聚合分发服务。
+                        維雲模型開放平台 (VSLLM)，總部位於香港，致力於為開發者提供極速、穩定、安全的全球大模型 API 聚合分發服務。
                     </p>
                 </div>
                 
                 <div>
                     <h4 class="font-bold text-white mb-5 text-sm uppercase tracking-wider" data-i18n="footer_dev">Developers</h4>
                     <ul class="space-y-3.5 text-sm">
-                        <li><a href="https://vsllm.com/" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_console">控制台首页</a></li>
-                        <li><a href="https://vsllm.com/docs" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_docs">API 接入文档</a></li>
-                        <li><a href="https://lmspeed.net/zh/provider/vsllm-com" class="text-gray-400 hover:text-white transition-colors">系统状态 (Status)</a></li>
+                        <li><a href="https://vsllm.com/" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_console">控制台首頁</a></li>
+                        <li><a href="https://vsllm.com/docs" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_docs">API 接入文檔</a></li>
+                        <li><a href="https://lmspeed.net/zh/provider/vsllm-com" class="text-gray-400 hover:text-white transition-colors">系統狀態 (Status)</a></li>
                     </ul>
                 </div>
 
                 <div>
                     <h4 class="font-bold text-white mb-5 text-sm uppercase tracking-wider" data-i18n="footer_about">Company</h4>
                     <ul class="space-y-3.5 text-sm">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_tos">服务条款 (Terms)</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_privacy">隐私政策 (Privacy)</a></li>
-                        <li><a href="https://vsllm.com/" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_ticket">联系与支持</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_tos">服務條款 (Terms)</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_privacy">隱私政策 (Privacy)</a></li>
+                        <li><a href="https://vsllm.com/" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_ticket">聯繫與支持</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500">
-                <p>© 2026 维云模型开放平台 (VSLLM). All Rights Reserved.</p>
+                <p>© 2026 維雲模型開放平台 (VSLLM). All Rights Reserved.</p>
                 <div class="mt-4 md:mt-0 flex space-x-4">
-                    <span data-i18n="footer_slogan">大模型 API 聚合分发平台</span>
+                    <span data-i18n="footer_slogan">大模型 API 聚合分發平台</span>
                 </div>
             </div>
         </div>
@@ -790,7 +740,7 @@
             document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
         });
 
-        // 顶栏下方新闻轮播图：第 1 屏视频，第 2 屏图片
+        // 頂欄下方公告輪播圖
         (function initLeaderCarousel() {
             const carousel = document.getElementById('leader-carousel');
             if (!carousel) return;
@@ -799,15 +749,12 @@
             const prevBtn = carousel.querySelector('.leader-carousel-prev');
             const nextBtn = carousel.querySelector('.leader-carousel-next');
             const dotsWrap = carousel.querySelector('.leader-carousel-dots');
-            const video = document.getElementById('leader-carousel-video');
-            const soundBtn = document.getElementById('leader-carousel-sound');
 
             if (!slides.length) return;
 
             let current = 0;
             let timer = null;
             const interval = 5000;
-            const videoStartAt = 17;
 
             slides.forEach((_, index) => {
                 const dot = document.createElement('span');
@@ -821,57 +768,16 @@
 
             const dots = Array.from(dotsWrap.querySelectorAll('.leader-carousel-dot'));
 
-            function setVideoStartTime() {
-                if (!video) return;
-                try {
-                    if (Number.isFinite(video.duration) && video.duration > videoStartAt) {
-                        video.currentTime = videoStartAt;
-                    } else if (!Number.isFinite(video.duration) || video.duration === 0) {
-                        video.currentTime = videoStartAt;
-                    }
-                } catch (e) {}
-            }
-
-            async function playVideoWithFallback() {
-                if (!video) return;
-                setVideoStartTime();
-
-                try {
-                    video.muted = false;
-                    await video.play();
-                    soundBtn?.classList.remove('is-visible');
-                } catch (e) {
-                    try {
-                        video.muted = true;
-                        await video.play();
-                        soundBtn?.classList.add('is-visible');
-                    } catch (err) {
-                        soundBtn?.classList.add('is-visible');
-                    }
-                }
-            }
-
-            function pauseVideo() {
-                if (!video) return;
-                video.pause();
-            }
-
             function showSlide(index) {
                 slides[current].classList.remove('is-active');
-                dots[current]?.classList.remove('is-active');
+                if(dots[current]) dots[current].classList.remove('is-active');
 
                 current = (index + slides.length) % slides.length;
 
                 slides[current].classList.add('is-active');
-                dots[current]?.classList.add('is-active');
-
-                if (slides[current].contains(video)) {
-                    stopAutoPlay();
-                    playVideoWithFallback();
-                } else {
-                    pauseVideo();
-                    startAutoPlay();
-                }
+                if(dots[current]) dots[current].classList.add('is-active');
+                
+                restartAutoPlay();
             }
 
             function nextSlide() {
@@ -883,7 +789,7 @@
             }
 
             function startAutoPlay() {
-                if (slides.length <= 1 || timer || slides[current].contains(video)) return;
+                if (slides.length <= 1 || timer) return;
                 timer = setInterval(nextSlide, interval);
             }
 
@@ -919,33 +825,10 @@
             carousel.addEventListener('mouseenter', stopAutoPlay);
             carousel.addEventListener('mouseleave', startAutoPlay);
 
-            if (video) {
-                video.addEventListener('loadedmetadata', setVideoStartTime, { once: true });
-                video.addEventListener('ended', nextSlide);
-                video.addEventListener('play', () => {
-                    if (video.currentTime < videoStartAt - 0.5) setVideoStartTime();
-                });
-            }
-
-            soundBtn?.addEventListener('click', async () => {
-                if (!video) return;
-                video.muted = false;
-                try {
-                    await video.play();
-                    soundBtn.classList.remove('is-visible');
-                } catch (e) {
-                    soundBtn.classList.add('is-visible');
-                }
-            });
-
-            if (slides[current].contains(video)) {
-                playVideoWithFallback();
-            } else {
-                startAutoPlay();
-            }
+            startAutoPlay();
         })();
 
-        // 动画流转逻辑
+        // 動畫流轉邏輯
         const packet = document.getElementById('data-packet');
         const statusApp = document.getElementById('status-app');
         const statusProvider = document.getElementById('status-provider');
@@ -1084,12 +967,12 @@
             const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
             const s = Math.floor(seconds % 60).toString().padStart(2, '0');
             if (lang === 'en') return `${d}d ${h}h ${m}m ${s}s`;
-            else return `${d}天 ${h}时 ${m}分 ${s}秒`;
+            else return `${d}天 ${h}時 ${m}分 ${s}秒`;
         }
 
         function updateStatsUI() {
             if (statsState.tokens === 0) return;
-            const lang = localStorage.getItem('vsllm_lang') || 'zh-CN';
+            const lang = localStorage.getItem('vsllm_lang') || 'zh-TW';
             tokensOdo.update(formatTokensUI(statsState.tokens, lang));
             uptimeOdo.update(formatUptimeUI(statsState.seconds, lang));
         }
@@ -1125,13 +1008,13 @@
         let currentWordIdx = 0;
         let wordInterval;
         const rotateWords = {
-            'zh-CN':["稳定供应", "极速响应", "原生全面兼容", "极致性价比"],
+            'zh-TW':["穩定供應", "極速響應", "原生全面兼容", "極致性價比"],
             'en': ["Global Network", "Zero Latency", "Native Compatible", "High ROI"]
         };
 
         function startWordRotation(lang) {
             clearInterval(wordInterval);
-            const wordList = rotateWords[lang] || rotateWords['zh-CN'];
+            const wordList = rotateWords[lang] || rotateWords['zh-TW'];
             currentWordIdx = 0;
             
             const rw = document.getElementById('rotating-word');
@@ -1158,62 +1041,64 @@
         }
 
         const translations = {
-            'zh-CN': {
-                'nav_features': '产品特性', 'nav_security': '安全合规', 'nav_pricing': '定价方案', 'nav_docs': '开发者文档', 'nav_login': '登录', 'nav_signup': '注册',
-                'leader_tag': '专题推荐', 'leader_title': '总书记的人民情怀 | “必须深刻把握中国式现代化对教育、科技、人才的需求”', 'leader_sound_btn': '开启声音',
+            'zh-TW': {
+                'nav_features': '產品特性', 'nav_security': '安全隱私', 'nav_pricing': '定價方案', 'nav_docs': '開發者文檔', 'nav_login': '登錄', 'nav_signup': '註冊',
+                'leader_tag': '平台公告', 'leader_title': 'VSLLM 亞太核心節點（香港）擴容完成 | 全面提升高並發處理能力與極速響應體驗',
+                'leader_tag_2': '服務升級', 'leader_title_2': '企業級 SLA 穩定保障 | 全球分佈式邊緣網絡為您的 AI 業務保駕護航',
                 'hero_title_1': '大模型聚合',
-                'hero_desc': '只需一行代码，无缝接入全球顶级 AI 模型。全面兼容协议，极速响应，专为生产环境打造的高可用分发平台。为您提供的性能与安全保障。',
-                'btn_register': '登录 / 注册', 'btn_pricing': '定价方案',
-                'stat_tokens': '已处理 Tokens', 'stat_uptime': '平台安全运行时间', 'stat_status': '节点状态极佳',
-                'anim_title': '极简流转，高效分发', 'anim_desc': '一站式智能网关调度，自动负载均衡，保障您的每一次请求都能得到最快、最稳定的响应。',
-                'anim_app': '业务应用', 'anim_gateway': '核心路由', 'anim_encryption': 'TLS 1.3 强加密传输', 'anim_models': 'AI 大模型',
-                'sec_title_new':'维云模型开放平台',
-                'anim_calc': '网关处理中', 'anim_fee': '节点延迟:',
-                'sec_title': '安全合规<br>与数据隐私', 'sec_desc': '您的每一次 API 调用与数据流均经过严密加密处理。<br><span class="text-cf-orange font-bold">我们承诺绝不存储任何业务数据，确保零痕迹。</span>',
-                'sec_point1': 'TLS 1.3 全链路加密传输', 'sec_point2': '无日志记录策略 (No-Log Policy)', 'sec_point3': ' DDoS 边缘防护体系',
-                'feat_main_title': '核心优势', 'feat_main_desc': '专为开发者与现代打造的全球化基础设施，让 AI 能力触手可及。',
-                'feat_1_title': '全球模型聚合', 'feat_1_desc': '一个接口通行全网。深度集成各类开源与商业大模型，化繁为简，无需维护多个供应商账号即可畅享顶级 AI 能力。',
-                'feat_2_title': '极致性能与性价比', 'feat_2_desc': '得益于我们强大的边缘节点池与独家调度算法，大幅降低算力冗余成本，为您提供极具竞争力的透明计费模式。',
-                'feat_3_title': '协议无缝兼容', 'feat_3_desc': '全面兼容现有生态体系。只需修改一行 Base URL 并替换 API Key，即可将现有系统零成本平滑迁移至维云平台。',
-                'feat_4_title': '高并发分布 SLA', 'feat_4_desc': '多区域云端架构部署，智能负载均衡自动剔除失效节点，轻松应对高并发场景，为生产环境提供 99.9% 的稳定保障。',
-                'price_title': '简单透明的计费模式', 'price_desc': '无任何隐藏费用，充值即用，按实际消耗精确计费。',
-                'price_card1_title': '精选国内大模型', 'price_card1_sub': '日常文本生成、内容总结、智能助理', 'price_standard': '标准计费',
-                'price_card1_p1': '按量付费，拒绝隐藏成本', 'price_card1_p2': '聚合国内头部 AI 大厂最新模型', 'price_card1_p3': '极速响应延迟保证',
-                'price_card2_title': '全球顶尖大模型', 'price_tag_rec': 'RECOMMENDED', 'price_card2_sub': '复杂推理、代码编写、深度数据分析',
-                'price_premium': '超高性价比',
-                'price_card2_p1': '提供极具竞争力的价格', 'price_card2_p2': '支持 Function Calling 等全部高级特性', 'price_card2_p3': '突破频率限制，高并发稳定可用',
-                'btn_join': '立即接入', 'btn_join_premium': '注册体验顶尖模型',
-                'status_title': '系统运行状态', 'status_desc': '由第三方独立监控，确保我们的网关节点可用性始终处于行业顶尖水平。',
-                'footer_desc': '维云模型开放平台 (VSLLM)，致力于为开发者提供极速、稳定、安全的全球大模型 API 聚合分发服务。',
-                'footer_dev': 'Developers', 'footer_console': '控制台首页', 'footer_docs': 'API 接入文档',
-                'footer_about': 'Company', 'footer_tos': '服务条款 (Terms)', 'footer_privacy': '隐私政策 (Privacy)', 'footer_ticket': '联系与支持', 'footer_slogan': '大模型 API 聚合分发平台'
+                'hero_desc': '只需一行代碼，無縫接入全球頂級 AI 模型。全面兼容協議，極速響應，專為生產環境打造的高可用分發平台。基於香港核心節點，為您提供頂尖的性能與安全保障。',
+                'btn_register': '登錄 / 註冊', 'btn_pricing': '定價方案',
+                'stat_tokens': '已處理 Tokens', 'stat_uptime': '平台安全運行時間', 'stat_status': '節點狀態極佳',
+                'anim_title': '極簡流轉，高效分發', 'anim_desc': '一站式智能網關調度，自動負載均衡，保障您的每一次請求都能得到最快、最穩定的響應。',
+                'anim_app': '業務應用', 'anim_gateway': '核心路由', 'anim_encryption': 'TLS 1.3 強加密傳輸', 'anim_models': 'AI 大模型',
+                'sec_title_new':'VSLLM',
+                'anim_calc': '網關處理中', 'anim_fee': '節點延遲:',
+                'sec_title': '安全合規<br>與數據隱私', 'sec_desc': '您的每一次 API 調用與數據流均經過嚴密加密處理。<br><span class="text-cf-orange font-bold">我們承諾絕不存儲任何業務數據，確保零痕跡。服務器部署於香港，受完善的數據隱私法例保護。</span>',
+                'sec_point1': 'TLS 1.3 全鏈路加密傳輸', 'sec_point2': '無日誌記錄策略 (No-Log Policy)', 'sec_point3': ' DDoS 邊緣防護體系',
+                'feat_main_title': '核心優勢', 'feat_main_desc': '專為開發者與現代企業打造的全球化基礎設施，讓 AI 能力觸手可及。',
+                'feat_1_title': '全球模型聚合', 'feat_1_desc': '一個接口通行全網。深度集成全球頂尖大模型，化繁為簡，無需維護多個供應商賬號即可暢享頂級 AI 能力。',
+                'feat_2_title': '極致性能與性價比', 'feat_2_desc': '得益於我們位於香港的強大邊緣節點池與獨家調度算法，大幅降低算力冗餘成本，為您提供極具競爭力的透明計費模式。',
+                'feat_3_title': '協議無縫兼容', 'feat_3_desc': '全面兼容現有生態體系。只需修改一行 Base URL 並替換 API Key，即可將現有系統零成本平滑遷移至維雲平台。',
+                'feat_4_title': '高並發分佈 SLA', 'feat_4_desc': '多區域雲端架構部署，智能負載均衡自動剔除失效節點，輕鬆應對高並發場景，為生產環境提供 99.9% 的穩定保障。',
+                'price_title': '簡單透明的計費模式', 'price_desc': '無任何隱藏費用，充值即用，按實際消耗精確計費。',
+                'price_card1_title': '精選標準大模型', 'price_card1_sub': '日常文本生成、內容總結、智能助理', 'price_standard': '標準計費',
+                'price_card1_p1': '按量付費，拒絕隱藏成本', 'price_card1_p2': '聚合全球頭部標準 AI 模型', 'price_card1_p3': '極速響應延遲保證',
+                'price_card2_title': '全球頂尖大模型', 'price_tag_rec': 'RECOMMENDED', 'price_card2_sub': '複雜推理、代碼編寫、深度數據分析',
+                'price_premium': '超高性價比',
+                'price_card2_p1': '提供極具競爭力的價格', 'price_card2_p2': '支持 Function Calling 等全部高級特性', 'price_card2_p3': '突破頻率限制，高並發穩定可用',
+                'btn_join': '立即接入', 'btn_join_premium': '註冊體驗頂尖模型',
+                'status_title': '系統運行狀態', 'status_desc': '由第三方獨立監控，確保我們的網關節點可用性始終處於行業頂尖水平。',
+                'footer_desc': '維雲模型開放平台 (VSLLM)，總部位於香港，致力於為開發者提供極速、穩定、安全的全球大模型 API 聚合分發服務。',
+                'footer_dev': 'Developers', 'footer_console': '控制台首頁', 'footer_docs': 'API 接入文檔',
+                'footer_about': 'Company', 'footer_tos': '服務條款 (Terms)', 'footer_privacy': '隱私政策 (Privacy)', 'footer_ticket': '聯繫與支持', 'footer_slogan': '大模型 API 聚合分發平台'
             },
             'en': {
                 'nav_features': 'Features', 'nav_security': 'Security', 'nav_pricing': 'Pricing', 'nav_docs': 'Docs', 'nav_login': 'Log In', 'nav_signup': 'Sign Up',
-                'leader_tag': 'Featured', 'leader_title': 'The General Secretary’s People-Centered Commitment | Grasping the Needs of Chinese Modernization in Education, Science, Technology, and Talent', 'leader_sound_btn': 'Enable Sound',
+                'leader_tag': 'Announcement', 'leader_title': 'VSLLM Asia-Pacific Core Node (Hong Kong) Expansion Completed',
+                'leader_tag_2': 'Service Upgrade', 'leader_title_2': 'Enterprise-grade SLA | Global Edge Network Securing Your AI Business',
                 'hero_title_1': 'Global AI Network',
-                'hero_desc': 'Access global top AI models with just one line of code. Fully compatible with OpenAI protocol, enterprise-grade security, and built for production environments.',
+                'hero_desc': 'Access global top AI models with just one line of code. Fully compatible with OpenAI protocol, enterprise-grade security, and built for production environments. Powered by our Hong Kong core nodes, providing top-tier performance and security.',
                 'btn_register': 'Dashboard Login', 'btn_pricing': 'View Pricing',
                 'stat_tokens': 'Tokens Processed', 'stat_uptime': 'Platform Uptime', 'stat_status': 'Nodes Optimal',
                 'anim_title': 'Simple Flow, High Efficiency', 'anim_desc': 'Smart gateway routing and auto load balancing ensures every request gets the fastest, most stable response.','sec_title_new':'VSLLM',
                 'anim_app': 'Your App', 'anim_gateway': 'VSLLM Core Routing', 'anim_encryption': 'TLS 1.3 Strong Encryption', 'anim_models': 'AI Models',
                 'anim_calc': 'Processing', 'anim_fee': 'Latency:',
-                'sec_title': 'Enterprise Security<br>& Data Privacy', 'sec_desc': 'Every API call and data stream is strictly encrypted.<br><span class="text-cf-orange font-bold">We promise to never store any business data, ensuring zero trace.</span>',
+                'sec_title': 'Enterprise Security<br>& Data Privacy', 'sec_desc': 'Every API call and data stream is strictly encrypted.<br><span class="text-cf-orange font-bold">We promise to never store any business data, ensuring zero trace. Servers deployed in Hong Kong, protected by robust data privacy laws.</span>',
                 'sec_point1': 'TLS 1.3 End-to-end Encryption', 'sec_point2': 'Strict No-Log Policy', 'sec_point3': 'Enterprise Edge DDoS Protection',
                 'feat_main_title': 'Core Advantages', 'feat_main_desc': 'Built for modern developers and enterprises, simplifying access to top AI capabilities.',
-                'feat_1_title': 'Global Aggregation', 'feat_1_desc': 'One API for everything. Deep integration with various open-source and commercial models.',
-                'feat_2_title': 'Ultimate Performance', 'feat_2_desc': 'Our massive edge node pool and smart algorithms lower compute costs, offering highly competitive pricing.',
+                'feat_1_title': 'Global Aggregation', 'feat_1_desc': 'One API for everything. Deep integration with various global top open-source and commercial models.',
+                'feat_2_title': 'Ultimate Performance', 'feat_2_desc': 'Our massive edge node pool based in Hong Kong and smart algorithms lower compute costs, offering highly competitive pricing.',
                 'feat_3_title': 'Native Compatibility', 'feat_3_desc': 'Fully compatible with the existing ecosystem. Just replace your Base URL and API Key.',
                 'feat_4_title': 'High Availability SLA', 'feat_4_desc': 'Multi-region distributed architecture with smart load balancing ensures 99.9% uptime.',
                 'price_title': 'Transparent Pricing', 'price_desc': 'No hidden fees. Pay as you go based on actual token usage.',
                 'price_card1_title': 'Standard Models', 'price_card1_sub': 'Daily text generation, summaries, assistants', 'price_standard': 'Standard Billing',
-                'price_card1_p1': 'Pay as you go, no hidden costs', 'price_card1_p2': 'Aggregates top standard AI models', 'price_card1_p3': 'Ultra-low latency guarantee',
+                'price_card1_p1': 'Pay as you go, no hidden costs', 'price_card1_p2': 'Aggregates global mainstream standard AI models', 'price_card1_p3': 'Ultra-low latency guarantee',
                 'price_card2_title': 'Premium AI Models', 'price_tag_rec': 'RECOMMENDED', 'price_card2_sub': 'Complex reasoning, coding, deep analysis',
                 'price_premium': 'High ROI Enterprise',
                 'price_card2_p1': 'Highly competitive enterprise pricing', 'price_card2_p2': 'Supports advanced features like Function Calling', 'price_card2_p3': 'Bypass rate limits, stable high concurrency',
                 'btn_join': 'Start Now', 'btn_join_premium': 'Try Premium Models',
                 'status_title': 'System Status', 'status_desc': 'Monitored independently by third parties to guarantee our node availability is always top tier.',
-                'footer_desc': 'VSLLM is dedicated to providing fast, stable, and secure global LLM API aggregation services.',
+                'footer_desc': 'VSLLM, headquartered in Hong Kong, is dedicated to providing fast, stable, and secure global LLM API aggregation services.',
                 'footer_dev': 'Developers', 'footer_console': 'Dashboard', 'footer_docs': 'API Docs',
                 'footer_about': 'Company', 'footer_tos': 'Terms of Service', 'footer_privacy': 'Privacy Policy', 'footer_ticket': 'Contact & Support', 'footer_slogan': 'Enterprise AI Aggregation Network'
             }
@@ -1223,7 +1108,7 @@
             localStorage.setItem('vsllm_lang', lang);
             document.documentElement.lang = lang;
             
-            const t = translations[lang] || translations['zh-CN'];
+            const t = translations[lang] || translations['zh-TW'];
             
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
@@ -1237,9 +1122,15 @@
         function initLanguage() {
             let userLang = localStorage.getItem('vsllm_lang');
             if(!userLang) {
-                const browserLang = navigator.language || navigator.userLanguage;
-                if(browserLang.startsWith('en')) userLang = 'en';
-                else userLang = 'zh-CN';
+                const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
+                // 只要檢測到是以 zh 開頭（包含 zh-CN、zh-HK 等），統一強制轉為 zh-TW 繁體中文
+                if(browserLang.startsWith('en')) {
+                    userLang = 'en';
+                } else if(browserLang.startsWith('zh')) {
+                    userLang = 'zh-TW';
+                } else {
+                    userLang = 'zh-TW';
+                }
             }
             setLanguage(userLang);
         }
