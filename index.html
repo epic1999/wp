@@ -144,18 +144,22 @@
         }
 
         .leader-carousel-media,
-        .leader-carousel-image {
+        .leader-carousel-image,
+        .leader-carousel-video {
             width: 100%;
             height: 100%;
             display: block;
-            object-fit: cover;
+        }
+
+        .leader-carousel-image,
+        .leader-carousel-video {
+            object-fit: contain;
             object-position: center center;
             background: #050505;
         }
 
         .leader-carousel-slide:hover .leader-carousel-image {
-            transform: scale(1.02);
-            transition: transform 6s ease;
+            transform: none;
         }
 
         .leader-carousel-mask {
@@ -198,6 +202,33 @@
             line-height: 1.35;
             font-weight: 800;
             text-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+        }
+
+        .leader-carousel-sound {
+            position: absolute;
+            right: 18px;
+            bottom: 50px;
+            z-index: 5;
+            display: none;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 12px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.92);
+            color: #111827;
+            font-size: 12px;
+            font-weight: 800;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
+            transition: transform 0.2s ease, background 0.2s ease;
+        }
+
+        .leader-carousel-sound:hover {
+            background: #ffffff;
+            transform: translateY(-1px);
+        }
+
+        .leader-carousel-sound.is-visible {
+            display: inline-flex;
         }
 
         .leader-carousel-arrow {
@@ -280,6 +311,14 @@
             .leader-carousel-arrow {
                 display: none;
             }
+
+            .leader-carousel-sound {
+                right: 12px;
+                top: 12px;
+                bottom: auto;
+                padding: 7px 10px;
+                font-size: 11px;
+            }
         }
     </style>
 </head>
@@ -307,38 +346,48 @@
         </div>
     </nav>
 
-    <!-- 頂欄下方公告輪播圖 -->
+    <!-- 頂欄下方新聞輪播圖（總書記專題） -->
     <section class="leader-carousel">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div id="leader-carousel" class="leader-carousel-shell">
-                <a href="javascript:void(0)" class="leader-carousel-slide is-active" aria-label="香港節點擴容完成">
-                    <img
-                        src="https://images.unsplash.com/photo-1542004143822-b4c6e9381cb9?auto=format&fit=crop&w=1200&q=80"
-                        alt="Hong Kong Node Expansion"
-                        class="leader-carousel-image"
-                        loading="eager"
-                    >
+                <div class="leader-carousel-slide is-active" aria-label="總書記的人民情懷 | 必須深刻把握中國式現代化對教育、科技、人才的需求">
+                    <video
+                        id="leader-carousel-video"
+                        class="leader-carousel-video"
+                        src="https://cdnjdout.aikan.pdnews.cn/zhbj-20260528/vod/content/output/1c6a1a3b5507439d98a54a04fa3c497f_opt.mp4"
+                        preload="auto"
+                        playsinline
+                        webkit-playsinline
+                        autoplay
+                    ></video>
                     <div class="leader-carousel-mask"></div>
                     <div class="leader-carousel-content">
-                        <div class="leader-carousel-tag" data-i18n="leader_tag">平台公告</div>
+                        <div class="leader-carousel-tag" data-i18n="leader_tag">專題推薦</div>
                         <h2 class="leader-carousel-title" data-i18n="leader_title">
-                            VSLLM 亞太核心節點（香港）擴容完成 | 全面提升高並發處理能力與極速響應體驗
+                            總書記的人民情懷 | “必須深刻把握中國式現代化對教育、科技、人才的需求”
                         </h2>
                     </div>
-                </a>
+                    <button id="leader-carousel-sound" type="button" class="leader-carousel-sound" data-i18n="leader_sound_btn">開啟聲音</button>
+                </div>
 
-                <a href="javascript:void(0)" class="leader-carousel-slide" aria-label="分佈式邊緣網絡">
+                <a
+                    href="https://www.peopleapp.com/column/30052249032-500007515974"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="leader-carousel-slide"
+                    aria-label="總書記的人民情懷 | 必須深刻把握中國式現代化對教育、科技、人才的需求"
+                >
                     <img
-                        src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80"
-                        alt="Global Network Upgrade"
+                        src="https://cdnjdphoto.aikan.pdnews.cn/sjbj-20260529/image/display/8096dfc3b3d94a2c950ada9e26c95047.png?x-oss-process=image/resize,w_750"
+                        alt="總書記的人民情懷"
                         class="leader-carousel-image"
                         loading="eager"
                     >
                     <div class="leader-carousel-mask"></div>
                     <div class="leader-carousel-content">
-                        <div class="leader-carousel-tag" data-i18n="leader_tag_2">服務升級</div>
-                        <h2 class="leader-carousel-title" data-i18n="leader_title_2">
-                            企業級 SLA 穩定保障 | 全球分佈式邊緣網絡為您的 AI 業務保駕護航
+                        <div class="leader-carousel-tag" data-i18n="leader_tag">專題推薦</div>
+                        <h2 class="leader-carousel-title" data-i18n="leader_title">
+                            總書記的人民情懷 | “必須深刻把握中國式現代化對教育、科技、人才的需求”
                         </h2>
                     </div>
                 </a>
@@ -740,7 +789,7 @@
             document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
         });
 
-        // 頂欄下方公告輪播圖
+        // 頂欄下方專題新聞輪播圖
         (function initLeaderCarousel() {
             const carousel = document.getElementById('leader-carousel');
             if (!carousel) return;
@@ -749,12 +798,15 @@
             const prevBtn = carousel.querySelector('.leader-carousel-prev');
             const nextBtn = carousel.querySelector('.leader-carousel-next');
             const dotsWrap = carousel.querySelector('.leader-carousel-dots');
+            const video = document.getElementById('leader-carousel-video');
+            const soundBtn = document.getElementById('leader-carousel-sound');
 
             if (!slides.length) return;
 
             let current = 0;
             let timer = null;
             const interval = 5000;
+            const videoStartAt = 17;
 
             slides.forEach((_, index) => {
                 const dot = document.createElement('span');
@@ -768,6 +820,41 @@
 
             const dots = Array.from(dotsWrap.querySelectorAll('.leader-carousel-dot'));
 
+            function setVideoStartTime() {
+                if (!video) return;
+                try {
+                    if (Number.isFinite(video.duration) && video.duration > videoStartAt) {
+                        video.currentTime = videoStartAt;
+                    } else if (!Number.isFinite(video.duration) || video.duration === 0) {
+                        video.currentTime = videoStartAt;
+                    }
+                } catch (e) {}
+            }
+
+            async function playVideoWithFallback() {
+                if (!video) return;
+                setVideoStartTime();
+
+                try {
+                    video.muted = false;
+                    await video.play();
+                    soundBtn?.classList.remove('is-visible');
+                } catch (e) {
+                    try {
+                        video.muted = true;
+                        await video.play();
+                        soundBtn?.classList.add('is-visible');
+                    } catch (err) {
+                        soundBtn?.classList.add('is-visible');
+                    }
+                }
+            }
+
+            function pauseVideo() {
+                if (!video) return;
+                video.pause();
+            }
+
             function showSlide(index) {
                 slides[current].classList.remove('is-active');
                 if(dots[current]) dots[current].classList.remove('is-active');
@@ -776,8 +863,14 @@
 
                 slides[current].classList.add('is-active');
                 if(dots[current]) dots[current].classList.add('is-active');
-                
-                restartAutoPlay();
+
+                if (slides[current].contains(video)) {
+                    stopAutoPlay();
+                    playVideoWithFallback();
+                } else {
+                    pauseVideo();
+                    startAutoPlay();
+                }
             }
 
             function nextSlide() {
@@ -789,7 +882,7 @@
             }
 
             function startAutoPlay() {
-                if (slides.length <= 1 || timer) return;
+                if (slides.length <= 1 || timer || slides[current].contains(video)) return;
                 timer = setInterval(nextSlide, interval);
             }
 
@@ -825,7 +918,30 @@
             carousel.addEventListener('mouseenter', stopAutoPlay);
             carousel.addEventListener('mouseleave', startAutoPlay);
 
-            startAutoPlay();
+            if (video) {
+                video.addEventListener('loadedmetadata', setVideoStartTime, { once: true });
+                video.addEventListener('ended', nextSlide);
+                video.addEventListener('play', () => {
+                    if (video.currentTime < videoStartAt - 0.5) setVideoStartTime();
+                });
+            }
+
+            soundBtn?.addEventListener('click', async () => {
+                if (!video) return;
+                video.muted = false;
+                try {
+                    await video.play();
+                    soundBtn.classList.remove('is-visible');
+                } catch (e) {
+                    soundBtn.classList.add('is-visible');
+                }
+            });
+
+            if (slides[current].contains(video)) {
+                playVideoWithFallback();
+            } else {
+                startAutoPlay();
+            }
         })();
 
         // 動畫流轉邏輯
@@ -1043,8 +1159,7 @@
         const translations = {
             'zh-TW': {
                 'nav_features': '產品特性', 'nav_security': '安全隱私', 'nav_pricing': '定價方案', 'nav_docs': '開發者文檔', 'nav_login': '登錄', 'nav_signup': '註冊',
-                'leader_tag': '平台公告', 'leader_title': 'VSLLM 亞太核心節點（香港）擴容完成 | 全面提升高並發處理能力與極速響應體驗',
-                'leader_tag_2': '服務升級', 'leader_title_2': '企業級 SLA 穩定保障 | 全球分佈式邊緣網絡為您的 AI 業務保駕護航',
+                'leader_tag': '專題推薦', 'leader_title': '總書記的人民情懷 | “必須深刻把握中國式現代化對教育、科技、人才的需求”', 'leader_sound_btn': '開啟聲音',
                 'hero_title_1': '大模型聚合',
                 'hero_desc': '只需一行代碼，無縫接入全球頂級 AI 模型。全面兼容協議，極速響應，專為生產環境打造的高可用分發平台。基於香港核心節點，為您提供頂尖的性能與安全保障。',
                 'btn_register': '登錄 / 註冊', 'btn_pricing': '定價方案',
@@ -1074,8 +1189,7 @@
             },
             'en': {
                 'nav_features': 'Features', 'nav_security': 'Security', 'nav_pricing': 'Pricing', 'nav_docs': 'Docs', 'nav_login': 'Log In', 'nav_signup': 'Sign Up',
-                'leader_tag': 'Announcement', 'leader_title': 'VSLLM Asia-Pacific Core Node (Hong Kong) Expansion Completed',
-                'leader_tag_2': 'Service Upgrade', 'leader_title_2': 'Enterprise-grade SLA | Global Edge Network Securing Your AI Business',
+                'leader_tag': 'Featured', 'leader_title': 'The General Secretary’s People-Centered Commitment | Grasping the Needs of Chinese Modernization in Education, Science, Technology, and Talent', 'leader_sound_btn': 'Enable Sound',
                 'hero_title_1': 'Global AI Network',
                 'hero_desc': 'Access global top AI models with just one line of code. Fully compatible with OpenAI protocol, enterprise-grade security, and built for production environments. Powered by our Hong Kong core nodes, providing top-tier performance and security.',
                 'btn_register': 'Dashboard Login', 'btn_pricing': 'View Pricing',
