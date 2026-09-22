@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN" class="scroll-smooth">
 <head>
@@ -7,41 +8,47 @@
     <meta name="description" content="维云模型开放平台(VSLLM)官方网站。全网聚合DeepSeek、Claude、Gemini、OpenAI等全球顶尖大模型接口。">
     <link rel="icon" href="https://img.scdn.io/i/6a05a96892419_1778755944.webp" type="image/webp">
     
-    <style type="text/css">@font-face {font-family:Inter;font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfMZhrib2Bg-4.ttf) format('truetype');font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:500;src:url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuI6fMZhrib2Bg-4.ttf) format('truetype');font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:600;src:url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuGKYMZhrib2Bg-4.ttf) format('truetype');font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:700;src:url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYMZhrib2Bg-4.ttf) format('truetype');font-display:swap;}@font-face {font-family:Inter;font-style:normal;font-weight:800;src:url(https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuDyYMZhrib2Bg-4.ttf) format('truetype');font-display:swap;}</style>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
-                        mono: ['"Fira Code"', '"JetBrains Mono"', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
+                        sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"PingFang SC"', '"Hiragino Sans GB"', '"Microsoft YaHei"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', '"Fira Code"', 'Menlo', 'Monaco', 'Consolas', 'monospace'],
                     },
                     colors: {
-                        cf: {
-                            orange: '#F6821F',      //  经典橙
-                            orangeHover: '#E07018', // 橙色悬停
-                            navy: '#051424',        //  深藏青色背景
-                            navyLight: '#0A2540',
-                            blue: '#0051C3',        //  辅助蓝
-                            gray: '#F3F3F3'
+                        brand: {
+                            50: '#EEF4FF',
+                            100: '#E0EAFF',
+                            500: '#165DFF',
+                            600: '#0052D9',
+                            hover: '#0E4DD9'
+                        },
+                        tech: {
+                            navy: '#0B1120',
+                            panel: '#0F172A',
+                            border: '#1E293B',
+                            cyan: '#00D0B6',
+                            emerald: '#00BA7C'
                         }
                     },
                     boxShadow: {
-                        'cf-card': '0 4px 6px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03)',
-                        'cf-card-hover': '0 10px 15px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.04)',
+                        'cloud': '0 2px 10px rgba(0, 82, 217, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04)',
+                        'cloud-hover': '0 12px 30px rgba(22, 93, 255, 0.12), 0 4px 10px rgba(0, 0, 0, 0.05)',
+                        'glow-brand': '0 0 25px rgba(22, 93, 255, 0.35)'
                     }
                 }
             }
         }
     </script>
     <style>
-        body { background-color: #ffffff; }
+        body { background-color: #FAFAFC; }
         
         .reveal-up {
             opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(18px);
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .reveal-up.active { opacity: 1; transform: translateY(0); }
         
@@ -54,40 +61,39 @@
             transform: translate(-50%, -50%);
             opacity: 0;
             z-index: 20;
-            box-shadow: 0 0 10px currentColor;
-            transition: left 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
+            box-shadow: 0 0 12px currentColor;
+            transition: left 0.85s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
         }
-        .packet-orange { color: #F6821F; background-color: #F6821F; }
-        .packet-blue { color: #0051C3; background-color: #0051C3; }
+        .packet-blue { color: #165DFF; background-color: #165DFF; }
+        .packet-cyan { color: #00D0B6; background-color: #00D0B6; }
         
         .line-track {
             position: absolute;
             top: 50%;
-            left: 10%;
-            right: 10%;
+            left: 8%;
+            right: 8%;
             transform: translateY(-50%);
-            height: 1px;
-            background: linear-gradient(90deg, rgba(246,130,31,0) 0%, rgba(246,130,31,0.4) 50%, rgba(246,130,31,0) 100%);
+            height: 2px;
+            background: linear-gradient(90deg, rgba(22,93,255,0.05) 0%, rgba(22,93,255,0.7) 50%, rgba(0,208,182,0.1) 100%);
             z-index: 10;
         }
 
         @keyframes windOut {
             0% { opacity: 1; transform: translate(0, 0); }
-            100% { opacity: 0; transform: translate(0, -15px); }
+            100% { opacity: 0; transform: translate(0, -12px); }
         }
         @keyframes windIn {
-            0% { opacity: 0; transform: translate(0, 15px); }
+            0% { opacity: 0; transform: translate(0, 12px); }
             100% { opacity: 1; transform: translate(0, 0); }
         }
-        .wind-out { animation: windOut 0.4s forwards cubic-bezier(0.4, 0, 0.2, 1); }
-        .wind-in { animation: windIn 0.4s forwards cubic-bezier(0.16, 1, 0.3, 1); }
+        .wind-out { animation: windOut 0.35s forwards cubic-bezier(0.4, 0, 0.2, 1); }
+        .wind-in { animation: windIn 0.35s forwards cubic-bezier(0.16, 1, 0.3, 1); }
         
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 4px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.4); }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(100, 116, 139, 0.4); border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(100, 116, 139, 0.7); }
 
-        /* Odometer 数字滚动动画 */
         .odo-wrapper {
             display: inline-flex;
             flex-direction: column;
@@ -112,65 +118,99 @@
             vertical-align: baseline;
             white-space: pre;
         }
+
+        .bg-tech-grid {
+            background-image: radial-gradient(rgba(22, 93, 255, 0.08) 1px, transparent 1px), radial-gradient(rgba(22, 93, 255, 0.04) 1px, transparent 1px);
+            background-size: 32px 32px;
+            background-position: 0 0, 16px 16px;
+        }
     </style>
 </head>
-<body class="text-gray-900 antialiased overflow-x-hidden selection:bg-cf-orange selection:text-white">
+<body class="text-slate-800 antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white">
+
+    <!-- 頂部輕量導航欄 (已登錄風格) -->
+    <header class="border-b border-slate-200/80 bg-white/95 backdrop-blur sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <img src="https://img.scdn.io/i/6a05a96892419_1778755944.webp" alt="Logo" class="w-7 h-7 rounded shadow-sm">
+                <span class="font-extrabold text-xl tracking-tight text-slate-900" data-i18n="sec_title_new">维云模型开放平台</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="inline-flex rounded-md p-0.5 bg-slate-100 border border-slate-200 text-xs">
+                    <button onclick="setLanguage('zh-CN')" id="lang-zh" class="px-2 py-1 rounded font-medium text-slate-800 bg-white shadow-sm">中文</button>
+                    <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 rounded font-medium text-slate-500 hover:text-slate-900">EN</button>
+                </div>
+                <a href="https://vsllm.cc/console" target="_blank" class="px-4 py-2 text-sm font-bold text-white bg-brand-500 hover:bg-brand-hover rounded-md shadow-sm transition-all flex items-center gap-1.5" data-i18n="btn_console">
+                    <span>前往控制台</span>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+        </div>
+    </header>
 
     <!-- Hero Section -->
-    <section class="relative pt-28 md:pt-40 pb-16 md:pb-28 overflow-hidden bg-white border-b border-gray-100">
+    <section class="relative pt-16 md:pt-24 pb-16 md:pb-24 overflow-hidden bg-tech-grid border-b border-slate-200/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-14">
                 <!-- 左侧文本 -->
-                <div class="w-full lg:w-[55%] text-left reveal-up active">
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.1] mb-6">
+                <div class="w-full lg:w-[56%] text-left reveal-up active">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-200/80 text-brand-600 text-xs font-semibold mb-6">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        <span>Developer Workspace Active</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.12] mb-6">
                         <span data-i18n="hero_title_1">欢迎回来</span><br>
                         <span class="inline-grid items-center justify-start align-middle mt-2">
                             <span class="col-start-1 row-start-1 opacity-0 pointer-events-none pr-2" id="word-placeholder">继续探索 AI 边界</span>
                             <span class="col-start-1 row-start-1 w-full flex justify-start text-left">
-                                <span id="rotating-word" class="text-cf-orange block will-change-transform">继续探索 AI 边界</span>
+                                <span id="rotating-word" class="text-brand-500 block will-change-transform">继续探索 AI 边界</span>
                             </span>
                         </span>
                     </h1>
                     
-                    <p class="text-base md:text-lg text-gray-600 mb-8 leading-relaxed max-w-2xl" data-i18n="hero_desc">
+                    <p class="text-base md:text-lg text-slate-600 mb-8 leading-relaxed max-w-2xl" data-i18n="hero_desc">
                         您已成功接入 VSLLM 维云模型开放平台。在这里您可以轻松管理 API 密钥、查看实时调用日志并掌控账单明细。全网大模型随时待命，为您的业务持续赋能。
                     </p>
 
                     <div class="flex flex-col sm:flex-row items-start gap-4">
-                        <a href="https://vsllm.cc/console" target="_blank" class="w-full sm:w-auto px-8 py-3.5 text-base font-bold text-white bg-cf-orange hover:bg-cf-orangeHover rounded transition-colors text-center" data-i18n="btn_console">
-                            前往控制台
+                        <a href="https://vsllm.cc/console" target="_blank" class="w-full sm:w-auto px-8 py-3.5 text-base font-bold text-white bg-brand-500 hover:bg-brand-hover rounded-md shadow-cloud hover:shadow-cloud-hover transition-all text-center flex items-center justify-center gap-2" data-i18n="btn_console">
+                            <span>前往控制台</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </a>
-                        <a href="https://docs.newapi.pro/" class="w-full sm:w-auto px-8 py-3.5 text-base font-semibold text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 rounded transition-colors text-center" data-i18n="btn_docs">
+                        <a href="https://docs.newapi.pro/" class="w-full sm:w-auto px-8 py-3.5 text-base font-semibold text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 hover:border-slate-400 rounded-md transition-colors text-center" data-i18n="btn_docs">
                             查看开发文档
                         </a>
                     </div>
 
                     <!-- 动态数据统计面板 -->
                     <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 reveal-up active" style="transition-delay: 0.15s;">
-                        <!-- Token 统计 -->
-                        <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-cf-card hover:shadow-cf-card-hover transition-all relative overflow-hidden group flex flex-col justify-center">
-                            <div class="absolute -right-4 -top-4 opacity-[0.03] group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
-                                <svg class="w-32 h-32 text-cf-orange" fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v8l9-11h-7z"></path></svg>
+                        <div class="bg-white border border-slate-200/90 rounded-xl p-5 shadow-cloud hover:shadow-cloud-hover transition-all relative overflow-hidden group flex flex-col justify-center">
+                            <div class="flex items-center justify-between mb-2">
+                                <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider" data-i18n="stat_tokens">已处理 Tokens</p>
+                                <div class="w-7 h-7 rounded-md bg-brand-50 flex items-center justify-center text-brand-500">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v8l9-11h-7z"></path></svg>
+                                </div>
                             </div>
-                            <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2" data-i18n="stat_tokens">已处理 Tokens</p>
-                            <div id="tokens-odometer" class="text-2xl sm:text-3xl font-extrabold text-gray-900 font-mono tracking-tight text-cf-orange h-8 flex items-center">
+                            <div id="tokens-odometer" class="text-2xl sm:text-3xl font-extrabold text-brand-600 font-mono tracking-tight h-8 flex items-center">
                                 --
                             </div>
                         </div>
 
-                        <!-- 运行时间统计 -->
-                        <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-cf-card hover:shadow-cf-card-hover transition-all relative overflow-hidden group flex flex-col justify-center">
-                            <div class="absolute -right-4 -top-4 opacity-[0.03] group-hover:opacity-10 transition-opacity transform group-hover:scale-110 duration-500">
-                                <svg class="w-32 h-32 text-cf-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div class="bg-white border border-slate-200/90 rounded-xl p-5 shadow-cloud hover:shadow-cloud-hover transition-all relative overflow-hidden group flex flex-col justify-center">
+                            <div class="flex items-center justify-between mb-2">
+                                <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider" data-i18n="stat_uptime">平台安全运行时间</p>
+                                <div class="w-7 h-7 rounded-md bg-emerald-50 flex items-center justify-center text-tech-emerald">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </div>
                             </div>
-                            <p class="text-[11px] font-bold text-gray-500 uppercase tracking-widest mb-2" data-i18n="stat_uptime">平台安全运行时间</p>
-                            <div id="uptime-odometer" class="text-xl sm:text-[1.35rem] font-extrabold text-gray-900 font-mono tracking-tight h-8 flex items-center whitespace-nowrap">
+                            <div id="uptime-odometer" class="text-xl sm:text-[1.35rem] font-extrabold text-slate-900 font-mono tracking-tight h-8 flex items-center whitespace-nowrap">
                                 --
                             </div>
-                            <div class="text-[11px] text-green-500 mt-2 flex items-center gap-1.5 font-bold">
+                            <div class="text-[11px] text-emerald-600 mt-2 flex items-center gap-1.5 font-bold">
                                 <span class="relative flex h-2 w-2">
-                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                  <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                                 </span>
                                 <span data-i18n="stat_status">节点状态极佳</span>
                             </div>
@@ -178,31 +218,49 @@
                     </div>
                 </div>
                 
-                <!-- 右侧装饰/数据展示图 -->
-                <div class="w-full lg:w-[45%] reveal-up hidden md:block">
-                    <div class="bg-white border border-gray-200 rounded-lg shadow-cf-card overflow-hidden">
-                        <div class="bg-gray-50 border-b border-gray-200 px-4 py-3 flex items-center gap-2">
-                            <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                            <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                            <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                            <span class="ml-2 text-xs font-mono text-gray-500">API_Gateway_Status</span>
+                <!-- 右侧展示图 -->
+                <div class="w-full lg:w-[44%] reveal-up hidden md:block">
+                    <div class="bg-tech-navy border border-tech-border rounded-xl shadow-2xl overflow-hidden text-slate-200">
+                        <div class="bg-slate-900/90 border-b border-tech-border px-4 py-3 flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-rose-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                                <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+                                <span class="ml-2 text-xs font-mono text-slate-400">API_Gateway_Status</span>
+                            </div>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-950 text-emerald-400 border border-emerald-800">HEALTHY</span>
                         </div>
-                        <div class="p-6 text-sm font-mono leading-relaxed text-gray-700 h-64 flex flex-col justify-center">
-                            <div class="flex justify-between border-b border-gray-100 pb-2 mb-3">
-                                <span class="text-gray-500">Global Network</span>
-                                <strong class="text-green-600">Online</strong>
+                        <div class="p-6 text-sm font-mono leading-relaxed space-y-4">
+                            <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+                                <span class="text-slate-400 flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                                    Global Network
+                                </span>
+                                <strong class="text-emerald-400 font-semibold flex items-center gap-1.5">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                                    Online
+                                </strong>
                             </div>
-                            <div class="flex justify-between border-b border-gray-100 pb-2 mb-3">
-                                <span class="text-gray-500">API Requests/sec</span>
-                                <strong>12,450+</strong>
+                            <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+                                <span class="text-slate-400 flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                    API Requests/sec
+                                </span>
+                                <strong class="text-slate-100 font-bold">12,450+</strong>
                             </div>
-                            <div class="flex justify-between border-b border-gray-100 pb-2 mb-3">
-                                <span class="text-gray-500">Avg. Latency</span>
-                                <strong class="text-cf-orange">~12ms</strong>
+                            <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+                                <span class="text-slate-400 flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-tech-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    Avg. Latency
+                                </span>
+                                <strong class="text-tech-cyan font-bold">~12ms</strong>
                             </div>
-                            <div class="flex justify-between pb-2">
-                                <span class="text-gray-500">Uptime SLA</span>
-                                <strong>99.99%</strong>
+                            <div class="flex justify-between items-center">
+                                <span class="text-slate-400 flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                    Uptime SLA
+                                </span>
+                                <strong class="text-slate-100 font-bold">99.99%</strong>
                             </div>
                         </div>
                     </div>
@@ -212,113 +270,128 @@
     </section>
 
     <!-- 拓扑动画部分 -->
-    <section id="flow-animation" class="py-20 md:py-28 bg-cf-navy relative overflow-hidden text-white">
+    <section id="flow-animation" class="py-20 md:py-28 bg-tech-navy relative overflow-hidden text-white border-b border-slate-800">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
             <div class="text-center max-w-2xl mx-auto mb-16 reveal-up">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-brand-500 text-xs font-semibold mb-3">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v8l9-11h-7z"></path></svg>
+                    <span>Smart Dispatch Hub</span>
+                </div>
                 <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight" data-i18n="anim_title">极简流转，高效分发</h2>
-                <p class="text-gray-400 text-base md:text-lg leading-relaxed" data-i18n="anim_desc">一站式智能网关调度，自动负载均衡，保障您的每一次请求都能得到最快、最稳定的响应。</p>
+                <p class="text-slate-400 text-base md:text-lg leading-relaxed" data-i18n="anim_desc">一站式智能网关调度，自动负载均衡，保障您的每一次请求都能得到最快、最稳定的响应。</p>
             </div>
 
-            <!-- 网络结构框 -->
-            <div class="relative w-full bg-cf-navyLight border border-gray-700 rounded-lg px-2 py-20 md:p-16 shadow-2xl reveal-up">
+            <div class="relative w-full bg-tech-panel/90 border border-tech-border rounded-2xl px-3 py-20 md:p-16 shadow-2xl reveal-up">
                 <div class="line-track"></div>
 
-                <div class="flex items-center justify-between w-full relative z-20 px-4 md:px-10">
-                    
+                <div class="flex items-center justify-between w-full relative z-20 px-4 md:px-12">
                     <div class="flex flex-col items-center justify-center relative w-1/4">
-                        <div id="status-app" class="absolute -top-10 md:-top-14 whitespace-nowrap px-3 py-1 bg-gray-800 border border-gray-600 text-gray-200 text-xs font-semibold rounded opacity-0 transition-opacity duration-300">发起请求</div>
-                        <div class="w-12 h-12 md:w-16 md:h-16 bg-white border border-gray-300 rounded flex items-center justify-center shadow-lg relative z-10">
-                            <svg class="w-5 h-5 md:w-8 md:h-8 text-cf-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        <div id="status-app" class="absolute -top-11 md:-top-14 whitespace-nowrap px-3 py-1 bg-slate-800 border border-slate-600 text-slate-200 text-xs font-semibold rounded-md opacity-0 transition-opacity duration-300">发起请求</div>
+                        <div class="w-14 h-14 md:w-16 md:h-16 bg-slate-800 border-2 border-slate-700 rounded-xl flex items-center justify-center shadow-lg relative z-10">
+                            <svg class="w-6 h-6 md:w-7 md:h-7 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                         </div>
-                        <span class="mt-4 md:mt-5 text-xs md:text-sm font-bold text-gray-300 text-center" data-i18n="anim_app">您的应用</span>
+                        <span class="mt-4 md:mt-5 text-xs md:text-sm font-bold text-slate-300 text-center" data-i18n="anim_app">您的应用</span>
                     </div>
 
                     <div class="flex flex-col items-center justify-center relative w-1/3">
-                        <div id="cost-popup" class="absolute bottom-[calc(100%+16px)] left-1/2 -translate-x-1/2 bg-white border border-gray-200 shadow-xl rounded p-3 md:p-4 w-40 md:w-48 opacity-0 transform scale-95 transition-all duration-400 z-30 pointer-events-none">
-                            <div class="text-[10px] md:text-xs text-gray-500 mb-2 font-bold uppercase tracking-wider" data-i18n="anim_calc">网关处理中</div>
-                            <div class="flex justify-between items-center text-xs md:text-sm mb-1">
-                                <span class="text-gray-600 font-semibold">Status:</span>
-                                <span class="text-green-600 font-mono font-bold">200 OK</span>
+                        <div id="cost-popup" class="absolute bottom-[calc(100%+16px)] left-1/2 -translate-x-1/2 bg-slate-900 border border-slate-700 shadow-2xl rounded-lg p-3 md:p-4 w-44 md:w-52 opacity-0 transform scale-95 transition-all duration-300 z-30 pointer-events-none text-left">
+                            <div class="text-[10px] md:text-xs text-slate-400 mb-2 font-bold uppercase tracking-wider flex items-center justify-between">
+                                <span data-i18n="anim_calc">网关处理中</span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-tech-cyan"></span>
                             </div>
-                            <div class="w-full h-px bg-gray-200 my-2"></div>
+                            <div class="flex justify-between items-center text-xs md:text-sm mb-1">
+                                <span class="text-slate-400">Status:</span>
+                                <span class="text-emerald-400 font-mono font-bold">200 OK</span>
+                            </div>
+                            <div class="w-full h-px bg-slate-800 my-2"></div>
                             <div class="flex justify-between items-center text-xs md:text-sm font-bold">
-                                <span class="text-gray-600 font-semibold" data-i18n="anim_fee">节点延迟:</span>
-                                <span class="text-cf-orange font-mono">12ms</span>
+                                <span class="text-slate-400" data-i18n="anim_fee">节点延迟:</span>
+                                <span class="text-tech-cyan font-mono">12ms</span>
                             </div>
                         </div>
 
-                        <div id="gateway-box" class="w-16 h-16 md:w-20 md:h-20 bg-cf-orange border-2 border-transparent rounded flex items-center justify-center shadow-lg transition-all duration-500 relative z-10">
-                            <svg class="w-6 h-6 md:w-10 md:h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+                        <div id="gateway-box" class="w-16 h-16 md:w-20 md:h-20 bg-brand-500 border-2 border-brand-200 rounded-2xl flex items-center justify-center shadow-glow-brand transition-all duration-500 relative z-10">
+                            <svg class="w-8 h-8 md:w-10 md:h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                         </div>
                         <span class="mt-4 md:mt-5 text-xs md:text-sm font-bold text-white text-center whitespace-nowrap" data-i18n="anim_gateway">VSLLM 网关</span>
-                        <span class="text-[9px] md:text-xs text-gray-400 mt-1 hidden md:block whitespace-nowrap" data-i18n="anim_encryption">TLS 1.3 强加密传输</span>
+                        <span class="text-[9px] md:text-xs text-slate-400 mt-1 hidden md:block whitespace-nowrap" data-i18n="anim_encryption">TLS 1.3 强加密传输</span>
                     </div>
 
                     <div class="flex flex-col items-center justify-center relative w-1/4">
-                        <div id="status-provider" class="absolute -top-10 md:-top-14 whitespace-nowrap px-3 py-1 bg-gray-800 border border-gray-600 text-green-400 text-xs font-semibold rounded opacity-0 transition-opacity duration-300">极速响应</div>
-                        <div id="provider-box" class="w-12 h-12 md:w-16 md:h-16 bg-white border border-gray-300 rounded flex items-center justify-center shadow-lg relative z-10 transition-all duration-300">
-                            <svg class="w-5 h-5 md:w-8 md:h-8 text-cf-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        <div id="status-provider" class="absolute -top-11 md:-top-14 whitespace-nowrap px-3 py-1 bg-slate-800 border border-slate-600 text-tech-cyan text-xs font-semibold rounded-md opacity-0 transition-opacity duration-300">极速响应</div>
+                        <div id="provider-box" class="w-14 h-14 md:w-16 md:h-16 bg-slate-800 border-2 border-slate-700 rounded-xl flex items-center justify-center shadow-lg relative z-10 transition-all duration-300">
+                            <svg class="w-6 h-6 md:w-7 md:h-7 text-tech-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                         </div>
-                        <span class="mt-4 md:mt-5 text-xs md:text-sm font-bold text-gray-300 text-center" data-i18n="anim_models">AI 大模型</span>
+                        <span class="mt-4 md:mt-5 text-xs md:text-sm font-bold text-slate-300 text-center" data-i18n="anim_models">AI 大模型</span>
                     </div>
                 </div>
-                <div id="data-packet" class="packet packet-orange"></div>
+                <div id="data-packet" class="packet packet-blue"></div>
             </div>
         </div>
     </section>
 
     <!-- 安全部分 -->
-    <section id="security" class="py-20 md:py-28 bg-white relative overflow-hidden border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center gap-16">
+    <section id="security" class="py-20 md:py-28 bg-white relative overflow-hidden border-b border-slate-200/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 flex flex-col md:flex-row items-center gap-14">
             <div class="w-full md:w-1/2 reveal-up">
-                <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight" data-i18n="sec_title">安全合规<br>与数据隐私</h2>
-                <p class="text-gray-600 text-base md:text-lg leading-relaxed mb-8" data-i18n="sec_desc">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-100 border border-slate-200 text-slate-700 text-xs font-semibold mb-5">
+                    <svg class="w-3.5 h-3.5 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                    <span>Security & Compliance</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight" data-i18n="sec_title">安全合规<br>与数据隐私</h2>
+                <p class="text-slate-600 text-base md:text-lg leading-relaxed mb-8" data-i18n="sec_desc">
                     您的每一次 API 调用与数据流均经过严密加密处理。<br>
-                    <span class="text-cf-orange font-bold">我们承诺绝不存储任何业务数据，确保零痕迹。</span>
+                    <span class="text-brand-600 font-bold">我们承诺绝不存储任何业务数据，确保零痕迹。</span>
                 </p>
                 <ul class="space-y-4">
                     <li class="flex items-center gap-3">
-                        <svg class="w-6 h-6 text-cf-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span class="text-gray-800 font-medium text-sm md:text-base" data-i18n="sec_point1">TLS 1.3 全链路加密传输</span>
+                        <div class="w-5 h-5 rounded-full bg-brand-50 flex items-center justify-center text-brand-500">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <span class="text-slate-800 font-semibold text-sm md:text-base" data-i18n="sec_point1">TLS 1.3 全链路加密传输</span>
                     </li>
                     <li class="flex items-center gap-3">
-                        <svg class="w-6 h-6 text-cf-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span class="text-gray-800 font-medium text-sm md:text-base" data-i18n="sec_point2">无日志记录策略 (No-Log Policy)</span>
+                        <div class="w-5 h-5 rounded-full bg-brand-50 flex items-center justify-center text-brand-500">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <span class="text-slate-800 font-semibold text-sm md:text-base" data-i18n="sec_point2">无日志记录策略 (No-Log Policy)</span>
                     </li>
                     <li class="flex items-center gap-3">
-                        <svg class="w-6 h-6 text-cf-orange" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span class="text-gray-800 font-medium text-sm md:text-base" data-i18n="sec_point3"> DDoS 边缘防护体系</span>
+                        <div class="w-5 h-5 rounded-full bg-brand-50 flex items-center justify-center text-brand-500">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <span class="text-slate-800 font-semibold text-sm md:text-base" data-i18n="sec_point3"> DDoS 边缘防护体系</span>
                     </li>
                 </ul>
             </div>
             
             <div class="w-full md:w-1/2 reveal-up" style="transition-delay: 0.1s;">
-                <div class="bg-cf-navy rounded-lg shadow-2xl overflow-hidden border border-gray-800 text-left">
-                    <div class="flex items-center justify-between px-4 py-3 bg-gray-900 border-b border-gray-800">
+                <div class="bg-tech-navy rounded-xl shadow-2xl overflow-hidden border border-tech-border text-left">
+                    <div class="flex items-center justify-between px-4 py-3 bg-slate-900 border-b border-tech-border">
                         <div class="flex space-x-2">
-                            <div class="w-3 h-3 rounded-full bg-gray-600"></div>
-                            <div class="w-3 h-3 rounded-full bg-gray-600"></div>
-                            <div class="w-3 h-3 rounded-full bg-gray-600"></div>
+                            <div class="w-3 h-3 rounded-full bg-slate-700"></div>
+                            <div class="w-3 h-3 rounded-full bg-slate-700"></div>
+                            <div class="w-3 h-3 rounded-full bg-slate-700"></div>
                         </div>
-                        <div class="text-[11px] text-gray-400 font-mono flex items-center gap-2">
-                            <svg class="w-3 h-3 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                        <div class="text-[11px] text-slate-400 font-mono flex items-center gap-2">
+                            <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                             Connection Secure
                         </div>
                     </div>
-                    <div class="p-6 text-[12px] md:text-sm font-mono leading-relaxed text-gray-300 h-64 overflow-y-auto custom-scrollbar">
-                        <p class="text-cf-orange">>>> INITIALIZING SECURE EDGE TUNNEL...</p>
-                        <p class="mt-2 text-gray-400">[OK] Handshake established: TLSv1.3 / TLS_AES_256_GCM_SHA384</p>
-                        <p class="text-gray-400">[OK] Peer certificate verified</p>
+                    <div class="p-6 text-[12px] md:text-sm font-mono leading-relaxed text-slate-300 h-64 overflow-y-auto custom-scrollbar bg-tech-panel/80">
+                        <p class="text-brand-500">>>> INITIALIZING SECURE EDGE TUNNEL...</p>
+                        <p class="mt-2 text-slate-400">[OK] Handshake established: TLSv1.3 / TLS_AES_256_GCM_SHA384</p>
+                        <p class="text-slate-400">[OK] Peer certificate verified</p>
                         <br>
-                        <p class="text-cf-blue font-bold">>>> INCOMING REQUEST (App -> Edge Gateway)</p>
-                        <p class="text-gray-300">Payload: Encrypted block (Length: 4096 bytes)</p>
-                        <p class="text-gray-300">Status: Forwarding to optimal upstream node...</p>
+                        <p class="text-tech-cyan font-bold">>>> INCOMING REQUEST (App -> Edge Gateway)</p>
+                        <p class="text-slate-300">Payload: Encrypted block (Length: 4096 bytes)</p>
+                        <p class="text-slate-300">Status: Forwarding to optimal upstream node...</p>
                         <br>
-                        <p class="text-purple-400">>>> EXECUTE ZERO-LOG PROTOCOL</p>
-                        <p class="text-gray-300">Action: Purging in-memory buffers.</p>
-                        <p class="text-gray-400">[OK] Memory cleared. Traces: 0.</p>
+                        <p class="text-indigo-400">>>> EXECUTE ZERO-LOG PROTOCOL</p>
+                        <p class="text-slate-300">Action: Purging in-memory buffers.</p>
+                        <p class="text-slate-400">[OK] Memory cleared. Traces: 0.</p>
                         <br>
-                        <p class="text-green-400">>>> TUNNEL ACTIVE. AWAITING STREAM...</p>
+                        <p class="text-emerald-400">>>> TUNNEL ACTIVE. AWAITING STREAM...</p>
                     </div>
                 </div>
             </div>
@@ -326,72 +399,82 @@
     </section>
 
     <!-- 定价策略 / 充值模块 -->
-    <section id="pricing" class="py-20 md:py-28 bg-white relative border-b border-gray-200">
+    <section id="pricing" class="py-20 md:py-28 bg-slate-50/60 relative border-b border-slate-200/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-2xl mx-auto mb-16 md:mb-20 reveal-up">
-                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-4 tracking-tight" data-i18n="price_title">随时为您补充算力</h2>
-                <p class="text-gray-600 text-base md:text-lg" data-i18n="price_desc">按实际消耗精确计费，余额随时掌控，确保您的业务永不停机。</p>
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-600 text-xs font-semibold mb-3">
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                    <span>Compute Resource</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight" data-i18n="price_title">随时为您补充算力</h2>
+                <p class="text-slate-600 text-base md:text-lg" data-i18n="price_desc">按实际消耗精确计费，余额随时掌控，确保您的业务永不停机。</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
                 <!-- 标准版定价 -->
-                <div class="flex flex-col bg-white border border-gray-300 rounded-lg shadow-sm hover:shadow-md transition-shadow reveal-up">
-                    <div class="p-8 md:p-10 border-b border-gray-100 flex-1">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2" data-i18n="price_card1_title">精选国内大模型</h3>
-                        <p class="text-sm text-gray-500 mb-6 h-5" data-i18n="price_card1_sub">日常文本生成、内容总结、智能助理</p>
+                <div class="flex flex-col bg-white border border-slate-200 rounded-2xl shadow-cloud hover:shadow-cloud-hover transition-all reveal-up">
+                    <div class="p-8 md:p-10 border-b border-slate-100 flex-1">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-2xl font-bold text-slate-900" data-i18n="price_card1_title">精选国内大模型</h3>
+                            <span class="px-2.5 py-0.5 rounded text-xs font-semibold bg-slate-100 text-slate-600">Domestic</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mb-6 h-5" data-i18n="price_card1_sub">日常文本生成、内容总结、智能助理</p>
                         <div class="mb-8">
-                            <span class="text-4xl font-extrabold text-gray-900" data-i18n="price_standard">标准计费</span>
+                            <span class="text-4xl font-extrabold text-slate-900" data-i18n="price_standard">标准计费</span>
                         </div>
                         <ul class="space-y-4">
                             <li class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-green-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card1_p1">按量付费，拒绝隐藏成本</span>
+                                <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-slate-700 font-medium" data-i18n="price_card1_p1">按量付费，拒绝隐藏成本</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-green-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card1_p2">聚合国内头部 AI 大厂最新模型</span>
+                                <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-slate-700 font-medium" data-i18n="price_card1_p2">聚合国内头部 AI 大厂最新模型</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-green-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card1_p3">极速响应延迟保证</span>
+                                <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-slate-700 font-medium" data-i18n="price_card1_p3">极速响应延迟保证</span>
                             </li>
                         </ul>
                     </div>
-                    <div class="p-8 bg-gray-50 rounded-b-lg">
-                        <a href="https://vsllm.cc/token" target="_blank" class="block w-full py-3 px-6 text-center text-sm font-bold text-gray-800 bg-white border border-gray-300 rounded hover:bg-gray-100 transition-colors" data-i18n="btn_create_token">
+                    <div class="p-8 bg-slate-50/70 rounded-b-2xl">
+                        <a href="https://vsllm.cc/token" target="_blank" class="block w-full py-3 px-6 text-center text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-md hover:bg-slate-100 transition-colors" data-i18n="btn_create_token">
                             去创建 Token
                         </a>
                     </div>
                 </div>
 
                 <!-- 高级版定价 (推荐) -->
-                <div class="flex flex-col bg-white border-t-4 border-t-cf-orange border-l border-r border-b border-gray-300 rounded-lg shadow-lg relative reveal-up" style="transition-delay: 0.1s;">
-                    <div class="absolute top-0 right-0 -mt-3 mr-6">
-                        <span class="px-3 py-1 text-xs font-bold text-white bg-cf-orange rounded" data-i18n="price_tag_rec">RECOMMENDED</span>
+                <div class="flex flex-col bg-white border-2 border-brand-500 rounded-2xl shadow-cloud-hover relative reveal-up" style="transition-delay: 0.1s;">
+                    <div class="absolute top-0 right-0 -mt-3.5 mr-6">
+                        <span class="px-3.5 py-1 text-xs font-bold text-white bg-brand-500 rounded-full shadow-sm" data-i18n="price_tag_rec">RECOMMENDED</span>
                     </div>
-                    <div class="p-8 md:p-10 border-b border-gray-100 flex-1">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2" data-i18n="price_card2_title">全球顶尖大模型</h3>
-                        <p class="text-sm text-gray-500 mb-6 h-5" data-i18n="price_card2_sub">复杂推理、代码编写、深度数据分析</p>
+                    <div class="p-8 md:p-10 border-b border-slate-100 flex-1">
+                        <div class="flex items-center justify-between mb-2">
+                            <h3 class="text-2xl font-bold text-slate-900" data-i18n="price_card2_title">全球顶尖大模型</h3>
+                            <span class="px-2.5 py-0.5 rounded text-xs font-semibold bg-brand-50 text-brand-600">Enterprise</span>
+                        </div>
+                        <p class="text-sm text-slate-500 mb-6 h-5" data-i18n="price_card2_sub">复杂推理、代码编写、深度数据分析</p>
                         <div class="mb-8">
-                            <span class="text-4xl font-extrabold text-gray-900" data-i18n="price_premium">超高性价比</span>
+                            <span class="text-4xl font-extrabold text-brand-600" data-i18n="price_premium">超高性价比</span>
                         </div>
                         <ul class="space-y-4">
                             <li class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-cf-orange shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card2_p1">提供极具竞争力的价格</span>
+                                <svg class="w-5 h-5 text-brand-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-slate-700 font-medium" data-i18n="price_card2_p1">提供极具竞争力的价格</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-cf-orange shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card2_p2">支持 Function Calling 等全部高级特性</span>
+                                <svg class="w-5 h-5 text-brand-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-slate-700 font-medium" data-i18n="price_card2_p2">支持 Function Calling 等全部高级特性</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-cf-orange shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-gray-700 font-medium" data-i18n="price_card2_p3">突破频率限制，高并发稳定可用</span>
+                                <svg class="w-5 h-5 text-brand-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-slate-700 font-medium" data-i18n="price_card2_p3">突破频率限制，高并发稳定可用</span>
                             </li>
                         </ul>
                     </div>
-                    <div class="p-8 bg-gray-50 rounded-b-lg">
-                        <a href="https://vsllm.cc/topup" target="_blank" class="block w-full py-3 px-6 text-center text-sm font-bold text-white bg-cf-orange rounded hover:bg-cf-orangeHover transition-colors" data-i18n="btn_topup">
+                    <div class="p-8 bg-brand-50/40 rounded-b-2xl">
+                        <a href="https://vsllm.cc/topup" target="_blank" class="block w-full py-3 px-6 text-center text-sm font-bold text-white bg-brand-500 rounded-md hover:bg-brand-hover shadow-sm transition-colors" data-i18n="btn_topup">
                             去充值
                         </a>
                     </div>
@@ -401,15 +484,19 @@
     </section>
 
     <!-- 服务状态 -->
-    <section id="status" class="py-16 md:py-24 bg-gray-50 relative border-b border-gray-200">
+    <section id="status" class="py-16 md:py-24 bg-white relative border-b border-slate-200/80">
         <div class="max-w-4xl mx-auto px-4 sm:px-6">
             <div class="text-center mb-10 reveal-up">
-                <h2 class="text-2xl md:text-3xl font-extrabold text-gray-900 mb-3 tracking-tight" data-i18n="status_title">系统运行状态</h2>
-                <p class="text-gray-600 text-sm md:text-base" data-i18n="status_desc">由第三方独立监控，确保我们的网关节点可用性始终处于行业顶尖水平。</p>
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 text-xs font-semibold mb-3">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                    <span>Monitoring Cluster</span>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 mb-3 tracking-tight" data-i18n="status_title">系统运行状态</h2>
+                <p class="text-slate-600 text-sm md:text-base" data-i18n="status_desc">由第三方独立监控，确保我们的网关节点可用性始终处于行业顶尖水平。</p>
             </div>
             
-            <div class="p-1 rounded-lg bg-white border border-gray-300 shadow-sm transition-shadow duration-300 reveal-up" style="transition-delay: 0.1s;">
-                <a href="https://lmspeed.net/zh/provider/vsllm-com" target="_blank" rel="noopener noreferrer" class="block rounded overflow-hidden hover:opacity-95 transition-opacity">
+            <div class="p-1 rounded-xl bg-white border border-slate-200/90 shadow-cloud transition-shadow duration-300 reveal-up" style="transition-delay: 0.1s;">
+                <a href="https://lmspeed.net/zh/provider/vsllm-com" target="_blank" rel="noopener noreferrer" class="block rounded-lg overflow-hidden hover:opacity-95 transition-opacity">
                     <img src="https://lmspeed.net/api/og/provider/vsllm-com/health" alt="维云模型开放平台 Service Status" class="w-full h-auto" loading="lazy" />
                 </a>
             </div>
@@ -417,39 +504,39 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-cf-navy text-gray-300 pt-16 pb-8 border-t border-gray-800">
+    <footer class="bg-tech-navy text-slate-300 pt-16 pb-8 border-t border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
                 <div class="md:col-span-2">
                     <div class="flex items-center gap-3 mb-6">
-                        <img src="https://img.scdn.io/i/6a05a96892419_1778755944.webp" alt="维云 Logo" class="w-8 h-8 rounded shadow-sm">
-                        <span class="text-xl font-bold text-white tracking-tight">VSLLM 维云模型平台</span>
+                        <img src="https://img.scdn.io/i/6a05a96892419_1778755944.webp" alt="维云 Logo" class="w-7 h-7 rounded shadow-sm">
+                        <span class="text-lg font-bold text-white tracking-tight">VSLLM 维云模型平台</span>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed max-w-sm" data-i18n="footer_desc">
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-sm" data-i18n="footer_desc">
                         维云模型开放平台 (VSLLM)，致力于为开发者提供极速、稳定、安全的全球大模型 API 聚合分发服务。
                     </p>
                 </div>
                 
                 <div>
-                    <h4 class="font-bold text-white mb-5 text-sm uppercase tracking-wider" data-i18n="footer_dev">快捷导航</h4>
-                    <ul class="space-y-3.5 text-sm">
-                        <li><a href="https://vsllm.cc/console" target="_blank" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_console">控制台首页</a></li>
-                        <li><a href="https://vsllm.cc/docs" target="_blank" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_docs">API 接入文档</a></li>
-                        <li><a href="https://lmspeed.net/zh/provider/vsllm-com" class="text-gray-400 hover:text-white transition-colors">系统状态 (Status)</a></li>
+                    <h4 class="font-bold text-white mb-5 text-xs uppercase tracking-wider text-slate-200" data-i18n="footer_dev">快捷导航</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="https://vsllm.cc/console" target="_blank" class="text-slate-400 hover:text-white transition-colors" data-i18n="footer_console">控制台首页</a></li>
+                        <li><a href="https://vsllm.cc/docs" target="_blank" class="text-slate-400 hover:text-white transition-colors" data-i18n="footer_docs">API 接入文档</a></li>
+                        <li><a href="https://lmspeed.net/zh/provider/vsllm-com" class="text-slate-400 hover:text-white transition-colors">系统状态 (Status)</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-bold text-white mb-5 text-sm uppercase tracking-wider" data-i18n="footer_about">支持与条款</h4>
-                    <ul class="space-y-3.5 text-sm">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_tos">服务条款 (Terms)</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_privacy">隐私政策 (Privacy)</a></li>
-                        <li><a href="https://vsllm.cc/" target="_blank" class="text-gray-400 hover:text-white transition-colors" data-i18n="footer_ticket">联系客服与支持</a></li>
+                    <h4 class="font-bold text-white mb-5 text-xs uppercase tracking-wider text-slate-200" data-i18n="footer_about">支持与条款</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#" class="text-slate-400 hover:text-white transition-colors" data-i18n="footer_tos">服务条款 (Terms)</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-white transition-colors" data-i18n="footer_privacy">隐私政策 (Privacy)</a></li>
+                        <li><a href="https://vsllm.cc/" target="_blank" class="text-slate-400 hover:text-white transition-colors" data-i18n="footer_ticket">联系客服与支持</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between text-xs text-gray-500">
+            <div class="pt-8 border-t border-slate-800/80 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400">
                 <p>© 2026 维云模型开放平台 (VSLLM). All Rights Reserved.</p>
                 <div class="mt-4 md:mt-0 flex space-x-4">
                     <span data-i18n="footer_slogan">大模型 API 聚合分发平台</span>
@@ -490,7 +577,6 @@
                 costPopup.style.opacity = '0';
                 costPopup.style.transform = 'scale(0.95) translateX(-50%)';
                 gatewayBox.style.transform = 'scale(1)';
-                gatewayBox.style.borderColor = 'transparent';
                 
                 await sleep(500);
 
@@ -503,12 +589,10 @@
                 await sleep(800); 
 
                 statusApp.style.opacity = '0';
-                gatewayBox.style.transform = 'scale(1.05)';
-                gatewayBox.style.borderColor = '#0051C3';
+                gatewayBox.style.transform = 'scale(1.06)';
                 
                 await sleep(300);
                 gatewayBox.style.transform = 'scale(1)';
-                gatewayBox.style.borderColor = 'transparent';
                 packet.style.left = '87.5%';
                 await sleep(800); 
 
@@ -517,14 +601,13 @@
                 
                 await sleep(1000);
                 statusProvider.style.opacity = '0';
-                packet.className = 'packet packet-orange';
+                packet.className = 'packet packet-cyan';
                 packet.style.opacity = '1';
                 
                 packet.style.left = '50%';
                 await sleep(800); 
 
-                gatewayBox.style.transform = 'scale(1.05)';
-                gatewayBox.style.borderColor = '#F6821F';
+                gatewayBox.style.transform = 'scale(1.06)';
                 costPopup.style.opacity = '1';
                 costPopup.style.transform = 'scale(1) translateX(-50%)';
                 
@@ -533,7 +616,6 @@
                 costPopup.style.opacity = '0';
                 costPopup.style.transform = 'scale(0.95) translateX(-50%)';
                 gatewayBox.style.transform = 'scale(1)';
-                gatewayBox.style.borderColor = 'transparent';
                 packet.style.left = '12.5%';
                 
                 await sleep(800); 
@@ -542,9 +624,8 @@
                 await sleep(1500);
             }
         }
-        setTimeout(runPipeline, 1000);
+        setTimeout(runPipeline, 800);
 
-        // Odometer 数字滚动动画
         class Odometer {
             constructor(el) {
                 this.el = el;
@@ -553,7 +634,6 @@
             }
             update(newStr) {
                 newStr = String(newStr);
-                // 长度变了就整个重建一遍
                 if (this.currentStr.length !== newStr.length) {
                     this.el.innerHTML = '';
                     this.digits = [];
@@ -572,14 +652,13 @@
                         } else {
                             let span = document.createElement('span');
                             span.className = 'odo-char';
-                            span.textContent = char === ' ' ? ' ' : char;
+                            span.textContent = char === ' ' ? '\u00A0' : char;
                             this.digits.push({ isDigit: false, el: span, char: char });
                             this.el.appendChild(span);
                         }
                     }
                     this.currentStr = newStr;
                 } else {
-                    // 长度没变就只挪变化的那位
                     for (let i = 0; i < newStr.length; i++) {
                         let char = newStr[i];
                         let digitObj = this.digits[i];
@@ -587,7 +666,7 @@
                             digitObj.el.style.transform = `translateY(-${parseInt(char) * 10}%)`;
                             digitObj.char = char;
                         } else if (!digitObj.isDigit && digitObj.char !== char) {
-                            digitObj.el.textContent = char === ' ' ? ' ' : char;
+                            digitObj.el.textContent = char === ' ' ? '\u00A0' : char;
                             digitObj.char = char;
                         }
                     }
@@ -600,7 +679,6 @@
         const tokensOdo = new Odometer(document.getElementById('tokens-odometer'));
         const uptimeOdo = new Odometer(document.getElementById('uptime-odometer'));
 
-        // 把秒数拆成 天/时/分/秒
         function formatUptimeUI(seconds, lang) {
             const d = Math.floor(seconds / 86400);
             const h = Math.floor((seconds % 86400) / 3600).toString().padStart(2, '0');
@@ -611,7 +689,6 @@
         }
 
         function updateStatsUI() {
-            // 还没拉到数据就先不刷
             if (statsState.tokens === 0) return;
             const lang = localStorage.getItem('vsllm_lang') || 'zh-CN';
             tokensOdo.update(statsState.tokens.toLocaleString());
@@ -627,7 +704,6 @@
                     statsState.seconds = data.running_seconds;
                 }
             } catch(e) {
-                // 拉不到就兜底个模拟值，免得 UI 一直挂着 --
                 if(statsState.tokens === 0) {
                     statsState.tokens = 23100000000;
                     statsState.seconds = 123456789;
@@ -637,18 +713,15 @@
             updateStatsUI();
         }
 
-        // 本地每秒往前蹦一下，让计时器看起来一直在跳
         setInterval(() => {
             if (statsState.seconds > 0) {
                 statsState.seconds++;
                 updateStatsUI();
             }
         }, 1000);
-        // 3 秒拉一次后端数据
         setInterval(fetchStats, 3000);
         setTimeout(fetchStats, 200);
 
-        // 已登录场景的轮播文字
         let currentWordIdx = 0;
         let wordInterval;
         const rotateWords = {
@@ -680,21 +753,21 @@
                     
                     rw.classList.remove('wind-out');
                     rw.classList.add('wind-in');
-                }, 400); 
-            }, 3500);
+                }, 350); 
+            }, 3200);
         }
 
         const translations = {
             'zh-CN': {
                 'hero_title_1': '欢迎回来',
                 'hero_desc': '在这里您可以轻松管理 API 密钥、查看实时调用日志并掌控账单明细。大模型随时待命，为您的业务持续赋能。',
-                'btn_console': '前往控制台', 'btn_docs': '查看文档',
+                'btn_console': '前往控制台', 'btn_docs': '查看开发文档',
                 'stat_tokens': '已处理 Tokens', 'stat_uptime': '平台安全运行时间', 'stat_status': '节点状态极佳',
                 'anim_title': '极简流转，高效分发', 'anim_desc': '一站式智能网关调度，自动负载均衡，保障您的每一次请求都能得到最快、最稳定的响应。',
                 'anim_app': '您的应用', 'anim_gateway': 'VSLLM 网关', 'anim_encryption': 'TLS 1.3 强加密传输', 'anim_models': 'AI 大模型',
                 'sec_title_new':'维云模型开放平台',
                 'anim_calc': '网关处理中', 'anim_fee': '节点延迟:',
-                'sec_title': '安全合规<br>与数据隐私', 'sec_desc': '您的每一次 API 调用与数据流均经过严密加密处理。<br><span class="text-cf-orange font-bold">我们承诺绝不存储任何业务数据，确保零痕迹。</span>',
+                'sec_title': '安全合规<br>与数据隐私', 'sec_desc': '您的每一次 API 调用与数据流均经过严密加密处理。<br><span class="text-brand-600 font-bold">我们承诺绝不存储任何业务数据，确保零痕迹。</span>',
                 'sec_point1': 'TLS 1.3 全链路加密传输', 'sec_point2': '无日志记录策略 (No-Log Policy)', 'sec_point3': ' DDoS 边缘防护体系',
                 'price_title': '随时为您补充算力', 'price_desc': '按实际消耗精确计费，余额随时掌控，确保您的业务永不停机。',
                 'price_card1_title': '精选国内大模型', 'price_card1_sub': '日常文本生成、内容总结、智能助理', 'price_standard': '标准计费',
@@ -717,7 +790,7 @@
                 'sec_title_new':'VSLLM Dashboard',
                 'anim_app': 'Your App', 'anim_gateway': 'VSLLM Routing', 'anim_encryption': 'TLS 1.3 Strong Encryption', 'anim_models': 'AI Models',
                 'anim_calc': 'Processing', 'anim_fee': 'Latency:',
-                'sec_title': 'Enterprise Security<br>& Data Privacy', 'sec_desc': 'Every API call and data stream is strictly encrypted.<br><span class="text-cf-orange font-bold">We promise to never store any business data, ensuring zero trace.</span>',
+                'sec_title': 'Enterprise Security<br>& Data Privacy', 'sec_desc': 'Every API call and data stream is strictly encrypted.<br><span class="text-brand-600 font-bold">We promise to never store any business data, ensuring zero trace.</span>',
                 'sec_point1': 'TLS 1.3 End-to-end Encryption', 'sec_point2': 'Strict No-Log Policy', 'sec_point3': 'Enterprise Edge DDoS Protection',
                 'price_title': 'Replenish Compute Anytime', 'price_desc': 'Pay as you go based on actual consumption. Control your balance to ensure zero downtime.',
                 'price_card1_title': 'Standard Models', 'price_card1_sub': 'Daily text generation, summaries, assistants', 'price_standard': 'Standard Billing',
@@ -744,6 +817,16 @@
                 if(t[key]) el.innerHTML = t[key];
             });
             
+            const btnZh = document.getElementById('lang-zh');
+            const btnEn = document.getElementById('lang-en');
+            if (lang === 'en') {
+                btnEn.className = 'px-2 py-1 rounded font-medium text-slate-800 bg-white shadow-sm';
+                btnZh.className = 'px-2 py-1 rounded font-medium text-slate-500 hover:text-slate-900';
+            } else {
+                btnZh.className = 'px-2 py-1 rounded font-medium text-slate-800 bg-white shadow-sm';
+                btnEn.className = 'px-2 py-1 rounded font-medium text-slate-500 hover:text-slate-900';
+            }
+
             startWordRotation(lang);
             if (typeof updateStatsUI === 'function') updateStatsUI();
         }
@@ -751,7 +834,7 @@
         function initLanguage() {
             let userLang = localStorage.getItem('vsllm_lang');
             if(!userLang) {
-                const browserLang = navigator.language || navigator.userLanguage;
+                const browserLang = (navigator.language || navigator.userLanguage || '').toLowerCase();
                 if(browserLang.startsWith('en')) userLang = 'en';
                 else userLang = 'zh-CN';
             }
