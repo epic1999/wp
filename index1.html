@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>欢迎回来 - VSLLM 维云模型开放平台 | 开发者工作台</title>
-    <meta name="description" content="维云模型开放平台(VSLLM)工作台。专为年轻人与开发者打造的高性价比大模型聚合中转站。管理API密钥、充值算力、查看实时监控。">
+    <title id="page-title">欢迎回来 - VSLLM 维云模型开放平台 | 开发者工作台</title>
+    <meta name="description" id="page-desc" content="维云模型开放平台(VSLLM)工作台。专为年轻人与开发者打造的高性价比大模型聚合中转站。管理API密钥、充值算力、查看实时监控。">
+    <meta name="keywords" content="VSLLM,维云,大模型API,开发者工作台,API密钥管理,充值算力,实时监控">
     <link rel="icon" href="https://img.scdn.io/i/6a05a96892419_1778755944.webp" type="image/webp">
-    
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -18,311 +19,377 @@
                     },
                     colors: {
                         brand: {
-                            50: '#EEF4FF',
-                            100: '#E0EAFF',
-                            500: '#165DFF',
-                            600: '#0052D9',
-                            hover: '#0E4DD9'
+                            50: '#EFF6FF', 100: '#DBEAFE', 200: '#BFDBFE', 300: '#93C5FD', 400: '#60A5FA',
+                            500: '#3B82F6', 600: '#2563EB', 700: '#1D4ED8', hover: '#2E6FE8'
                         },
                         tech: {
-                            navy: '#0B1120',
-                            panel: '#0F172A',
-                            border: '#1E293B',
-                            cyan: '#00D0B6',
-                            emerald: '#00BA7C'
+                            navy: '#05070E', panel: '#0A0F1C', card: '#0E1526', border: '#1C2942',
+                            cyan: '#22D3EE', blue: '#3B82F6', violet: '#8B5CF6',
+                            emerald: '#10B981', red: '#EF4444', gold: '#F59E0B'
                         }
                     },
                     boxShadow: {
-                        'cloud': '0 2px 10px rgba(0, 82, 217, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04)',
-                        'cloud-hover': '0 12px 30px rgba(22, 93, 255, 0.12), 0 4px 10px rgba(0, 0, 0, 0.05)',
-                        'glow-brand': '0 0 25px rgba(22, 93, 255, 0.35)'
+                        'glow-sm': '0 0 20px rgba(34, 211, 238, 0.15)',
+                        'glow-md': '0 0 35px rgba(34, 211, 238, 0.22)',
+                        'glow-blue': '0 0 35px rgba(59, 130, 246, 0.35)',
+                        'glow-red': '0 0 25px rgba(239, 68, 68, 0.25)',
+                        'card-hover': '0 20px 45px rgba(0, 0, 0, 0.5), 0 0 30px rgba(34, 211, 238, 0.07)'
                     }
                 }
             }
         }
     </script>
     <style>
-        body { background-color: #FAFAFC; }
-        
-        .reveal-up {
-            opacity: 0;
-            transform: translateY(18px);
-            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        html { background-color: #05070E; }
+        body { background-color: #05070E; color: #CBD5E1; }
+
+        /* ===== 滚动显现 ===== */
+        .reveal-up { opacity: 0; transform: translateY(26px); transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal-up.active { opacity: 1; transform: translateY(0); }
-        
-        .packet {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            opacity: 0;
-            z-index: 20;
-            box-shadow: 0 0 12px currentColor;
-            transition: left 0.85s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s;
-        }
-        .packet-blue { color: #165DFF; background-color: #165DFF; }
-        .packet-cyan { color: #00D0B6; background-color: #00D0B6; }
-        
-        .line-track {
-            position: absolute;
-            top: 50%;
-            left: 8%;
-            right: 8%;
-            transform: translateY(-50%);
-            height: 2px;
-            background: linear-gradient(90deg, rgba(22,93,255,0.05) 0%, rgba(22,93,255,0.7) 50%, rgba(0,208,182,0.1) 100%);
-            z-index: 10;
+        .title-underline { height: 3px; width: 64px; border-radius: 999px; background: linear-gradient(90deg, #22D3EE, #3B82F6, #8B5CF6); transform: scaleX(0); transform-origin: left; transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.25s; }
+        .reveal-up.active .title-underline, .active > .title-underline { transform: scaleX(1); }
+
+        /* ===== 极光背景 ===== */
+        .aurora { position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+        .aurora::before, .aurora::after, .aurora .blob-cyan { content: ''; position: absolute; border-radius: 50%; filter: blur(110px); }
+        .aurora::before { width: 55vw; height: 55vw; top: -18vw; left: -12vw; background: radial-gradient(circle, rgba(37, 99, 235, 0.30), transparent 65%); animation: drift1 26s ease-in-out infinite alternate; }
+        .aurora::after { width: 48vw; height: 48vw; bottom: -22vw; right: -14vw; background: radial-gradient(circle, rgba(124, 58, 237, 0.26), transparent 65%); animation: drift2 32s ease-in-out infinite alternate; }
+        .aurora .blob-cyan { width: 36vw; height: 36vw; top: 32%; left: 55%; background: radial-gradient(circle, rgba(34, 211, 238, 0.16), transparent 65%); animation: drift3 24s ease-in-out infinite alternate; }
+        @keyframes drift1 { from { transform: translate(0, 0) scale(1); } to { transform: translate(9vw, 7vh) scale(1.15); } }
+        @keyframes drift2 { from { transform: translate(0, 0) scale(1.1); } to { transform: translate(-8vw, -6vh) scale(0.95); } }
+        @keyframes drift3 { from { transform: translate(0, 0); } to { transform: translate(-10vw, 8vh); } }
+
+        #bg-particles { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
+
+        .bg-grid-dark {
+            background-image: linear-gradient(rgba(148, 163, 184, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+            background-size: 44px 44px;
+            -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 25%, transparent 95%);
+            mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 25%, transparent 95%);
         }
 
-        @keyframes windOut {
-            0% { opacity: 1; transform: translate(0, 0); }
-            100% { opacity: 0; transform: translate(0, -12px); }
+        /* ===== 玻璃卡片 ===== */
+        .glass-card { position: relative; background: rgba(14, 21, 38, 0.62); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(148, 163, 184, 0.12); border-radius: 1rem; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s; }
+        .glass-card:hover { transform: translateY(-5px); border-color: rgba(34, 211, 238, 0.35); box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45), 0 0 30px rgba(34, 211, 238, 0.08); }
+        .glass-card::after { content: ''; position: absolute; top: 0; right: 0; width: 130px; height: 130px; border-radius: 999px; background: radial-gradient(circle at top right, rgba(34, 211, 238, 0.10), transparent 70%); opacity: 0; transition: opacity 0.45s; pointer-events: none; }
+        .glass-card:hover::after { opacity: 1; }
+
+        /* ===== 渐变文字 ===== */
+        .text-gradient { background: linear-gradient(120deg, #7DD3FC, #22D3EE, #818CF8, #C084FC, #7DD3FC); background-size: 250% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: gradientFlow 7s linear infinite; }
+        @keyframes gradientFlow { to { background-position: 250% center; } }
+        .text-glow-cyan { text-shadow: 0 0 18px rgba(34, 211, 238, 0.55); }
+
+        /* ===== 徽章 ===== */
+        .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; background: rgba(34, 211, 238, 0.08); border: 1px solid rgba(34, 211, 238, 0.25); color: #67E8F9; }
+        .chip-red { background: rgba(239, 68, 68, 0.10); border-color: rgba(239, 68, 68, 0.35); color: #FCA5A5; }
+
+        /* ===== 按钮 ===== */
+        .btn-primary { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 32px; font-weight: 700; color: #fff; border-radius: 0.65rem; background: linear-gradient(115deg, #2563EB, #3B82F6 45%, #22D3EE); background-size: 180% auto; box-shadow: 0 8px 24px rgba(37, 99, 235, 0.35), 0 0 20px rgba(34, 211, 238, 0.18); transition: background-position 0.5s, transform 0.3s, box-shadow 0.4s; }
+        .btn-primary:hover { background-position: right center; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(37, 99, 235, 0.45), 0 0 32px rgba(34, 211, 238, 0.30); }
+        .btn-primary::after { content: ''; position: absolute; top: 0; left: -80%; width: 50%; height: 100%; background: linear-gradient(105deg, transparent, rgba(255, 255, 255, 0.35), transparent); transform: skewX(-20deg); transition: left 0.65s; }
+        .btn-primary:hover::after { left: 130%; }
+        .btn-ghost { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 14px 32px; font-weight: 600; color: #E2E8F0; border-radius: 0.65rem; background: rgba(148, 163, 184, 0.06); border: 1px solid rgba(148, 163, 184, 0.22); backdrop-filter: blur(8px); transition: all 0.35s; }
+        .btn-ghost:hover { border-color: rgba(34, 211, 238, 0.45); color: #fff; background: rgba(34, 211, 238, 0.08); transform: translateY(-2px); box-shadow: 0 0 25px rgba(34, 211, 238, 0.12); }
+
+        /* ===== 流动渐变描边（推荐卡片） ===== */
+        .glow-border { position: relative; }
+        .glow-border::before {
+            content: ''; position: absolute; inset: -1.5px; border-radius: calc(1rem + 1.5px); padding: 1.5px;
+            background: linear-gradient(115deg, #22D3EE, #3B82F6, #8B5CF6, #22D3EE); background-size: 300% 300%;
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+            animation: borderFlow 6s linear infinite; pointer-events: none;
         }
-        @keyframes windIn {
-            0% { opacity: 0; transform: translate(0, 12px); }
-            100% { opacity: 1; transform: translate(0, 0); }
-        }
+        @keyframes borderFlow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* ===== 顶部通告条 ===== */
+        #notice-bar { position: sticky; top: 0; z-index: 50; background: rgba(6, 10, 20, 0.82); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(148, 163, 184, 0.10); overflow: hidden; }
+        .shimmer-line { position: absolute; bottom: 0; left: -40%; width: 40%; height: 1px; background: linear-gradient(90deg, transparent, rgba(34, 211, 238, 0.8), rgba(139, 92, 246, 0.8), transparent); animation: shimmerMove 5.5s ease-in-out infinite; }
+        @keyframes shimmerMove { 0% { left: -40%; } 100% { left: 110%; } }
+        .beacon { position: relative; width: 9px; height: 9px; border-radius: 50%; background: #F43F5E; box-shadow: 0 0 12px rgba(244, 63, 94, 0.8); flex-shrink: 0; }
+        .beacon::before, .beacon::after { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid rgba(244, 63, 94, 0.6); animation: beaconRing 2.2s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+        .beacon::after { animation-delay: 1.1s; }
+        @keyframes beaconRing { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(3.4); opacity: 0; } }
+        .notice-badge { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; color: #fff; background: linear-gradient(115deg, #DC2626, #F43F5E 55%, #F59E0B); background-size: 200% auto; animation: gradientFlow 6s linear infinite; white-space: nowrap; flex-shrink: 0; }
+        .copy-btn { display: inline-flex; align-items: center; gap: 6px; padding: 5px 14px; border-radius: 8px; font-size: 12px; font-weight: 600; color: #A5F3FC; background: rgba(34, 211, 238, 0.08); border: 1px solid rgba(34, 211, 238, 0.3); transition: all 0.35s; white-space: nowrap; flex-shrink: 0; }
+        .copy-btn:hover { background: rgba(34, 211, 238, 0.18); border-color: rgba(34, 211, 238, 0.6); box-shadow: 0 0 18px rgba(34, 211, 238, 0.25); transform: translateY(-1px); }
+        .copy-btn.copied { color: #6EE7B7; border-color: rgba(16, 185, 129, 0.5); background: rgba(16, 185, 129, 0.12); }
+
+        /* ===== 拓扑动画 ===== */
+        .packet { position: absolute; width: 9px; height: 9px; border-radius: 50%; top: 50%; transform: translate(-50%, -50%); opacity: 0; z-index: 20; box-shadow: 0 0 14px currentColor, 0 0 30px currentColor; transition: left 0.85s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s; }
+        .packet-blue { color: #3B82F6; background-color: #60A5FA; }
+        .packet-cyan { color: #22D3EE; background-color: #22D3EE; }
+        .line-track { position: absolute; top: 50%; left: 8%; right: 8%; transform: translateY(-50%); height: 2px; background: linear-gradient(90deg, rgba(34, 211, 238, 0.08) 0%, rgba(34, 211, 238, 0.7) 50%, rgba(139, 92, 246, 0.12) 100%); z-index: 10; box-shadow: 0 0 12px rgba(34, 211, 238, 0.35); }
+        @keyframes windOut { 0% { opacity: 1; transform: translate(0, 0); } 100% { opacity: 0; transform: translate(0, -14px); } }
+        @keyframes windIn { 0% { opacity: 0; transform: translate(0, 14px); } 100% { opacity: 1; transform: translate(0, 0); } }
         .wind-out { animation: windOut 0.35s forwards cubic-bezier(0.4, 0, 0.2, 1); }
         .wind-in { animation: windIn 0.35s forwards cubic-bezier(0.16, 1, 0.3, 1); }
-        
+
+        /* ===== 终端 ===== */
         .custom-scrollbar::-webkit-scrollbar { width: 4px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.5); }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(100, 116, 139, 0.4); border-radius: 4px; }
         .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(100, 116, 139, 0.7); }
+        .terminal-caret { display: inline-block; width: 8px; height: 15px; background: #22D3EE; animation: caretBlink 0.9s steps(1) infinite; vertical-align: -2px; box-shadow: 0 0 10px rgba(34, 211, 238, 0.8); }
+        @keyframes caretBlink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
+        .scan-overlay { position: relative; overflow: hidden; }
+        .scan-overlay::before { content: ''; position: absolute; left: 0; right: 0; top: -100%; height: 60%; background: linear-gradient(180deg, transparent, rgba(34, 211, 238, 0.06), transparent); animation: scanMove 4.5s linear infinite; pointer-events: none; }
+        @keyframes scanMove { to { top: 160%; } }
 
-        .odo-wrapper {
-            display: inline-flex;
-            flex-direction: column;
-            height: 1em;
-            overflow: hidden;
-            vertical-align: -0.1em;
-            line-height: 1;
-        }
-        .odo-track {
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .odo-track span {
-            height: 1em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .odo-char {
-            display: inline-block;
-            vertical-align: baseline;
-            white-space: pre;
-        }
+        /* ===== 数字里程表 ===== */
+        .odo-wrapper { display: inline-flex; flex-direction: column; height: 1em; overflow: hidden; vertical-align: -0.1em; line-height: 1; }
+        .odo-track { display: flex; flex-direction: column; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+        .odo-track span { height: 1em; display: flex; align-items: center; justify-content: center; }
+        .odo-char { display: inline-block; vertical-align: baseline; white-space: pre; }
 
-        .bg-tech-grid {
-            background-image: radial-gradient(rgba(22, 93, 255, 0.08) 1px, transparent 1px), radial-gradient(rgba(22, 93, 255, 0.04) 1px, transparent 1px);
-            background-size: 32px 32px;
-            background-position: 0 0, 16px 16px;
-        }
+        /* ===== 新闻聚合板块 ===== */
+        .ticker-shell { position: relative; overflow: hidden; background: rgba(10, 15, 28, 0.72); backdrop-filter: blur(12px); border: 1px solid rgba(239, 68, 68, 0.22); border-radius: 0.85rem; }
+        .ticker-label { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; font-size: 12px; font-weight: 700; color: #fff; background: linear-gradient(115deg, #B91C1C, #DC2626 55%, #F59E0B); white-space: nowrap; flex-shrink: 0; }
+        .ticker-viewport { overflow: hidden; flex: 1; }
+        .ticker-track { display: flex; gap: 48px; white-space: nowrap; animation: tickerScroll 55s linear infinite; will-change: transform; }
+        .ticker-shell:hover .ticker-track { animation-play-state: paused; }
+        @keyframes tickerScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        #toast {
-            position: fixed;
-            bottom: 24px;
-            left: 50%;
-            transform: translateX(-50%) translateY(100px);
-            background: rgba(15, 23, 42, 0.95);
-            color: #fff;
-            padding: 10px 24px;
-            border-radius: 9999px;
-            font-size: 13px;
-            font-weight: 500;
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 999;
-            pointer-events: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        #toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
+        .news-panel { display: flex; flex-direction: column; overflow: hidden; background: rgba(14, 21, 38, 0.55); backdrop-filter: blur(14px); border: 1px solid rgba(148, 163, 184, 0.12); border-radius: 1.1rem; transition: border-color 0.4s, box-shadow 0.4s; }
+        .news-panel:hover { border-color: rgba(148, 163, 184, 0.25); box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45); }
+        .panel-head-red { background: linear-gradient(115deg, rgba(153, 27, 27, 0.55), rgba(220, 38, 38, 0.35) 60%, rgba(245, 158, 11, 0.25)); border-bottom: 1px solid rgba(239, 68, 68, 0.28); }
+        .panel-head-cyan { background: linear-gradient(115deg, rgba(8, 77, 110, 0.55), rgba(14, 116, 144, 0.38) 60%, rgba(59, 130, 246, 0.25)); border-bottom: 1px solid rgba(34, 211, 238, 0.28); }
+        .live-dot { position: relative; width: 7px; height: 7px; border-radius: 50%; }
+        .live-dot.red { background: #F87171; box-shadow: 0 0 10px rgba(248, 113, 113, 0.9); }
+        .live-dot.cyan { background: #22D3EE; box-shadow: 0 0 10px rgba(34, 211, 238, 0.9); }
+        .live-dot::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: inherit; animation: livePing 1.8s cubic-bezier(0.16, 1, 0.3, 1) infinite; }
+        @keyframes livePing { 0% { transform: scale(1); opacity: 0.8; } 100% { transform: scale(2.8); opacity: 0; } }
+
+        .news-item a, .news-item .news-row { display: flex; align-items: flex-start; gap: 12px; padding: 13px 18px; transition: background 0.3s; border-bottom: 1px solid rgba(148, 163, 184, 0.06); }
+        .news-item a:hover { background: rgba(34, 211, 238, 0.05); }
+        .news-item:last-child a, .news-item:last-child .news-row { border-bottom: none; }
+        .news-idx { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 700; width: 26px; height: 22px; display: inline-flex; align-items: center; justify-content: center; border-radius: 6px; flex-shrink: 0; margin-top: 1px; }
+        .news-idx.red { color: #FCA5A5; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.25); }
+        .news-idx.cyan { color: #67E8F9; background: rgba(34, 211, 238, 0.10); border: 1px solid rgba(34, 211, 238, 0.25); }
+        .news-title { font-size: 13.5px; line-height: 1.55; color: #DBEAFE; transition: color 0.25s; font-weight: 500; }
+        .news-item a:hover .news-title { color: #7DD3FC; }
+        .src-chip { display: inline-flex; align-items: center; padding: 1px 7px; border-radius: 4px; font-size: 10px; font-weight: 600; background: rgba(148, 163, 184, 0.10); color: #94A3B8; border: 1px solid rgba(148, 163, 184, 0.14); }
+        .hot-chip { display: inline-flex; align-items: center; gap: 3px; padding: 1px 7px; border-radius: 4px; font-size: 10px; font-weight: 700; color: #FDBA74; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.25); }
+        .news-arrow { opacity: 0; transform: translateX(-6px); transition: all 0.3s; color: #67E8F9; flex-shrink: 0; margin-top: 3px; }
+        .news-item a:hover .news-arrow { opacity: 1; transform: translateX(0); }
+
+        .skeleton { position: relative; overflow: hidden; background: rgba(148, 163, 184, 0.09); border-radius: 6px; }
+        .skeleton::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.16), transparent); animation: shimmer 1.5s infinite; }
+        @keyframes shimmer { to { transform: translateX(100%); } }
+        .refresh-btn { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 8px; color: #94A3B8; background: rgba(148, 163, 184, 0.08); border: 1px solid rgba(148, 163, 184, 0.18); transition: all 0.3s; }
+        .refresh-btn:hover { color: #67E8F9; border-color: rgba(34, 211, 238, 0.45); transform: rotate(90deg); }
+        .refresh-btn.spinning svg { animation: spinFast 0.9s linear infinite; }
+        @keyframes spinFast { to { transform: rotate(360deg); } }
+
+        .star-pulse { color: #F87171; filter: drop-shadow(0 0 6px rgba(248, 113, 113, 0.8)); animation: starPulse 2.4s ease-in-out infinite; }
+        @keyframes starPulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.18); opacity: 0.85; } }
+
+        /* ===== 语言切换悬浮球 ===== */
+        #lang-widget { position: fixed; bottom: 22px; right: 22px; z-index: 45; display: flex; align-items: center; gap: 3px; padding: 5px; border-radius: 999px; background: rgba(10, 15, 28, 0.88); backdrop-filter: blur(16px); border: 1px solid rgba(148, 163, 184, 0.18); box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5); transition: border-color 0.3s; }
+        #lang-widget:hover { border-color: rgba(34, 211, 238, 0.45); }
+        .lang-btn { padding: 5px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; color: #94A3B8; transition: all 0.3s; }
+        .lang-btn:hover { color: #E2E8F0; }
+        .lang-btn.active { color: #fff; background: linear-gradient(115deg, #2563EB, #22D3EE); box-shadow: 0 0 16px rgba(34, 211, 238, 0.4); }
+
+        /* ===== 滚动进度条 & Toast ===== */
+        #scroll-progress { position: fixed; top: 0; left: 0; height: 2.5px; width: 0%; z-index: 70; background: linear-gradient(90deg, #22D3EE, #3B82F6, #8B5CF6); box-shadow: 0 0 12px rgba(34, 211, 238, 0.7); transition: width 0.08s linear; }
+        #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(100px); background: rgba(10, 15, 28, 0.95); color: #fff; padding: 11px 26px; border-radius: 9999px; font-size: 13px; font-weight: 500; opacity: 0; transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1); z-index: 99; pointer-events: none; border: 1px solid rgba(34, 211, 238, 0.35); box-shadow: 0 15px 35px rgba(0, 0, 0, 0.45), 0 0 22px rgba(34, 211, 238, 0.2); }
+        #toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        .clamp-1 { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
+        .clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+        .float-slow { animation: floatY 7s ease-in-out infinite; }
+        @keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+
+        @media (prefers-reduced-motion: reduce) {
+            .aurora::before, .aurora::after, .aurora .blob-cyan, .ticker-track, .float-slow, .scan-overlay::before, .shimmer-line { animation: none !important; }
         }
     </style>
 </head>
-<body class="text-slate-800 antialiased overflow-x-hidden selection:bg-brand-500 selection:text-white">
+<body class="antialiased overflow-x-hidden selection:bg-cyan-500/30 selection:text-white">
+    <div id="scroll-progress"></div>
+    <div class="aurora"><div class="blob-cyan"></div></div>
+    <canvas id="bg-particles"></canvas>
 
-    <!-- Hero Section -->
-    <section class="relative pt-12 md:pt-16 pb-16 md:pb-24 overflow-hidden bg-tech-grid border-b border-slate-200/80">
+    <!-- ===== Hero（本页无顶部通告栏，直接进入工作台欢迎区） ===== -->
+    <section class="relative pt-16 pb-20 md:pt-24 md:pb-28 overflow-hidden bg-grid-dark">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-14">
-                
-                <!-- 左侧文本 -->
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
+
+                <!-- 左侧文案 -->
                 <div class="w-full lg:w-[56%] text-left reveal-up active">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-50 border border-brand-200/80 text-brand-600 text-xs font-semibold mb-6">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                        <span>Developer Workspace Active</span>
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-400/[0.07] border border-emerald-300/25 text-emerald-300 text-xs font-semibold mb-7 backdrop-blur">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_10px_rgba(16,185,129,0.9)]"></span>
+                        <svg class="star-pulse w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17l-6.1 3.6 1.4-6.8L2.2 9.1l6.9-.8z"></path></svg>
+                        <span data-i18n="hero_badge">开发者工作台已就绪</span>
                     </div>
 
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.12] mb-6">
-                        <span data-i18n="hero_title_1">欢迎回来，开发者</span><br>
+                    <h1 class="text-4xl sm:text-5xl lg:text-[3.35rem] font-extrabold tracking-tight text-white leading-[1.14] mb-7">
+                        <span class="text-gradient" data-i18n="hero_title_1">欢迎回来，开发者</span><br>
                         <span class="inline-grid items-center justify-start align-middle mt-2">
                             <span class="col-start-1 row-start-1 opacity-0 pointer-events-none pr-2" id="word-placeholder">继续探索 AI 边界</span>
                             <span class="col-start-1 row-start-1 w-full flex justify-start text-left">
-                                <span id="rotating-word" class="text-brand-500 block will-change-transform">继续探索 AI 边界</span>
+                                <span id="rotating-word" class="text-cyan-300 text-glow-cyan block will-change-transform">继续探索 AI 边界</span>
                             </span>
                         </span>
                     </h1>
-                    
-                    <p class="text-base md:text-lg text-slate-600 mb-8 leading-relaxed max-w-2xl" data-i18n="hero_desc">
+
+                    <p class="text-base md:text-lg text-slate-300 mb-9 leading-relaxed max-w-2xl" data-i18n="hero_desc">
                         您已成功接入 VSLLM 维云模型开放平台。在这里您可以轻松管理 API 密钥、查看实时调用日志并掌控账单明细。全网大模型随时待命，几块钱搞定全部算力开销！
                     </p>
 
-                    <div class="flex flex-col sm:flex-row items-start gap-4">
-                        <a href="https://vsllm.cc/console" target="_blank" class="w-full sm:w-auto px-8 py-3.5 text-base font-bold text-white bg-brand-500 hover:bg-brand-hover rounded-md shadow-cloud hover:shadow-cloud-hover transition-all text-center flex items-center justify-center gap-2" data-i18n="btn_console">
+                    <div class="flex flex-col sm:flex-row items-start gap-4 mb-12">
+                        <a href="https://vsllm.cc/console" target="_blank" class="btn-primary w-full sm:w-auto text-base" data-i18n="btn_console">
                             <span>控制台</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                         </a>
-                        <a href="https://docs.newapi.pro/" class="w-full sm:w-auto px-8 py-3.5 text-base font-semibold text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 hover:border-slate-400 rounded-md transition-colors text-center" data-i18n="btn_docs">
+                        <a href="https://docs.newapi.pro/" class="btn-ghost w-full sm:w-auto text-base" data-i18n="btn_docs">
                             查看开发文档
                         </a>
                     </div>
 
                     <!-- 动态数据统计面板 -->
-                    <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 reveal-up active" style="transition-delay: 0.15s;">
-                        <div class="bg-white border border-slate-200/90 rounded-xl p-5 shadow-cloud hover:shadow-cloud-hover transition-all relative overflow-hidden group flex flex-col justify-center">
-                            <div class="flex items-center justify-between mb-2">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-5 reveal-up active" style="transition-delay: 0.15s;">
+                        <div id="stat-tokens-card" class="glass-card p-5 cursor-pointer">
+                            <div class="flex items-center justify-between mb-2.5">
                                 <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider" data-i18n="stat_tokens">已处理 Tokens</p>
-                                <div class="w-7 h-7 rounded-md bg-brand-50 flex items-center justify-center text-brand-500">
+                                <div class="w-8 h-8 rounded-lg bg-cyan-400/10 border border-cyan-300/20 flex items-center justify-center text-cyan-300">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v8l9-11h-7z"></path></svg>
                                 </div>
                             </div>
-                            <div id="tokens-odometer" class="text-2xl sm:text-3xl font-extrabold text-brand-600 font-mono tracking-tight h-8 flex items-center">
+                            <div id="tokens-odometer" class="text-2xl sm:text-3xl font-extrabold text-gradient font-mono tracking-tight h-8 flex items-center">
                                 --
                             </div>
                         </div>
 
-                        <div class="bg-white border border-slate-200/90 rounded-xl p-5 shadow-cloud hover:shadow-cloud-hover transition-all relative overflow-hidden group flex flex-col justify-center">
-                            <div class="flex items-center justify-between mb-2">
+                        <div class="glass-card p-5">
+                            <div class="flex items-center justify-between mb-2.5">
                                 <p class="text-[11px] font-bold text-slate-500 uppercase tracking-wider" data-i18n="stat_uptime">平台安全运行时间</p>
-                                <div class="w-7 h-7 rounded-md bg-emerald-50 flex items-center justify-center text-tech-emerald">
+                                <div class="w-8 h-8 rounded-lg bg-emerald-400/10 border border-emerald-300/20 flex items-center justify-center text-emerald-300">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                 </div>
                             </div>
-                            <div id="uptime-odometer" class="text-xl sm:text-[1.35rem] font-extrabold text-slate-900 font-mono tracking-tight h-8 flex items-center whitespace-nowrap">
+                            <div id="uptime-odometer" class="text-xl sm:text-[1.35rem] font-extrabold text-white font-mono tracking-tight h-8 flex items-center whitespace-nowrap">
                                 --
                             </div>
-                            <div class="text-[11px] text-emerald-600 mt-2 flex items-center gap-1.5 font-bold">
+                            <div class="text-[11px] text-emerald-400 mt-2.5 flex items-center gap-1.5 font-bold">
                                 <span class="relative flex h-2 w-2">
                                   <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
                                 </span>
                                 <span data-i18n="stat_status">节点状态极佳</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <!-- 右侧展示图 -->
+
+                <!-- 右侧：网关状态终端 -->
                 <div class="w-full lg:w-[44%] reveal-up hidden md:block">
-                    <div class="bg-tech-navy border border-tech-border rounded-xl shadow-2xl overflow-hidden text-slate-200">
-                        <div class="bg-slate-900/90 border-b border-tech-border px-4 py-3 flex items-center justify-between">
+                    <div class="float-slow glass-card !rounded-xl overflow-hidden text-slate-200 !border-slate-700/50 shadow-[0_25px_60px_rgba(0,0,0,0.5),0_0_45px_rgba(34,211,238,0.10)]">
+                        <div class="bg-slate-950/80 border-b border-slate-700/50 px-4 py-3 flex items-center justify-between">
                             <div class="flex items-center gap-2">
-                                <div class="w-3 h-3 rounded-full bg-rose-500/80"></div>
-                                <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
-                                <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
-                                <span class="ml-2 text-xs font-mono text-slate-400">API_Gateway_Status</span>
+                                <div class="w-3 h-3 rounded-full bg-rose-500/80 shadow-[0_0_8px_rgba(244,63,94,0.5)]"></div>
+                                <div class="w-3 h-3 rounded-full bg-amber-400/80 shadow-[0_0_8px_rgba(251,191,36,0.5)]"></div>
+                                <div class="w-3 h-3 rounded-full bg-emerald-400/80 shadow-[0_0_8px_rgba(52,211,153,0.5)]"></div>
+                                <span class="ml-2 text-xs font-mono text-slate-500">API_Gateway_Status</span>
                             </div>
-                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-950 text-emerald-400 border border-emerald-800">HEALTHY</span>
+                            <span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-500/10 text-emerald-300 border border-emerald-500/30">HEALTHY</span>
                         </div>
-                        <div class="p-6 text-sm font-mono leading-relaxed space-y-4">
-                            <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+                        <div class="p-6 text-sm font-mono leading-relaxed space-y-4 scan-overlay">
+                            <div class="flex justify-between items-center pb-3 border-b border-slate-700/60">
                                 <span class="text-slate-400 flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
+                                    <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"></path></svg>
                                     Global Network
                                 </span>
-                                <strong class="text-emerald-400 font-semibold flex items-center gap-1.5">
+                                <strong class="text-emerald-300 font-semibold flex items-center gap-1.5">
                                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                                     Online
                                 </strong>
                             </div>
-                            <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+                            <div class="flex justify-between items-center pb-3 border-b border-slate-700/60">
                                 <span class="text-slate-400 flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                                     API Requests/sec
                                 </span>
                                 <strong class="text-slate-100 font-bold">12,450+</strong>
                             </div>
-                            <div class="flex justify-between items-center pb-3 border-b border-slate-800">
+                            <div class="flex justify-between items-center pb-3 border-b border-slate-700/60">
                                 <span class="text-slate-400 flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-tech-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                                     Avg. Latency
                                 </span>
-                                <strong class="text-tech-cyan font-bold">~12ms</strong>
+                                <strong class="text-cyan-300 font-bold text-glow-cyan">~12ms</strong>
                             </div>
                             <div class="flex justify-between items-center">
                                 <span class="text-slate-400 flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                    <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                                     Uptime SLA
                                 </span>
                                 <strong class="text-slate-100 font-bold">99.99%</strong>
                             </div>
+                            <p class="pt-2 text-slate-500 text-xs">// streaming <span class="terminal-caret"></span></p>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <!-- 拓扑动画部分 -->
-    <section id="flow-animation" class="py-20 md:py-28 bg-tech-navy relative overflow-hidden text-white border-b border-slate-800">
+    <!-- ===== 拓扑调度流转动画 ===== -->
+    <section id="flow-animation" class="py-20 md:py-28 relative overflow-hidden border-t border-white/[0.04] bg-tech-panel/40">
+        <div class="absolute inset-0 bg-grid-dark opacity-60"></div>
         <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-            <div class="text-center max-w-2xl mx-auto mb-16 reveal-up">
-                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/80 border border-slate-700 text-brand-500 text-xs font-semibold mb-3">
+            <div class="text-center max-w-2xl mx-auto mb-14 md:mb-18 reveal-up">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/60 border border-slate-600/50 text-cyan-300 text-xs font-semibold mb-4">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v8l9-11h-7z"></path></svg>
                     <span>Smart Dispatch Hub</span>
                 </div>
-                <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight" data-i18n="anim_title">极简流转，高效分发</h2>
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-5 tracking-tight text-white" data-i18n="anim_title">极简流转，高效分发</h2>
+                <div class="title-underline mx-auto mb-5"></div>
                 <p class="text-slate-400 text-base md:text-lg leading-relaxed" data-i18n="anim_desc">一站式智能网关调度，自动负载均衡，保障您的每一次请求都能得到最快、最稳定的响应。</p>
             </div>
 
-            <div class="relative w-full bg-tech-panel/90 border border-tech-border rounded-2xl px-3 py-20 md:p-16 shadow-2xl reveal-up">
+            <div class="relative w-full glass-card !rounded-2xl px-3 py-20 md:p-16 reveal-up">
                 <div class="line-track"></div>
 
                 <div class="flex items-center justify-between w-full relative z-20 px-4 md:px-12">
                     <div class="flex flex-col items-center justify-center relative w-1/4">
-                        <div id="status-app" class="absolute -top-11 md:-top-14 whitespace-nowrap px-3 py-1 bg-slate-800 border border-slate-600 text-slate-200 text-xs font-semibold rounded-md opacity-0 transition-opacity duration-300">发起请求</div>
-                        <div class="w-14 h-14 md:w-16 md:h-16 bg-slate-800 border-2 border-slate-700 rounded-xl flex items-center justify-center shadow-lg relative z-10">
-                            <svg class="w-6 h-6 md:w-7 md:h-7 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+                        <div id="status-app" class="absolute -top-11 md:-top-14 whitespace-nowrap px-3 py-1 bg-slate-800 border border-slate-500 text-slate-200 text-xs font-semibold rounded-md opacity-0 transition-opacity duration-300">发起请求</div>
+                        <div class="w-14 h-14 md:w-16 md:h-16 bg-slate-800/80 border-2 border-slate-600 rounded-xl flex items-center justify-center shadow-lg relative z-10">
+                            <svg class="w-6 h-6 md:w-7 md:h-7 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
                         </div>
                         <span class="mt-4 md:mt-5 text-xs md:text-sm font-bold text-slate-300 text-center" data-i18n="anim_app">您的应用</span>
                     </div>
 
                     <div class="flex flex-col items-center justify-center relative w-1/3">
-                        <div id="cost-popup" class="absolute bottom-[calc(100%+16px)] left-1/2 -translate-x-1/2 bg-slate-900 border border-slate-700 shadow-2xl rounded-lg p-3 md:p-4 w-44 md:w-52 opacity-0 transform scale-95 transition-all duration-300 z-30 pointer-events-none text-left">
-                            <div class="text-[10px] md:text-xs text-slate-400 mb-2 font-bold uppercase tracking-wider flex items-center justify-between">
+                        <div id="cost-popup" class="absolute bottom-[calc(100%+16px)] left-1/2 -translate-x-1/2 bg-slate-950 border border-slate-600 shadow-2xl rounded-lg p-3 md:p-4 w-44 md:w-52 opacity-0 transform scale-95 transition-all duration-300 z-30 pointer-events-none text-left">
+                            <div class="text-[10px] md:text-xs text-slate-500 mb-2 font-bold uppercase tracking-wider flex items-center justify-between">
                                 <span data-i18n="anim_calc">网关处理中</span>
-                                <span class="w-1.5 h-1.5 rounded-full bg-tech-cyan"></span>
+                                <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
                             </div>
                             <div class="flex justify-between items-center text-xs md:text-sm mb-1">
-                                <span class="text-slate-400">Status:</span>
+                                <span class="text-slate-500">Status:</span>
                                 <span class="text-emerald-400 font-mono font-bold">200 OK</span>
                             </div>
-                            <div class="w-full h-px bg-slate-800 my-2"></div>
+                            <div class="w-full h-px bg-slate-700 my-2"></div>
                             <div class="flex justify-between items-center text-xs md:text-sm font-bold">
-                                <span class="text-slate-400" data-i18n="anim_fee">节点延迟:</span>
-                                <span class="text-tech-cyan font-mono">12ms</span>
+                                <span class="text-slate-500" data-i18n="anim_fee">节点延迟:</span>
+                                <span class="text-cyan-300 font-mono">12ms</span>
                             </div>
                         </div>
 
-                        <div id="gateway-box" class="w-16 h-16 md:w-20 md:h-20 bg-brand-500 border-2 border-brand-200 rounded-2xl flex items-center justify-center shadow-glow-brand transition-all duration-500 relative z-10">
+                        <div id="gateway-box" class="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-600 to-cyan-500 border-2 border-cyan-300/40 rounded-2xl flex items-center justify-center transition-all duration-500 relative z-10 shadow-[0_0_35px_rgba(34,211,238,0.45)]">
                             <svg class="w-8 h-8 md:w-10 md:h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
                         </div>
                         <span class="mt-4 md:mt-5 text-xs md:text-sm font-bold text-white text-center whitespace-nowrap" data-i18n="anim_gateway">VSLLM 网关</span>
-                        <span class="text-[9px] md:text-xs text-slate-400 mt-1 hidden md:block whitespace-nowrap" data-i18n="anim_encryption">TLS 1.3 强加密传输</span>
+                        <span class="text-[9px] md:text-xs text-slate-500 mt-1 hidden md:block whitespace-nowrap" data-i18n="anim_encryption">TLS 1.3 强加密传输</span>
                     </div>
 
                     <div class="flex flex-col items-center justify-center relative w-1/4">
-                        <div id="status-provider" class="absolute -top-11 md:-top-14 whitespace-nowrap px-3 py-1 bg-slate-800 border border-slate-600 text-tech-cyan text-xs font-semibold rounded-md opacity-0 transition-opacity duration-300">极速响应</div>
-                        <div id="provider-box" class="w-14 h-14 md:w-16 md:h-16 bg-slate-800 border-2 border-slate-700 rounded-xl flex items-center justify-center shadow-lg relative z-10 transition-all duration-300">
-                            <svg class="w-6 h-6 md:w-7 md:h-7 text-tech-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                        <div id="status-provider" class="absolute -top-11 md:-top-14 whitespace-nowrap px-3 py-1 bg-slate-800 border border-slate-500 text-cyan-300 text-xs font-semibold rounded-md opacity-0 transition-opacity duration-300">极速响应</div>
+                        <div id="provider-box" class="w-14 h-14 md:w-16 md:h-16 bg-slate-800/80 border-2 border-slate-600 rounded-xl flex items-center justify-center shadow-lg relative z-10 transition-all duration-300">
+                            <svg class="w-6 h-6 md:w-7 md:h-7 text-cyan-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                         </div>
                         <span class="mt-4 md:mt-5 text-xs md:text-sm font-bold text-slate-300 text-center" data-i18n="anim_models">AI 大模型</span>
                     </div>
@@ -332,83 +399,82 @@
         </div>
     </section>
 
-    <!-- 定价策略 / 充值模块 (核心引导模块) -->
-    <section id="pricing" class="py-20 md:py-28 bg-slate-50/60 relative border-b border-slate-200/80">
+    <!-- ===== 定价策略 / 充值模块 ===== -->
+    <section id="pricing" class="py-20 md:py-28 relative border-t border-white/[0.04]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-2xl mx-auto mb-16 md:mb-20 reveal-up">
-                <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-50 border border-brand-200 text-brand-600 text-xs font-semibold mb-3">
+            <div class="text-center max-w-2xl mx-auto mb-14 md:mb-18 reveal-up">
+                <div class="chip mb-4">
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                     <span>Compute Resource</span>
                 </div>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight" data-i18n="price_title">随时为您补充算力</h2>
-                <p class="text-slate-600 text-base md:text-lg" data-i18n="price_desc">按实际消耗精确计费，余额随时掌控，确保您的科研与业务永不停机。</p>
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-5 tracking-tight text-white" data-i18n="price_title">随时为您补充算力</h2>
+                <div class="title-underline mx-auto mb-5"></div>
+                <p class="text-slate-400 text-base md:text-lg" data-i18n="price_desc">按实际消耗精确计费，余额随时掌控，确保您的科研与业务永不停机。</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
-                <!-- 标准版定价 -->
-                <div class="flex flex-col bg-white border border-slate-200 rounded-2xl shadow-cloud hover:shadow-cloud-hover transition-all reveal-up">
-                    <div class="p-8 md:p-10 border-b border-slate-100 flex-1">
+                <div class="flex flex-col glass-card rounded-2xl reveal-up">
+                    <div class="p-8 md:p-10 border-b border-white/[0.06] flex-1">
                         <div class="flex items-center justify-between mb-2">
-                            <h3 class="text-2xl font-bold text-slate-900" data-i18n="price_card1_title">精选国内大模型</h3>
-                            <span class="px-2.5 py-0.5 rounded text-xs font-semibold bg-slate-100 text-slate-600">Domestic</span>
+                            <h3 class="text-2xl font-bold text-white" data-i18n="price_card1_title">精选国内大模型</h3>
+                            <span class="px-2.5 py-0.5 rounded text-xs font-semibold bg-red-500/10 text-red-300 border border-red-400/25">Domestic ★</span>
                         </div>
                         <p class="text-sm text-slate-500 mb-6 h-5" data-i18n="price_card1_sub">日常文本生成、内容总结、智能助理</p>
                         <div class="mb-8">
-                            <span class="text-4xl font-extrabold text-slate-900" data-i18n="price_standard">标准计费</span>
+                            <span class="text-4xl font-extrabold text-white" data-i18n="price_standard">标准计费</span>
                         </div>
                         <ul class="space-y-4">
                             <li class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-slate-700 font-medium" data-i18n="price_card1_p1">按量付费，拒绝隐藏成本</span>
+                                <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-slate-300 font-medium" data-i18n="price_card1_p1">按量付费，拒绝隐藏成本</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-slate-700 font-medium" data-i18n="price_card1_p2">聚合国内头部 AI 大厂最新模型</span>
+                                <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-slate-300 font-medium" data-i18n="price_card1_p2">聚合国内头部 AI 大厂最新模型</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-emerald-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-slate-700 font-medium" data-i18n="price_card1_p3">极速响应延迟保证</span>
+                                <svg class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-slate-300 font-medium" data-i18n="price_card1_p3">极速响应延迟保证</span>
                             </li>
                         </ul>
                     </div>
-                    <div class="p-8 bg-slate-50/70 rounded-b-2xl">
-                        <a href="https://vsllm.cc/token" target="_blank" class="block w-full py-3 px-6 text-center text-sm font-bold text-slate-800 bg-white border border-slate-300 rounded-md hover:bg-slate-100 transition-colors" data-i18n="btn_create_token">
+                    <div class="p-8 bg-white/[0.02] rounded-b-2xl">
+                        <a href="https://vsllm.cc/token" target="_blank" class="btn-ghost block w-full !py-3 text-sm" data-i18n="btn_create_token">
                             去创建 Token
                         </a>
                     </div>
                 </div>
 
-                <!-- 高级版定价 (推荐) -->
-                <div class="flex flex-col bg-white border-2 border-brand-500 rounded-2xl shadow-cloud-hover relative reveal-up" style="transition-delay: 0.1s;">
-                    <div class="absolute top-0 right-0 -mt-3.5 mr-6">
-                        <span class="px-3.5 py-1 text-xs font-bold text-white bg-brand-500 rounded-full shadow-sm" data-i18n="price_tag_rec">RECOMMENDED</span>
+                <div class="glow-border flex flex-col glass-card !bg-[#0C1322]/90 rounded-2xl reveal-up shadow-[0_20px_50px_rgba(37,99,235,0.15)]" style="transition-delay: 0.1s;">
+                    <div class="absolute top-0 right-0 -mt-3.5 mr-6 z-10">
+                        <span class="px-3.5 py-1 text-xs font-bold text-white bg-gradient-to-r from-cyan-500 to-blue-600 rounded-full shadow-[0_0_20px_rgba(34,211,238,0.5)]" data-i18n="price_tag_rec">RECOMMENDED</span>
                     </div>
-                    <div class="p-8 md:p-10 border-b border-slate-100 flex-1">
+                    <div class="p-8 md:p-10 border-b border-white/[0.06] flex-1">
                         <div class="flex items-center justify-between mb-2">
-                            <h3 class="text-2xl font-bold text-slate-900" data-i18n="price_card2_title">全球顶尖大模型</h3>
-                            <span class="px-2.5 py-0.5 rounded text-xs font-semibold bg-brand-50 text-brand-600">Enterprise</span>
+                            <h3 class="text-2xl font-bold text-white" data-i18n="price_card2_title">全球顶尖大模型</h3>
+                            <span class="px-2.5 py-0.5 rounded text-xs font-semibold bg-cyan-400/10 text-cyan-300 border border-cyan-300/25">Enterprise</span>
                         </div>
                         <p class="text-sm text-slate-500 mb-6 h-5" data-i18n="price_card2_sub">复杂推理、代码编写、深度数据分析</p>
                         <div class="mb-8">
-                            <span class="text-4xl font-extrabold text-brand-600" data-i18n="price_premium">超高性价比</span>
+                            <span class="text-4xl font-extrabold text-gradient" data-i18n="price_premium">超高性价比</span>
                         </div>
                         <ul class="space-y-4">
                             <li class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-brand-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-slate-700 font-medium" data-i18n="price_card2_p1">提供极具竞争力的价格（铜板价搞定）</span>
+                                <svg class="w-5 h-5 text-cyan-300 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-slate-200 font-medium" data-i18n="price_card2_p1">提供极具竞争力的价格（铜板价搞定）</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-brand-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-slate-700 font-medium" data-i18n="price_card2_p2">支持 Function Calling 等全部高级特性</span>
+                                <svg class="w-5 h-5 text-cyan-300 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-slate-200 font-medium" data-i18n="price_card2_p2">支持 Function Calling 等全部高级特性</span>
                             </li>
                             <li class="flex items-start gap-3">
-                                <svg class="w-5 h-5 text-brand-500 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-                                <span class="text-sm text-slate-700 font-medium" data-i18n="price_card2_p3">突破频率限制，高并发稳定可用</span>
+                                <svg class="w-5 h-5 text-cyan-300 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                                <span class="text-sm text-slate-200 font-medium" data-i18n="price_card2_p3">突破频率限制，高并发稳定可用</span>
                             </li>
                         </ul>
                     </div>
-                    <div class="p-8 bg-brand-50/40 rounded-b-2xl">
-                        <a href="https://vsllm.cc/topup" target="_blank" class="block w-full py-3 px-6 text-center text-sm font-bold text-white bg-brand-500 rounded-md hover:bg-brand-hover shadow-sm transition-colors" data-i18n="btn_topup">
+                    <div class="p-8 bg-cyan-400/[0.04] rounded-b-2xl">
+                        <a href="https://vsllm.cc/topup" target="_blank" class="btn-primary block w-full !py-3 text-sm" data-i18n="btn_topup">
                             去充值
                         </a>
                     </div>
@@ -416,41 +482,123 @@
             </div>
         </div>
     </section>
+    <!-- ===== 家国要闻 × AI 前沿 实时聚合 ===== -->
+    <section id="news" class="py-20 md:py-28 relative border-t border-white/[0.04] overflow-hidden">
+        <div class="absolute inset-0 bg-grid-dark opacity-40"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-2xl mx-auto mb-10 reveal-up">
+                <div class="chip-red inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold mb-4">
+                    <svg class="star-pulse w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17l-6.1 3.6 1.4-6.8L2.2 9.1l6.9-.8z"></path></svg>
+                    <span data-i18n="news_badge">家国情怀 · 科技报国</span>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-extrabold mb-5 tracking-tight text-white">
+                    <span data-i18n="news_title_1">家国要闻</span>
+                    <span class="text-gradient mx-1">×</span>
+                    <span class="text-gradient" data-i18n="news_title_2">AI 前沿</span>
+                </h2>
+                <div class="title-underline mx-auto mb-5"></div>
+                <p class="text-slate-400 text-base md:text-lg" data-i18n="news_sub">家事国事天下事，事事关心。实时聚合权威时政资讯与全球 AI 动态，与中国科技同频共振。</p>
+            </div>
 
-    <!-- Footer -->
-    <footer class="bg-tech-navy text-slate-300 pt-16 pb-8 border-t border-slate-800">
+            <!-- 要闻跑马灯 -->
+            <div class="ticker-shell flex items-stretch reveal-up">
+                <span class="ticker-label">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17l-6.1 3.6 1.4-6.8L2.2 9.1l6.9-.8z"></path></svg>
+                    <span data-i18n="ticker_label">要闻速递</span>
+                </span>
+                <div class="ticker-viewport flex items-center py-2.5" id="news-ticker">
+                    <div class="ticker-track" id="news-ticker-track">
+                        <span class="text-[13px] text-slate-300">正在接入新闻源…</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mt-8">
+                <!-- 时政要闻面板 -->
+                <div class="news-panel reveal-up" id="panel-patriotic">
+                    <div class="panel-head-red px-5 py-4 flex items-center justify-between">
+                        <div class="flex items-center gap-2.5">
+                            <svg class="star-pulse w-5 h-5 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17l-6.1 3.6 1.4-6.8L2.2 9.1l6.9-.8z"></path></svg>
+                            <h3 class="text-base font-bold text-white tracking-wide" data-i18n="news_tab_domestic">时政要闻</h3>
+                            <span class="hidden sm:inline-flex text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-white/10 text-red-200 border border-red-300/20">CHINA</span>
+                        </div>
+                        <span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-red-200 tracking-widest">
+                            <span class="live-dot red"></span>LIVE
+                        </span>
+                    </div>
+                    <ul id="patriotic-list" class="min-h-[320px]"></ul>
+                    <div class="px-5 py-3 border-t border-white/[0.05] flex items-center justify-between bg-white/[0.015]">
+                        <span class="text-[11px] text-slate-500 clamp-1" id="patriotic-src-note">source: Toutiao Hot / 60s Daily Brief</span>
+                        <button class="refresh-btn" id="refresh-patriotic" title="Refresh" onclick="loadNews('patriotic', true)">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- AI 前沿面板 -->
+                <div class="news-panel reveal-up" id="panel-ai" style="transition-delay: 0.12s;">
+                    <div class="panel-head-cyan px-5 py-4 flex items-center justify-between">
+                        <div class="flex items-center gap-2.5">
+                            <svg class="w-5 h-5 text-cyan-300 drop-shadow-[0_0_8px_rgba(34,211,238,0.6)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            <h3 class="text-base font-bold text-white tracking-wide" data-i18n="news_tab_ai">AI 前沿</h3>
+                            <span class="hidden sm:inline-flex text-[10px] font-mono font-bold px-1.5 py-0.5 rounded bg-white/10 text-cyan-200 border border-cyan-300/20">GLOBAL</span>
+                        </div>
+                        <span class="inline-flex items-center gap-1.5 text-[10px] font-bold text-cyan-200 tracking-widest">
+                            <span class="live-dot cyan"></span>LIVE
+                        </span>
+                    </div>
+                    <ul id="ai-list" class="min-h-[320px]"></ul>
+                    <div class="px-5 py-3 border-t border-white/[0.05] flex items-center justify-between bg-white/[0.015]">
+                        <span class="text-[11px] text-slate-500 clamp-1" id="ai-src-note">source: Sina Tech / Hacker News</span>
+                        <button class="refresh-btn" id="refresh-ai" title="Refresh" onclick="loadNews('ai', true)">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-center text-[11px] text-slate-600 mt-6 reveal-up" data-i18n="news_disclaimer">* 新闻内容来自第三方公开接口（今日头条 / 60秒新闻联播 / 新浪科技 / Hacker News），仅作资讯聚合展示，不代表本平台立场。每 5 分钟自动刷新。</p>
+        </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer class="pt-16 pb-24 border-t border-white/[0.06] relative bg-tech-panel/60">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-14">
                 <div class="md:col-span-2">
                     <div class="flex items-center gap-3 mb-6">
-                        <img src="https://img.scdn.io/i/6a05a96892419_1778755944.webp" alt="维云 Logo" class="w-7 h-7 rounded shadow-sm">
+                        <img src="https://img.scdn.io/i/6a05a96892419_1778755944.webp" alt="维云 Logo" class="w-8 h-8 rounded-md shadow-[0_0_16px_rgba(34,211,238,0.3)]">
                         <span class="text-lg font-bold text-white tracking-tight">VSLLM 维云模型平台</span>
                     </div>
-                    <p class="text-slate-400 text-sm leading-relaxed max-w-sm" data-i18n="footer_desc">
+                    <p class="text-slate-500 text-sm leading-relaxed max-w-sm" data-i18n="footer_desc">
                         维云模型开放平台 (VSLLM)，致力于为广大学生与开发者提供极速、稳定、安全的全球大模型 API 聚合分发服务。
                     </p>
+                    <div class="mt-6 inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-red-500/[0.07] border border-red-400/25">
+                        <svg class="w-3.5 h-3.5 text-red-400" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17l-6.1 3.6 1.4-6.8L2.2 9.1l6.9-.8z"></path></svg>
+                        <span class="text-xs font-bold text-red-300" data-i18n="footer_patriotic">科技自立自强 · 创新报国，与中国 AI 力量共同成长</span>
+                    </div>
                 </div>
-                
+
                 <div>
-                    <h4 class="font-bold text-white mb-5 text-xs uppercase tracking-wider text-slate-200" data-i18n="footer_dev">快捷导航</h4>
+                    <h4 class="font-bold text-white mb-5 text-xs uppercase tracking-wider text-slate-300" data-i18n="footer_dev">快捷导航</h4>
                     <ul class="space-y-3 text-sm">
-                        <li><a href="https://vsllm.cc/console" target="_blank" class="text-slate-400 hover:text-white transition-colors" data-i18n="footer_console">控制台首页</a></li>
-                        <li><a href="https://vsllm.cc/docs" target="_blank" class="text-slate-400 hover:text-white transition-colors" data-i18n="footer_docs">API 接入文档</a></li>
-                        <li><a href="https://lmspeed.net/zh/provider/vsllm-com" class="text-slate-400 hover:text-white transition-colors">系统状态 (Status)</a></li>
+                        <li><a href="https://vsllm.cc/console" target="_blank" class="text-slate-500 hover:text-cyan-300 transition-colors" data-i18n="footer_console">控制台首页</a></li>
+                        <li><a href="https://vsllm.cc/docs" target="_blank" class="text-slate-500 hover:text-cyan-300 transition-colors" data-i18n="footer_docs">API 接入文档</a></li>
+                        <li><a href="https://lmspeed.net/zh/provider/vsllm-com" class="text-slate-500 hover:text-cyan-300 transition-colors">系统状态 (Status)</a></li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="font-bold text-white mb-5 text-xs uppercase tracking-wider text-slate-200" data-i18n="footer_about">支持与条款</h4>
+                    <h4 class="font-bold text-white mb-5 text-xs uppercase tracking-wider text-slate-300" data-i18n="footer_about">支持与条款</h4>
                     <ul class="space-y-3 text-sm">
-                        <li><a href="#" class="text-slate-400 hover:text-white transition-colors" data-i18n="footer_tos">服务条款 (Terms)</a></li>
-                        <li><a href="#" class="text-slate-400 hover:text-white transition-colors" data-i18n="footer_privacy">隐私政策 (Privacy)</a></li>
-                        <li><a href="https://vsllm.cc/" target="_blank" class="text-slate-400 hover:text-white transition-colors" data-i18n="footer_ticket">联系客服与支持</a></li>
+                        <li><a href="#" class="text-slate-500 hover:text-cyan-300 transition-colors" data-i18n="footer_tos">服务条款 (Terms)</a></li>
+                        <li><a href="#" class="text-slate-500 hover:text-cyan-300 transition-colors" data-i18n="footer_privacy">隐私政策 (Privacy)</a></li>
+                        <li><a href="https://vsllm.cc/" target="_blank" class="text-slate-500 hover:text-cyan-300 transition-colors" data-i18n="footer_ticket">联系客服与支持</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="pt-8 border-t border-slate-800/80 flex flex-col md:flex-row items-center justify-between text-xs text-slate-400">
+            <div class="pt-8 border-t border-white/[0.06] flex flex-col md:flex-row items-center justify-between text-xs text-slate-600">
                 <p>© 2026 维云模型开放平台 (VSLLM). All Rights Reserved.</p>
                 <div class="mt-4 md:mt-0 flex space-x-4">
                     <span data-i18n="footer_slogan">大模型 API 聚合分发平台 · 专为年轻人打造</span>
@@ -459,9 +607,17 @@
         </div>
     </footer>
 
-    <div id="toast">已成功复制主站网址：https://vsllm.cc</div>
+    <!-- 悬浮语言切换器 -->
+    <div id="lang-widget">
+        <svg class="w-3.5 h-3.5 text-slate-500 ml-2 mr-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+        <button class="lang-btn" data-lang-btn="zh-CN" onclick="setLanguage('zh-CN')">简</button>
+        <button class="lang-btn" data-lang-btn="zh-TW" onclick="setLanguage('zh-TW')">繁</button>
+        <button class="lang-btn" data-lang-btn="en" onclick="setLanguage('en')">EN</button>
+    </div>
+
 
     <script>
+        /* ================= 基础动效 ================= */
         document.addEventListener("DOMContentLoaded", function() {
             const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
             const observer = new IntersectionObserver((entries, observer) => {
@@ -472,10 +628,77 @@
                     }
                 });
             }, observerOptions);
-
             document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
         });
 
+        // 滚动进度条
+        window.addEventListener('scroll', () => {
+            const h = document.documentElement;
+            const p = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100;
+            document.getElementById('scroll-progress').style.width = p + '%';
+        }, { passive: true });
+
+        // 背景粒子星域
+        (function () {
+            const canvas = document.getElementById('bg-particles');
+            if (!canvas) return;
+            const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const ctx = canvas.getContext('2d');
+            let W, H, dpr, particles = [];
+            function resize() {
+                dpr = Math.min(window.devicePixelRatio || 1, 2);
+                W = canvas.clientWidth; H = canvas.clientHeight;
+                canvas.width = W * dpr; canvas.height = H * dpr;
+                ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            }
+            function init() {
+                particles = [];
+                const n = Math.min(90, Math.floor(W * H / 16000));
+                for (let i = 0; i < n; i++) {
+                    particles.push({
+                        x: Math.random() * W, y: Math.random() * H,
+                        vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
+                        r: Math.random() * 1.6 + 0.4,
+                        c: Math.random() > 0.75 ? '139,92,246' : (Math.random() > 0.5 ? '34,211,238' : '96,165,250'),
+                        a: Math.random() * 0.5 + 0.15
+                    });
+                }
+            }
+            let running = !reduce;
+            function tick() {
+                if (!running) { requestAnimationFrame(tick); return; }
+                ctx.clearRect(0, 0, W, H);
+                for (const p of particles) {
+                    p.x += p.vx; p.y += p.vy;
+                    if (p.x < -10) p.x = W + 10; if (p.x > W + 10) p.x = -10;
+                    if (p.y < -10) p.y = H + 10; if (p.y > H + 10) p.y = -10;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${p.c},${p.a})`;
+                    ctx.fill();
+                }
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const a = particles[i], b = particles[j];
+                        const dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy;
+                        if (d2 < 110 * 110) {
+                            const o = (1 - Math.sqrt(d2) / 110) * 0.14;
+                            ctx.beginPath();
+                            ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+                            ctx.strokeStyle = `rgba(56,189,248,${o})`;
+                            ctx.lineWidth = 0.6;
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(tick);
+            }
+            document.addEventListener('visibilitychange', () => { running = !document.hidden && !reduce; });
+            window.addEventListener('resize', () => { resize(); init(); });
+            resize(); init(); tick();
+        })();
+
+        /* ================= 拓扑流转动画 ================= */
         const packet = document.getElementById('data-packet');
         const statusApp = document.getElementById('status-app');
         const statusProvider = document.getElementById('status-provider');
@@ -485,63 +708,64 @@
         async function sleep(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
         async function runPipeline() {
-            while(true) {
+            while (true) {
                 packet.style.transition = 'none';
                 packet.style.opacity = '0';
-                packet.style.left = '12.5%'; 
+                packet.style.left = '12.5%';
                 packet.className = 'packet packet-blue';
                 costPopup.style.opacity = '0';
                 costPopup.style.transform = 'scale(0.95) translateX(-50%)';
                 gatewayBox.style.transform = 'scale(1)';
-                
+
                 await sleep(500);
 
                 statusApp.style.opacity = '1';
                 packet.style.transition = 'left 0.8s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s';
                 packet.style.opacity = '1';
-                
+
                 await sleep(200);
                 packet.style.left = '50%';
-                await sleep(800); 
+                await sleep(800);
 
                 statusApp.style.opacity = '0';
                 gatewayBox.style.transform = 'scale(1.06)';
-                
+
                 await sleep(300);
                 gatewayBox.style.transform = 'scale(1)';
                 packet.style.left = '87.5%';
-                await sleep(800); 
+                await sleep(800);
 
                 packet.style.opacity = '0';
                 statusProvider.style.opacity = '1';
-                
+
                 await sleep(1000);
                 statusProvider.style.opacity = '0';
                 packet.className = 'packet packet-cyan';
                 packet.style.opacity = '1';
-                
+
                 packet.style.left = '50%';
-                await sleep(800); 
+                await sleep(800);
 
                 gatewayBox.style.transform = 'scale(1.06)';
                 costPopup.style.opacity = '1';
                 costPopup.style.transform = 'scale(1) translateX(-50%)';
-                
-                await sleep(1800); 
-                
+
+                await sleep(1800);
+
                 costPopup.style.opacity = '0';
                 costPopup.style.transform = 'scale(0.95) translateX(-50%)';
                 gatewayBox.style.transform = 'scale(1)';
                 packet.style.left = '12.5%';
-                
-                await sleep(800); 
+
+                await sleep(800);
                 packet.style.opacity = '0';
-                
+
                 await sleep(1500);
             }
         }
         setTimeout(runPipeline, 800);
 
+        /* ================= 数字里程表 ================= */
         class Odometer {
             constructor(el) {
                 this.el = el;
@@ -591,36 +815,42 @@
             }
         }
 
-        let statsState = { tokens: 0, seconds: 0 };
+        let statsState = { tokens: 0, seconds: 0, showRawTokens: false };
         const tokensOdo = new Odometer(document.getElementById('tokens-odometer'));
         const uptimeOdo = new Odometer(document.getElementById('uptime-odometer'));
+        const tokensCard = document.getElementById('stat-tokens-card');
 
-        function formatUptimeUI(seconds, lang) {
+        tokensCard.addEventListener('mouseenter', () => { statsState.showRawTokens = true; updateStatsUI(); });
+        tokensCard.addEventListener('mouseleave', () => { statsState.showRawTokens = false; updateStatsUI(); });
+
+        function formatTokensUI(tokens) { return tokens.toLocaleString(); }
+
+        function formatUptimeUI(seconds) {
             const d = Math.floor(seconds / 86400);
             const h = Math.floor((seconds % 86400) / 3600).toString().padStart(2, '0');
             const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
             const s = Math.floor(seconds % 60).toString().padStart(2, '0');
-            if (lang === 'en') return `${d}d ${h}h ${m}m ${s}s`;
-            else return `${d}天 ${h}时 ${m}分 ${s}秒`;
+            if (currentLang === 'en') return `${d}d ${h}h ${m}m ${s}s`;
+            if (currentLang === 'zh-TW') return `${d}天 ${h}時 ${m}分 ${s}秒`;
+            return `${d}天 ${h}时 ${m}分 ${s}秒`;
         }
 
         function updateStatsUI() {
             if (statsState.tokens === 0) return;
-            const lang = localStorage.getItem('vsllm_lang') || 'zh-CN';
-            tokensOdo.update(statsState.tokens.toLocaleString());
-            uptimeOdo.update(formatUptimeUI(statsState.seconds, lang));
+            tokensOdo.update(formatTokensUI(statsState.tokens));
+            uptimeOdo.update(formatUptimeUI(statsState.seconds));
         }
 
         async function fetchStats() {
             try {
                 const res = await fetch('https://vsllm.cc/api/public/stats');
-                if(res.ok) {
+                if (res.ok) {
                     const data = await res.json();
                     statsState.tokens = data.total_tokens;
                     statsState.seconds = data.running_seconds;
                 }
-            } catch(e) {
-                if(statsState.tokens === 0) {
+            } catch (e) {
+                if (statsState.tokens === 0) {
                     statsState.tokens = 23100000000;
                     statsState.seconds = 123456789;
                 }
@@ -635,54 +865,26 @@
                 updateStatsUI();
             }
         }, 1000);
+
         setInterval(fetchStats, 3000);
         setTimeout(fetchStats, 200);
+    </script>
 
-        let currentWordIdx = 0;
-        let wordInterval;
-        const rotateWords = {
-            'zh-CN': ["几块钱月卡持续供给", "管理您的 API 密钥", "查看实时消耗统计", "调度全球顶尖模型"],
-            'zh-TW': ["超低銅板價月卡供給", "管理您的 API 金鑰", "查看即時消耗統計", "調度全球頂尖模型"],
-            'en': ["Under $1/Mo AI Compute", "Manage Your API Keys", "View Real-time Usage", "Access Global Models"]
-        };
-
-        function startWordRotation(lang) {
-            clearInterval(wordInterval);
-            const wordList = rotateWords[lang] || rotateWords['zh-CN'];
-            currentWordIdx = 0;
-            
-            const rw = document.getElementById('rotating-word');
-            const ph = document.getElementById('word-placeholder');
-            if(!rw || !ph) return;
-            
-            rw.textContent = wordList[currentWordIdx];
-            ph.textContent = wordList[currentWordIdx];
-            rw.classList.remove('wind-out', 'wind-in');
-            
-            wordInterval = setInterval(() => {
-                rw.classList.remove('wind-in');
-                rw.classList.add('wind-out');
-                
-                setTimeout(() => {
-                    currentWordIdx = (currentWordIdx + 1) % wordList.length;
-                    rw.textContent = wordList[currentWordIdx];
-                    ph.textContent = wordList[currentWordIdx]; 
-                    
-                    rw.classList.remove('wind-out');
-                    rw.classList.add('wind-in');
-                }, 350); 
-            }, 3200);
-        }
+    <script>
+        /* ================= 多语言 ================= */
+        let currentLang = 'zh-CN';
 
         const translations = {
             'zh-CN': {
+                'doc_title': '欢迎回来 - VSLLM 维云模型开放平台 | 开发者工作台',
+                'doc_desc': '维云模型开放平台(VSLLM)工作台。专为年轻人与开发者打造的高性价比大模型聚合中转站。管理API密钥、充值算力、查看实时监控。',
+                'hero_badge': '开发者工作台已就绪',
                 'hero_title_1': '欢迎回来，开发者',
-                'hero_desc': '在这里您可以轻松管理 API 密钥、查看实时调用日志并掌控账单明细。全网大模型随时待命，几块钱搞定全部算力开销！',
+                'hero_desc': '您已成功接入 VSLLM 维云模型开放平台。在这里您可以轻松管理 API 密钥、查看实时调用日志并掌控账单明细。全网大模型随时待命，几块钱搞定全部算力开销！',
                 'btn_console': '控制台', 'btn_docs': '查看开发文档',
                 'stat_tokens': '已处理 Tokens', 'stat_uptime': '平台安全运行时间', 'stat_status': '节点状态极佳',
                 'anim_title': '极简流转，高效分发', 'anim_desc': '一站式智能网关调度，自动负载均衡，保障您的每一次请求都能得到最快、最稳定的响应。',
                 'anim_app': '您的应用', 'anim_gateway': 'VSLLM 网关', 'anim_encryption': 'TLS 1.3 强加密传输', 'anim_models': 'AI 大模型',
-                'sec_title_new':'维云模型开放平台',
                 'anim_calc': '网关处理中', 'anim_fee': '节点延迟:',
                 'price_title': '随时为您补充算力', 'price_desc': '按实际消耗精确计费，余额随时掌控，确保您的科研与业务永不停机。',
                 'price_card1_title': '精选国内大模型', 'price_card1_sub': '日常文本生成、内容总结、智能助理', 'price_standard': '标准计费',
@@ -691,18 +893,30 @@
                 'price_premium': '超高性价比',
                 'price_card2_p1': '提供极具竞争力的价格（铜板价搞定）', 'price_card2_p2': '支持 Function Calling 等全部高级特性', 'price_card2_p3': '突破频率限制，高并发稳定可用',
                 'btn_create_token': '去创建 Token', 'btn_topup': '去充值',
+                'news_badge': '家国情怀 · 科技报国',
+                'news_title_1': '家国要闻', 'news_title_2': 'AI 前沿',
+                'news_sub': '家事国事天下事，事事关心。实时聚合权威时政资讯与全球 AI 动态，与中国科技同频共振。',
+                'ticker_label': '要闻速递',
+                'news_tab_domestic': '时政要闻', 'news_tab_ai': 'AI 前沿',
+                'news_disclaimer': '* 新闻内容来自第三方公开接口（今日头条 / 60秒新闻联播 / 新浪科技 / Hacker News），仅作资讯聚合展示，不代表本平台立场。每 5 分钟自动刷新。',
+                'footer_patriotic': '科技自立自强 · 创新报国，与中国 AI 力量共同成长',
                 'footer_desc': '维云模型开放平台 (VSLLM)，致力于为广大学生与开发者提供极速、稳定、安全的全球大模型 API 聚合分发服务。',
                 'footer_dev': '快捷导航', 'footer_console': '控制台首页', 'footer_docs': 'API 接入文档',
-                'footer_about': '支持与条款', 'footer_tos': '服务条款 (Terms)', 'footer_privacy': '隐私政策 (Privacy)', 'footer_ticket': '联系客服与支持', 'footer_slogan': '大模型 API 聚合分发平台 · 专为年轻人打造'
+                'footer_about': '支持与条款', 'footer_tos': '服务条款 (Terms)', 'footer_privacy': '隐私政策 (Privacy)', 'footer_ticket': '联系客服与支持', 'footer_slogan': '大模型 API 聚合分发平台 · 专为年轻人打造',
+                'toast_copy': '已成功复制主站网址：https://vsllm.cc',
+                'just_now': '刚刚', 'mins_ago': '{n} 分钟前', 'hours_ago': '{n} 小时前', 'days_ago': '{n} 天前',
+                'offline_note': '离线示例快讯（网络受限）', 'hot_label': '热度', 'points_label': '热度'
             },
             'zh-TW': {
+                'doc_title': '歡迎回來 - VSLLM 維雲模型開放平台 | 開發者工作台',
+                'doc_desc': '維雲模型開放平台(VSLLM)工作台。專為年輕人與開發者打造的高性價比大模型聚合中轉站。管理API金鑰、儲值算力、查看即時監控。',
+                'hero_badge': '開發者工作台已就緒',
                 'hero_title_1': '歡迎回來，開發者',
                 'hero_desc': '在這裡您可以輕鬆管理 API 金鑰、查看即時調用日誌並掌控賬單明細。全網大模型隨時待命，銅板價搞定全部算力開銷！',
                 'btn_console': '控制台', 'btn_docs': '查看開發文檔',
                 'stat_tokens': '已處理 Tokens', 'stat_uptime': '平台安全運行時間', 'stat_status': '節點狀態極佳',
                 'anim_title': '極簡流轉，高效分發', 'anim_desc': '一站式智能網關調度，自動負載均衡，保障您的每一次請求都能得到最快、最穩定的響應。',
                 'anim_app': '您的應用', 'anim_gateway': 'VSLLM 網關', 'anim_encryption': 'TLS 1.3 強加密傳輸', 'anim_models': 'AI 大模型',
-                'sec_title_new':'維雲模型開放平台',
                 'anim_calc': '網關處理中', 'anim_fee': '節點延遲:',
                 'price_title': '隨時為您補充算力', 'price_desc': '按實際消耗精確計費，餘額隨時掌控，確保您的科研與業務永不停機。',
                 'price_card1_title': '精選國內大模型', 'price_card1_sub': '日常文本生成、內容總結、智能助理', 'price_standard': '標準計費',
@@ -711,85 +925,415 @@
                 'price_premium': '超高性價比',
                 'price_card2_p1': '提供極具競爭力的價格（銅板價搞定）', 'price_card2_p2': '支持 Function Calling 等全部高級特性', 'price_card2_p3': '突破頻率限制，高並發穩定可用',
                 'btn_create_token': '去創建 Token', 'btn_topup': '去充值',
+                'news_badge': '家國情懷 · 科技報國',
+                'news_title_1': '家國要聞', 'news_title_2': 'AI 前沿',
+                'news_sub': '家事國事天下事，事事關心。即時聚合權威時政資訊與全球 AI 動態，與中國科技同頻共振。',
+                'ticker_label': '要聞速遞',
+                'news_tab_domestic': '時政要聞', 'news_tab_ai': 'AI 前沿',
+                'news_disclaimer': '* 新聞內容來自第三方公開接口（今日頭條 / 60秒新聞聯播 / 新浪科技 / Hacker News），僅作資訊聚合展示，不代表本平台立場。每 5 分鐘自動刷新。',
+                'footer_patriotic': '科技自立自強 · 創新報國，與中國 AI 力量共同成長',
                 'footer_desc': '維雲模型開放平台 (VSLLM)，致力於為廣大學生與開發者提供極速、穩定、安全的全球大模型 API 聚合分發服務。',
                 'footer_dev': '快捷導航', 'footer_console': '控制台首頁', 'footer_docs': 'API 接入文檔',
-                'footer_about': '支持與條款', 'footer_tos': '服務條款 (Terms)', 'footer_privacy': '隱私政策 (Privacy)', 'footer_ticket': '聯繫客服與支持', 'footer_slogan': '大模型 API 聚合分發平台 · 專為年輕人打造'
+                'footer_about': '支持與條款', 'footer_tos': '服務條款 (Terms)', 'footer_privacy': '隱私政策 (Privacy)', 'footer_ticket': '聯繫客服與支持', 'footer_slogan': '大模型 API 聚合分發平台 · 專為年輕人打造',
+                'toast_copy': '已成功複製主站網址：https://vsllm.cc',
+                'just_now': '剛剛', 'mins_ago': '{n} 分鐘前', 'hours_ago': '{n} 小時前', 'days_ago': '{n} 天前',
+                'offline_note': '離線示例快訊（網絡受限）', 'hot_label': '熱度', 'points_label': '熱度'
             },
             'en': {
+                'doc_title': 'Welcome Back - VSLLM Developer Console',
+                'doc_desc': 'VSLLM developer workspace. Manage API keys, top up compute credits, and monitor real-time usage of top global LLMs.',
+                'hero_badge': 'Developer Workspace Active',
                 'hero_title_1': 'Welcome Back, Developer',
                 'hero_desc': 'You are successfully connected to VSLLM. Easily manage your API keys, view real-time call logs, and control your billing details. Top global models are standing by to power your work.',
                 'btn_console': 'Go to Console', 'btn_docs': 'View Documentation',
                 'stat_tokens': 'Tokens Processed', 'stat_uptime': 'Platform Uptime', 'stat_status': 'Nodes Optimal',
                 'anim_title': 'Simple Flow, High Efficiency', 'anim_desc': 'Smart gateway routing and auto load balancing ensures every request gets the fastest, most stable response.',
-                'sec_title_new':'VSLLM Dashboard',
                 'anim_app': 'Your App', 'anim_gateway': 'VSLLM Routing', 'anim_encryption': 'TLS 1.3 Strong Encryption', 'anim_models': 'AI Models',
                 'anim_calc': 'Processing', 'anim_fee': 'Latency:',
                 'price_title': 'Replenish Compute Anytime', 'price_desc': 'Pay as you go based on actual consumption. Control your balance to ensure zero downtime.',
-                'price_card1_title': 'Standard Models', 'price_card1_sub': 'Daily text generation, summaries, assistants', 'price_standard': 'Standard Billing',
-                'price_card1_p1': 'Pay as you go, no hidden costs', 'price_card1_p2': 'Aggregates top standard AI models', 'price_card1_p3': 'Ultra-low latency guarantee',
+                'price_card1_title': 'Domestic Models', 'price_card1_sub': 'Daily text generation, summaries, assistants', 'price_standard': 'Standard Billing',
+                'price_card1_p1': 'Pay as you go, no hidden costs', 'price_card1_p2': 'Aggregates latest models from top Chinese AI labs', 'price_card1_p3': 'Ultra-low latency guarantee',
                 'price_card2_title': 'Premium AI Models', 'price_tag_rec': 'RECOMMENDED', 'price_card2_sub': 'Complex reasoning, coding, deep analysis',
                 'price_premium': 'High ROI',
                 'price_card2_p1': 'Highly competitive enterprise pricing', 'price_card2_p2': 'Supports advanced features like Function Calling', 'price_card2_p3': 'Bypass rate limits, stable high concurrency',
                 'btn_create_token': 'Create Token', 'btn_topup': 'Top Up Balance',
+                'news_badge': 'Patriotism · Tech for the Nation',
+                'news_title_1': 'China Insights', 'news_title_2': 'AI Frontier',
+                'news_sub': 'Stay tuned to the nation and the world. Real-time aggregation of authoritative China headlines and global AI developments.',
+                'ticker_label': 'HEADLINES',
+                'news_tab_domestic': 'China Insights', 'news_tab_ai': 'AI Frontier',
+                'news_disclaimer': '* News content is fetched from third-party public APIs (Toutiao / 60s Daily Brief / Sina Tech / Hacker News) for aggregation purposes only. Auto-refreshes every 5 minutes.',
+                'footer_patriotic': 'Tech self-reliance · Innovation for the nation — growing together with China\'s AI power',
                 'footer_desc': 'VSLLM is dedicated to providing fast, stable, and secure global LLM API aggregation services.',
                 'footer_dev': 'Quick Links', 'footer_console': 'Dashboard', 'footer_docs': 'API Docs',
-                'footer_about': 'Support & Legal', 'footer_tos': 'Terms of Service', 'footer_privacy': 'Privacy Policy', 'footer_ticket': 'Contact Support', 'footer_slogan': 'Enterprise AI Aggregation Network'
+                'footer_about': 'Support & Legal', 'footer_tos': 'Terms of Service', 'footer_privacy': 'Privacy Policy', 'footer_ticket': 'Contact Support', 'footer_slogan': 'Enterprise AI Aggregation Network',
+                'toast_copy': 'Copied: https://vsllm.cc',
+                'just_now': 'just now', 'mins_ago': '{n}m ago', 'hours_ago': '{n}h ago', 'days_ago': '{n}d ago',
+                'offline_note': 'Offline sample headlines (network limited)', 'hot_label': 'trending', 'points_label': 'points'
             }
         };
 
+        function t(key) {
+            const dict = translations[currentLang] || translations['zh-CN'];
+            return dict[key] !== undefined ? dict[key] : (translations['zh-CN'][key] || key);
+        }
+
+        let currentWordIdx = 0;
+        let wordInterval;
+        const rotateWords = {
+            'zh-CN': ["几块钱月卡持续供给", "管理您的 API 密钥", "查看实时消耗统计", "调度全球顶尖模型", "为中国科创加速"],
+            'zh-TW': ["超低銅板價月卡供給", "管理您的 API 金鑰", "查看即時消耗統計", "調度全球頂尖模型", "為中國科創加速"],
+            'en': ["Under $1/Mo AI Compute", "Manage Your API Keys", "View Real-time Usage", "Access Global Models", "Powering China Tech"]
+        };
+
+        function startWordRotation(lang) {
+            clearInterval(wordInterval);
+            const wordList = rotateWords[lang] || rotateWords['zh-CN'];
+            currentWordIdx = 0;
+
+            const rw = document.getElementById('rotating-word');
+            const ph = document.getElementById('word-placeholder');
+            if (!rw || !ph) return;
+
+            rw.textContent = wordList[currentWordIdx];
+            ph.textContent = wordList[currentWordIdx];
+            rw.classList.remove('wind-out', 'wind-in');
+
+            wordInterval = setInterval(() => {
+                rw.classList.remove('wind-in');
+                rw.classList.add('wind-out');
+
+                setTimeout(() => {
+                    currentWordIdx = (currentWordIdx + 1) % wordList.length;
+                    rw.textContent = wordList[currentWordIdx];
+                    ph.textContent = wordList[currentWordIdx];
+
+                    rw.classList.remove('wind-out');
+                    rw.classList.add('wind-in');
+                }, 350);
+            }, 3200);
+        }
+
+        function normalizeLang(raw) {
+            if (!raw) return null;
+            const l = String(raw).toLowerCase();
+            if (l.indexOf('zh') === 0) {
+                if (/tw|hk|mo|hant/.test(l)) return 'zh-TW';
+                return 'zh-CN';
+            }
+            if (l.indexOf('en') === 0) return 'en';
+            return null;
+        }
+
+        /* 浏览器语言自动检测：URL 参数 > 手动选择记忆 > 浏览器语言 > 英文(出海兜底) */
+        function detectLang() {
+            try {
+                const p = new URLSearchParams(location.search).get('lang');
+                if (p) { const n = normalizeLang(p); if (n) return n; }
+            } catch (e) { }
+            try {
+                const saved = localStorage.getItem('vsllm_lang');
+                if (saved) { const n = normalizeLang(saved); if (n) return n; }
+            } catch (e) { }
+            const candidates = (navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || navigator.userLanguage || '']).filter(Boolean);
+            for (const raw of candidates) {
+                const n = normalizeLang(raw);
+                if (n) return n;
+            }
+            return 'en';
+        }
+
         function setLanguage(lang) {
-            localStorage.setItem('vsllm_lang', lang);
+            if (!translations[lang]) lang = 'zh-CN';
+            currentLang = lang;
+            try { localStorage.setItem('vsllm_lang', lang); } catch (e) { }
             document.documentElement.lang = lang;
-            
-            const t = translations[lang] || translations['zh-CN'];
-            
+
+            const dict = translations[lang];
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                if(t[key]) el.innerHTML = t[key];
+                if (dict[key] !== undefined) el.innerHTML = dict[key];
             });
 
-            const btnZhCn = document.getElementById('lang-zh-cn');
-            const btnZhTw = document.getElementById('lang-zh-tw');
-            const btnEn = document.getElementById('lang-en');
+            document.querySelectorAll('[data-lang-btn]').forEach(btn => {
+                btn.classList.toggle('active', btn.getAttribute('data-lang-btn') === lang);
+            });
 
-            const activeClass = 'px-2 py-1 rounded font-medium text-slate-800 bg-white shadow-sm';
-            const inactiveClass = 'px-2 py-1 rounded font-medium text-slate-500 hover:text-slate-900';
-
-            btnZhCn.className = (lang === 'zh-CN') ? activeClass : inactiveClass;
-            btnZhTw.className = (lang === 'zh-TW') ? activeClass : inactiveClass;
-            btnEn.className = (lang === 'en') ? activeClass : inactiveClass;
+            const titleEl = document.getElementById('page-title');
+            const descEl = document.getElementById('page-desc');
+            const toastEl = document.getElementById('toast');
+            if (titleEl && dict['doc_title']) titleEl.textContent = dict['doc_title'];
+            if (descEl && dict['doc_desc']) descEl.setAttribute('content', dict['doc_desc']);
+            if (toastEl && dict['toast_copy']) toastEl.textContent = dict['toast_copy'];
 
             startWordRotation(lang);
             if (typeof updateStatsUI === 'function') updateStatsUI();
+            if (typeof renderNewsLabels === 'function') renderNewsLabels();
         }
 
         function initLanguage() {
-            let userLang = localStorage.getItem('vsllm_lang') || 'zh-CN';
-            setLanguage(userLang);
+            setLanguage(detectLang());
         }
 
-        function copyOfficialUrl() {
-            const url = 'https://vsllm.cc';
-            if (navigator.clipboard && window.isSecureContext) {
-                navigator.clipboard.writeText(url).then(showToast);
-            } else {
-                const ta = document.createElement('textarea');
-                ta.value = url;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-                showToast();
+        /* ================= 家国要闻 × AI 前沿 聚合引擎 ================= */
+        const NEWS = {
+            patriotic: { items: [], srcNote: '', offline: false },
+            ai: { items: [], srcNote: '', offline: false }
+        };
+
+        const OFFLINE_NEWS = {
+            patriotic: [
+                { title: '国家统计局：国民经济运行稳中有进，高质量发展扎实推进', source: '新华社', url: null },
+                { title: '我国航天再传捷报，新一代载人飞船试验船返回舱成功着陆', source: '人民日报', url: null },
+                { title: '国产大飞机 C919 商业航线持续扩展，累计交付稳步攀升', source: '央视新闻', url: null },
+                { title: '全国秋粮收获进展顺利，全年粮食产量有望再创新高', source: '农业农村部', url: null },
+                { title: '国庆假期文旅市场火热，红色旅游与国潮消费持续升温', source: '光明日报', url: null },
+                { title: '我国新能源汽车年产量再创纪录，出口量稳居全球第一', source: '经济日报', url: null }
+            ],
+            ai: [
+                { title: '国产大模型密集开源，中国 AI 生态加速走向全球', source: '行业观察', url: null },
+                { title: 'AI for Science 成科研新范式，多所高校布局智能实验室', source: '科技日报', url: null },
+                { title: '大模型推理成本持续下降，普惠算力时代加速到来', source: '机器之心', url: null },
+                { title: '全球 AI 治理框架逐步成型，多国推进安全评估标准', source: '行业观察', url: null },
+                { title: '具身智能机器人产业化提速，人形机器人进厂实训', source: '量子位', url: null },
+                { title: '开源社区繁荣发展，中国开发者贡献度位居世界前列', source: '开源中国', url: null }
+            ]
+        };
+
+        function escHtml(s) {
+            return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
+
+        function fetchWithTimeout(url, ms) {
+            const ctrl = new AbortController();
+            const timer = setTimeout(() => ctrl.abort(), ms);
+            return fetch(url, { signal: ctrl.signal }).finally(() => clearTimeout(timer));
+        }
+
+        function jsonp(url, timeoutMs) {
+            return new Promise((resolve, reject) => {
+                const cbName = 'jsonpCb' + Math.random().toString(36).slice(2) + Date.now().toString(36);
+                const script = document.createElement('script');
+                let done = false;
+                function cleanup() {
+                    try { delete window[cbName]; } catch (e) { window[cbName] = undefined; }
+                    if (script.parentNode) script.parentNode.removeChild(script);
+                }
+                const timer = setTimeout(() => {
+                    if (!done) { done = true; cleanup(); reject(new Error('jsonp timeout')); }
+                }, timeoutMs || 8000);
+                window[cbName] = function (data) {
+                    if (done) return;
+                    done = true;
+                    clearTimeout(timer);
+                    cleanup();
+                    resolve(data);
+                };
+                script.onerror = () => {
+                    if (done) return;
+                    done = true;
+                    clearTimeout(timer);
+                    cleanup();
+                    reject(new Error('jsonp error'));
+                };
+                script.src = url + (url.indexOf('?') > -1 ? '&' : '?') + 'callback=' + cbName;
+                document.head.appendChild(script);
+            });
+        }
+
+        function relTime(ts) {
+            if (!ts) return '';
+            const diff = Date.now() - ts;
+            const mins = Math.floor(diff / 60000);
+            if (mins < 1) return t('just_now');
+            if (mins < 60) return t('mins_ago').replace('{n}', mins);
+            const hours = Math.floor(mins / 60);
+            if (hours < 24) return t('hours_ago').replace('{n}', hours);
+            return t('days_ago').replace('{n}', Math.floor(hours / 24));
+        }
+
+        function fmtHot(v) {
+            if (!v && v !== 0) return '';
+            if (v >= 10000) return (v / 10000).toFixed(1) + (currentLang === 'en' ? 'W ' : '万');
+            return String(v);
+        }
+
+        /* --- 数据源：今日头条热榜（带链接） --- */
+        async function fetchToutiao() {
+            const r = await fetchWithTimeout('https://60s.viki.moe/v2/toutiao', 9000);
+            const j = await r.json();
+            const arr = (j.data || []).slice(0, 8).map(it => ({
+                title: it.title, url: it.link || null, source: currentLang === 'en' ? 'Toutiao Hot' : '今日头条', hot: it.hot_value
+            }));
+            if (arr.length < 3) throw new Error('empty');
+            return { items: arr, srcNote: currentLang === 'en' ? 'Toutiao Hot List' : '今日头条热榜 · 实时' };
+        }
+
+        /* --- 数据源：60秒新闻联播（每日央视风格要闻） --- */
+        async function fetch60s() {
+            const r = await fetchWithTimeout('https://60s.viki.moe/v2/60s', 9000);
+            const j = await r.json();
+            const d = j.data || {};
+            const arr = (d.news || []).slice(0, 10).map(title => ({
+                title: title, url: null, source: currentLang === 'en' ? '60s Daily Brief' : '60秒快讯', date: d.date
+            }));
+            if (arr.length < 3) throw new Error('empty');
+            return { items: arr, srcNote: (currentLang === 'en' ? '60s Daily Brief · ' : '60秒新闻联播 · ') + (d.date || '') };
+        }
+
+        /* --- 数据源：新浪科技（中文 AI 新闻，JSONP 跨域） --- */
+        async function fetchSinaAI() {
+            const data = await jsonp('https://feed.mix.sina.com.cn/api/roll/get?pageid=153&lid=2516&k=&num=50&page=1', 9000);
+            const arr = (data && data.result && data.result.data) || [];
+            const kw = ['AI', '人工智能', '大模型', '智能体', 'GPT', 'DeepSeek', '机器人', '芯片', '算力', '大语言模型', 'LLM', '文心', '通义', 'Kimi', '智谱', '豆包', 'AIGC', '生成式'];
+            const filtered = arr.filter(it => (it.title || '') && kw.some(k => it.title.indexOf(k) > -1))
+                .map(it => ({ title: it.title, url: it.url || null, source: it.media_name || '新浪科技', ts: parseInt(it.ctime) * 1000 }));
+            if (filtered.length < 3) throw new Error('empty');
+            return { items: filtered.slice(0, 8), srcNote: currentLang === 'en' ? 'Sina Tech (AI filtered)' : '新浪科技 · AI 筛选' };
+        }
+
+        /* --- 数据源：Hacker News（国际 AI 新闻） --- */
+        async function fetchHN() {
+            const since = Math.floor(Date.now() / 1000) - 86400 * 10;
+            const url = 'https://hn.algolia.com/api/v1/search?query=AI&tags=story&hitsPerPage=50&numericFilters=created_at_i%3E' + since;
+            const r = await fetchWithTimeout(url, 9000);
+            const j = await r.json();
+            const re = /\bAI\b|LLM|GPT|Claude|Gemini|OpenAI|Anthropic|DeepSeek|Llama|neural|inference|model|agent/i;
+            const hits = (j.hits || []).filter(h => h.title && h.url && re.test(h.title));
+            hits.sort((a, b) => (b.points || 0) - (a.points || 0));
+            const items = hits.slice(0, 8).map(h => ({
+                title: h.title, url: h.url, source: 'Hacker News', points: h.points, ts: h.created_at_i ? h.created_at_i * 1000 : null
+            }));
+            if (items.length < 3) throw new Error('empty');
+            return { items: items, srcNote: 'Hacker News · Algolia API' };
+        }
+
+        async function fetchPatrioticNews() {
+            const sources = [fetchToutiao, fetch60s];
+            for (const src of sources) {
+                try {
+                    const res = await src();
+                    return { items: res.items, srcNote: res.srcNote, offline: false };
+                } catch (e) { /* 尝试下一个数据源 */ }
             }
+            return { items: OFFLINE_NEWS.patriotic, srcNote: t('offline_note'), offline: true };
         }
 
-        function showToast() {
-            const toast = document.getElementById('toast');
-            toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 2500);
+        async function fetchAINews() {
+            const preferZh = currentLang.indexOf('zh') === 0;
+            const sources = preferZh ? [fetchSinaAI, fetchHN] : [fetchHN, fetchSinaAI];
+            for (const src of sources) {
+                try {
+                    const res = await src();
+                    return { items: res.items, srcNote: res.srcNote, offline: false };
+                } catch (e) { /* 尝试下一个数据源 */ }
+            }
+            return { items: OFFLINE_NEWS.ai, srcNote: t('offline_note'), offline: true };
         }
 
+        function skeletonRows(n) {
+            let rows = '';
+            for (let i = 0; i < (n || 6); i++) {
+                rows += '<li class="news-item"><div class="news-row"><span class="skeleton" style="width:26px;height:22px"></span><div class="flex-1 pt-0.5"><div class="skeleton" style="height:14px;width:' + (86 - (i % 3) * 9) + '%"></div><div class="skeleton mt-2.5" style="height:10px;width:42%"></div></div></div></li>';
+            }
+            return rows;
+        }
+
+        function newsItemHTML(item, idx, accent) {
+            const meta = [];
+            if (item.source) meta.push('<span class="src-chip">' + escHtml(item.source) + '</span>');
+            const rt = relTime(item.ts);
+            if (rt) meta.push('<span>' + escHtml(rt) + '</span>');
+            if (item.date) meta.push('<span class="font-mono">' + escHtml(item.date) + '</span>');
+            if (item.hot) meta.push('<span class="hot-chip">🔥 ' + escHtml(fmtHot(item.hot)) + '</span>');
+            if (item.points) meta.push('<span class="hot-chip">▲ ' + escHtml(item.points) + '</span>');
+            const inner =
+                '<span class="news-idx ' + accent + '">' + String(idx + 1).padStart(2, '0') + '</span>' +
+                '<div class="flex-1 min-w-0">' +
+                '<p class="news-title clamp-2">' + escHtml(item.title) + '</p>' +
+                '<div class="flex flex-wrap items-center gap-2 mt-1.5 text-[10px] text-slate-500">' + meta.join('') + '</div>' +
+                '</div>' +
+                '<svg class="news-arrow w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>';
+            if (item.url) {
+                return '<li class="news-item"><a href="' + escHtml(item.url) + '" target="_blank" rel="noopener noreferrer">' + inner + '</a></li>';
+            }
+            return '<li class="news-item"><div class="news-row cursor-default">' + inner + '</div></li>';
+        }
+
+        function renderPanel(kind) {
+            const listEl = document.getElementById(kind === 'patriotic' ? 'patriotic-list' : 'ai-list');
+            const noteEl = document.getElementById(kind === 'patriotic' ? 'patriotic-src-note' : 'ai-src-note');
+            if (!listEl) return;
+            const state = NEWS[kind];
+            const accent = kind === 'patriotic' ? 'red' : 'cyan';
+            listEl.innerHTML = state.items.map((it, i) => newsItemHTML(it, i, accent)).join('');
+            if (noteEl) noteEl.textContent = (state.offline ? '⚠ ' : '● ') + state.srcNote;
+            listEl.querySelectorAll('.news-item').forEach((el, i) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(12px)';
+                el.style.transition = 'opacity .5s cubic-bezier(.16,1,.3,1) ' + (i * 55) + 'ms, transform .5s cubic-bezier(.16,1,.3,1) ' + (i * 55) + 'ms';
+                requestAnimationFrame(() => requestAnimationFrame(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }));
+            });
+        }
+
+        function renderTicker() {
+            const track = document.getElementById('news-ticker-track');
+            if (!track) return;
+            const titles = []
+                .concat(NEWS.patriotic.items.slice(0, 6).map(i => i.title))
+                .concat(NEWS.ai.items.slice(0, 5).map(i => i.title));
+            if (!titles.length) return;
+            const star = '<svg class="w-2.5 h-2.5 text-red-400 shrink-0 mt-[3px]" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17l-6.1 3.6 1.4-6.8L2.2 9.1l6.9-.8z"></path></svg>';
+            const half = titles.map(ttl =>
+                '<span class="inline-flex items-center gap-1.5">' + star + '<span class="hover:text-cyan-300 transition-colors">' + escHtml(ttl) + '</span></span>'
+            ).join('');
+            track.innerHTML = half + half;
+        }
+
+        function renderNewsLabels() {
+            if (NEWS.patriotic.items.length) renderPanel('patriotic');
+            if (NEWS.ai.items.length) renderPanel('ai');
+            if (NEWS.patriotic.items.length || NEWS.ai.items.length) renderTicker();
+        }
+
+        function setPanelLoading(kind) {
+            const listEl = document.getElementById(kind === 'patriotic' ? 'patriotic-list' : 'ai-list');
+            if (listEl && !NEWS[kind].items.length) listEl.innerHTML = skeletonRows(6);
+            const btn = document.getElementById(kind === 'patriotic' ? 'refresh-patriotic' : 'refresh-ai');
+            if (btn) btn.classList.add('spinning');
+        }
+
+        function setPanelLoaded(kind) {
+            const btn = document.getElementById(kind === 'patriotic' ? 'refresh-patriotic' : 'refresh-ai');
+            if (btn) btn.classList.remove('spinning');
+        }
+
+        async function loadNews(panel, manual) {
+            const targets = (panel === 'patriotic' || panel === 'ai') ? [panel] : ['patriotic', 'ai'];
+            if (manual) {
+                // 手动刷新：拉取新数据前展示加载态
+                targets.forEach(k => { if (NEWS[k].items.length) setPanelLoaded(k); });
+            }
+            await Promise.all(targets.map(async (kind) => {
+                setPanelLoading(kind);
+                try {
+                    const res = kind === 'patriotic' ? await fetchPatrioticNews() : await fetchAINews();
+                    NEWS[kind] = res;
+                    renderPanel(kind);
+                } finally {
+                    setPanelLoaded(kind);
+                }
+            }));
+            renderTicker();
+        }
+
+        /* ================= 启动 ================= */
         initLanguage();
+        loadNews('all');
+        setInterval(() => loadNews('all'), 5 * 60 * 1000);
     </script>
 </body>
 </html>
